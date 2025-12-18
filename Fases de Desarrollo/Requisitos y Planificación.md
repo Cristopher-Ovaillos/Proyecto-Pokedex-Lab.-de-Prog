@@ -25,11 +25,11 @@ Este sistema ayudara a los usuarios a planificar equipos competitivos fuera del 
 - RF03: Consulta de Pokémon
     - Listar todos los Pokémon (generacion [1-5]) con imagen, nombre, tipos, id.
     - Búsqueda por nombre (coincidencia parcial)
-    - Ver detalle de Pokémon: tipos, estadísticas base, movimientos.
+    - Ver detalle de Pokémon: tipos, estadísticas base, movimientos, habilidades.
 - RF04: Consulta de movimientos
     - Listar movimientos disponibles
     - Filtrar por tipo de movimiento
-    - Ver detalle: poder, precisión, PP, descripción
+    - Ver detalle: poder, precisión, PP, descripción.
 - RF05: Creación de equipos
     - Nombre del equipo (obligatorio, único por usuario).   
     - Añadir Pokémon al equipo (mínimo 1, máximo 6)
@@ -39,6 +39,7 @@ Este sistema ayudara a los usuarios a planificar equipos competitivos fuera del 
     - Ajustar IVs para cada estadística (0-31).
     - Seleccionar naturaleza de lista predefinida.
     - Seleccionar movimientos (4 máximo por Pokémon).
+    - Seleccionar habilidad.
 - RF07: Cálculo automático de estadísticas
     - Calcular estadísticas finales usando fórmula:
 Estadística = ((Base * 2 + IV + EV/4) * Nivel/100 + 5) * Naturaleza.
