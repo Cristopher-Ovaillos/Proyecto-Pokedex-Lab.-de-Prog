@@ -1,4 +1,4 @@
-# Requisitos y Planificación
+# Requisitos y Planificación (En desarrollo)
 
 **Descripción del Dominio:**
 
