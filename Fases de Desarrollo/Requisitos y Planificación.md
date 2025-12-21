@@ -2,15 +2,14 @@
 
 **Descripción del Dominio:**
 
-En laboratorio de programacion 2023, se desarrollo un sitio web relacionada con la serie animada Pokemon, mas especifico con la "Pokedex". En esta nueva etapa, se creara una aplicacion movil que incluira una API propia que sera consumida para satisfacer las necesidades. 
+En laboratorio de programación 2023, se desarrollo un sitio web relacionado con la serie animada Pokemon, mas especifico con una "Pokedex". En esta nuevo projecto, el objetivo es crear una sistema-app-movil (con API propia que sera consumida para satisfacer las necesidades). 
 
-Los usuarios que haran uso de ese sistema son los siguientes:
-- Casuales: Quieren informacion de Pokemon, Movimientos.
-- Registrados: Quien ver informacion de pokemon, movimientos. Ademas, de crear su equipo pokemon con sus respectivas caracteristicas.
+Los usuarios que usaran la aplicacion seran los siguientes:
+- Registrados: Quieren ver informacion de los pokemons, movimientos. Adicional a esto podran crear su propio equipo pokemon con las funciones escenciales(borrar, editar).
 
-Este sistema ayudara a los usuarios a planificar equipos competitivos fuera del juego, calcular estadisticas (EVS/IVS) y consultar informacionde pokemons.
+La aplicación es usado como herramienta para planificar equipos competitivos fuera del juego original, especializar a los miembros calculando estadisticas finales (EVS/IVS/naturaleza) y consultar informacion.
 
-**Disponible pokemon de la generacion [1-5]*
+**La aplicacion dispondra de la generacion [1-5]*
 
 **Requisitos Funcionales (RF)**
 
@@ -68,5 +67,4 @@ Estadística = ((Base * 2 + IV + EV/4) * Nivel/100 + 5) * Naturaleza.
     - Separación por carpetas: components, screens, services, utils.
     - Nomenclatura consistente en inglés o español (elegir uno).
 - RNF03: Mantenibilidad - El código debe ser fácil de modificar y extender.
-- RNF06: Escalabilidad - La arquitectura debe permitir añadir nuevas funcionalidades.
-
+- RNF04: Escalabilidad - La arquitectura debe permitir añadir nuevas funcionalidades.
