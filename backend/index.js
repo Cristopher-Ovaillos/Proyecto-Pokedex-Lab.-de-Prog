@@ -8,6 +8,7 @@ const cors = require('cors');
 // import routes
 const enciclopediaRoutes = require('./src/routes/enciclopediaRoutes');
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
+const equiposRoutes = require('./src/routes/equipoRoutes')
 // instancia de la app
 
 app.use(helmet({
@@ -22,7 +23,7 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 // Rutas
 app.use('/api/enciclopedia', enciclopediaRoutes);
 app.use('/api/auth', usuarioRoutes);
-
+app.use('/api', equiposRoutes);
 //express/ el proceso inicia con la llegada de un paquete http (envian dato al servidor (this))
 //express recibe esa info cruda, lo empaqueta en un objeto javascript para ser facil de leer.
 //ese objeto se llama req.
@@ -51,18 +52,19 @@ app.listen(PORT, () => {
     console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25");
     console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon?type=fire&search=char&limit=10");
     console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25/movimientos");
-    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25/movimientos?level=50&type=eléctrico");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25/movimientos?level=50&type=electric");
     console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos");
-    console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos?type=fire&category=especial&poder=90");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos?type=fire&category=special&poder=90");
     console.log(" GET  http://localhost:3000/api/enciclopedia/naturalezas");
     console.log(" GET  http://localhost:3000/api/enciclopedia/habilidades");
     console.log(" GET  http://localhost:3000/api/enciclopedia/habilidades?search=fire");
     console.log("-------------------------------------------------");
     console.log("EQUIPO");
-    console.log(" GET http://localhost:3000/api/pokedex?page=2");
-    console.log(" GET http://localhost:3000/api/pokedex/1");
-    console.log(" GET http://localhost:3000/api/pokedex?page=2&limit=30");
-    console.log(" GET http://localhost:3000/api/pokedex/?search=bul");
+    console.log(" GET http://localhost:3000/api/usuarios/:id_usuario/equipos");
+    console.log(" GET http://localhost:3000/api/equipos/:id");
+    console.log(" POST http://localhost:3000/api/equipos");
+    console.log(" PUT http://localhost:3000/api/equipos/:id");
+    console.log(" DELETE http://localhost:3000/api/equipos/:id");
     console.log("-------------------------------------------------");
     console.log("-------------------------------------------------");
     console.log("USUARIO");

@@ -1,60 +1,58 @@
 const enciclopediaRepository = require('../repositories/enciclopediaRepository');
 
+
+
 class EnciclopediaService {
 
-    // 1. Listar Pokémon con filtros
-    async getPokemonList(filters = {}) {
+    async getPokemonList(type, search, limit, page, min_hp, max_hp, sort, order) {
         try {
-            // Valores por defecto
-            const {
-                type = null,
-                search = null,
-                limit = 20,
-                page = 1,
-                min_hp = null,
-                max_hp = null,
-                sort = 'id_pokemon',
-                order = 'asc'
-            } = filters;
+            //parsed para usar convertir datos
+            const parsedLimit = limit ? parseInt(limit) : 20;
+            const parsedPage = page ? parseInt(page) : 1;
+            const parsedMinHp = min_hp ? parseInt(min_hp) : null;
+            const parsedMaxHp = max_hp ? parseInt(max_hp) : null;
 
-            // Validaciones
-            if (limit < 1 || limit > 100) {
+            if (parsedLimit < 1 || parsedLimit > 100) {
                 throw new Error("VALIDATION_ERROR: El límite debe estar entre 1 y 100");
             }
 
-            if (page < 1) {
+            if (parsedPage < 1) {
                 throw new Error("VALIDATION_ERROR: La página debe ser mayor a 0");
             }
 
-            // Calcular offset
-            const offset = (page - 1) * limit;
+            const offset = (parsedPage - 1) * parsedLimit;
 
-            // Validar tipo si existe
-            const tiposValidos = ['normal', 'fire', 'water', 'electric', 'grass', 'ice',
-                'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
-                'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
-
-            if (type && !tiposValidos.includes(type.toLowerCase())) {
-                throw new Error(`VALIDATION_ERROR: Tipo '${type}' no válido. Tipos válidos: ${tiposValidos.join(', ')}`);
+            if (type) {
+                const tiposValidos = ['normal', 'fire', 'water', 'electric', 'grass', 'ice',
+                    'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
+                    'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
+                    
+                if (!tiposValidos.includes(type.toLowerCase())) {
+                    throw new Error(`VALIDATION_ERROR: Tipo '${type}' no válido`);
+                }
             }
 
-            // Llamar al repositorio
-            const result = await enciclopediaRepository.findAll({
-                type: type ? type.toLowerCase() : null,
-                search,
-                limit: parseInt(limit),
+            const result = await enciclopediaRepository.findAll(
+                parsedLimit,
                 offset,
-                min_hp: min_hp ? parseInt(min_hp) : null,
-                max_hp: max_hp ? parseInt(max_hp) : null,
-                sort,
-                order: order.toLowerCase()
-            });
+                type ? type.toLowerCase() : null,
+                search,
+                parsedMinHp,
+                parsedMaxHp,
+                sort || 'id_pokemon',
+                order ? order.toLowerCase() : 'asc'
+            );
 
             return {
                 success: true,
                 data: result.data,
                 meta: {
-                    pagination: result.pagination
+                    pagination: {
+                        total: result.total,
+                        page: parsedPage,
+                        limit: parsedLimit,
+                        totalPages: Math.ceil(result.total / parsedLimit)
+                    }
                 }
             };
 
@@ -64,16 +62,13 @@ class EnciclopediaService {
         }
     }
 
-    // 2. Obtener detalles de un Pokémon
     async getPokemonById(id) {
         try {
-            // Validar ID
             const pokemonId = parseInt(id);
             if (isNaN(pokemonId) || pokemonId < 1) {
                 throw new Error("VALIDATION_ERROR: ID de Pokémon inválido");
             }
 
-            // Obtener datos
             const pokemon = await enciclopediaRepository.findPokemonById(pokemonId);
 
             if (!pokemon) {
@@ -91,52 +86,42 @@ class EnciclopediaService {
         }
     }
 
-    // 3. Obtener movimientos de un Pokémon
-    async getPokemonMoves(pokemonId, filters = {}) {
+    async getPokemonMoves(pokemonId, level, method, type, category, min_power, max_power) {
         try {
-            // Validar ID
             const id = parseInt(pokemonId);
             if (isNaN(id) || id < 1) {
                 throw new Error("VALIDATION_ERROR: ID de Pokémon inválido");
             }
 
-            // Valores por defecto y validaciones de filtros
-            const {
-                level = null,
-                method = null,
-                type = null,
-                category = null,
-                min_power = null,
-                max_power = null
-            } = filters;
-
-            // Validar nivel si existe
-            if (level && (level < 1 || level > 100)) {
+            const parsedLevel = level ? parseInt(level) : null;
+            if (parsedLevel && (parsedLevel < 1 || parsedLevel > 100)) {
                 throw new Error("VALIDATION_ERROR: El nivel debe estar entre 1 y 100");
             }
 
-            // Validar método de aprendizaje si existe
-            const metodosValidos = ['nivel', 'mt', 'hm', 'huevo', 'tutor'];
-            if (method && !metodosValidos.includes(method.toLowerCase())) {
-                throw new Error(`VALIDATION_ERROR: Método de aprendizaje '${method}' no válido`);
+            if (method) {
+                const metodosValidos =['level-up', 'tm', 'hm', 'egg', 'tutor'];
+                if (!metodosValidos.includes(method.toLowerCase())) {
+                    throw new Error(`VALIDATION_ERROR: Método de aprendizaje '${method}' no válido`);
+                }
             }
 
-            // Validar categoría si existe
-            const categoriasValidas = ['físico', 'especial', 'estado'];
-            if (category && !categoriasValidas.includes(category.toLowerCase())) {
-                throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
+            if (category) {
+                const categoriasValidas =  ['physical', 'special', 'status'];
+                if (!categoriasValidas.includes(category.toLowerCase())) {
+                    throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
+                }
             }
 
-            // Obtener movimientos
-            const moves = await enciclopediaRepository.findMovesByPokemonId(id, {
-                level: level ? parseInt(level) : null,
-                method: method ? method.toLowerCase() : null,
-                type: type ? type.toLowerCase() : null,
-                category: category ? category.toLowerCase() : null,
-                min_power: min_power ? parseInt(min_power) : null,
-                max_power: max_power ? parseInt(max_power) : null
-            });
-            // Verificar si el Pokémon existe
+            const moves = await enciclopediaRepository.findMovesByPokemonId(
+                id,
+                parsedLevel,
+                method ? method.toLowerCase() : null,
+                type ? type.toLowerCase() : null,
+                category ? category.toLowerCase() : null,
+                min_power ? parseInt(min_power) : null,
+                max_power ? parseInt(max_power) : null
+            );
+
             if (moves.length === 0) {
                 const pokemonExists = await enciclopediaRepository.findPokemonById(id);
                 if (!pokemonExists) {
@@ -159,61 +144,51 @@ class EnciclopediaService {
         }
     }
 
-    // 4. Listar movimientos generales
-    async getMovesList(filters = {}) {
+    async getMovesList(type, category, min_power, max_power, min_accuracy, max_accuracy, search, limit, page) {
         try {
-            // Valores por defecto
-            const {
-                type = null,
-                category = null,
-                min_power = null,
-                max_power = null,
-                min_accuracy = null,
-                max_accuracy = null,
-                search = null,
-                limit = 50,
-                page = 1
-            } = filters;
+            const parsedLimit = limit ? parseInt(limit) : 50;
+            const parsedPage = page ? parseInt(page) : 1;
+            const parsedMinPower = min_power ? parseInt(min_power) : null;
+            const parsedMaxPower = max_power ? parseInt(max_power) : null;
+            const parsedMinAccuracy = min_accuracy ? parseInt(min_accuracy) : null;
+            const parsedMaxAccuracy = max_accuracy ? parseInt(max_accuracy) : null;
 
-            // Validaciones
-            if (limit < 1 || limit > 100) {
+            if (parsedLimit < 1 || parsedLimit > 100) {
                 throw new Error("VALIDATION_ERROR: El límite debe estar entre 1 y 100");
             }
 
-            if (page < 1) {
+            if (parsedPage < 1) {
                 throw new Error("VALIDATION_ERROR: La página debe ser mayor a 0");
             }
 
-            // Calcular offset
-            const offset = (page - 1) * limit;
+            const offset = (parsedPage - 1) * parsedLimit;
 
-            // Validar categoría si existe
-            const categoriasValidas = ['físico', 'especial', 'estado'];
-            if (category && !categoriasValidas.includes(category.toLowerCase())) {
-                throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
+            if (category) {
+                const categoriasValidas = ['physical', 'special', 'status'];
+                if (!categoriasValidas.includes(category.toLowerCase())) {
+                    throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
+                }
             }
 
-            // Validar precisión si existe
-            if (min_accuracy && (min_accuracy < 0 || min_accuracy > 100)) {
+            if (parsedMinAccuracy && (parsedMinAccuracy < 0 || parsedMinAccuracy > 100)) {
                 throw new Error("VALIDATION_ERROR: La precisión mínima debe estar entre 0 y 100");
             }
 
-            if (max_accuracy && (max_accuracy < 0 || max_accuracy > 100)) {
+            if (parsedMaxAccuracy && (parsedMaxAccuracy < 0 || parsedMaxAccuracy > 100)) {
                 throw new Error("VALIDATION_ERROR: La precisión máxima debe estar entre 0 y 100");
             }
 
-            // Obtener movimientos
-            const result = await enciclopediaRepository.findAllMoves({
-                type: type ? type.toLowerCase() : null,
-                category: category ? category.toLowerCase() : null,
-                min_power: min_power ? parseInt(min_power) : null,
-                max_power: max_power ? parseInt(max_power) : null,
-                min_accuracy: min_accuracy ? parseInt(min_accuracy) : null,
-                max_accuracy: max_accuracy ? parseInt(max_accuracy) : null,
+            const result = await enciclopediaRepository.findAllMoves(
+                type ? type.toLowerCase() : null,
+                category ? category.toLowerCase() : null,
+                parsedMinPower,
+                parsedMaxPower,
+                parsedMinAccuracy,
+                parsedMaxAccuracy,
                 search,
-                limit: parseInt(limit),
+                parsedLimit,
                 offset
-            });
+            );
 
             return {
                 success: true,
@@ -229,7 +204,6 @@ class EnciclopediaService {
         }
     }
 
-    // 5. Listar naturalezas
     async getNaturesList() {
         try {
             const natures = await enciclopediaRepository.findAllNatures();
@@ -248,34 +222,26 @@ class EnciclopediaService {
         }
     }
 
-    // 6. Listar habilidades
-    async getAbilitiesList(filters = {}) {
+    async getAbilitiesList(search, limit, page) {
         try {
-            // Valores por defecto
-            const {
-                search = null,
-                limit = 100,
-                page = 1
-            } = filters;
+            const parsedLimit = limit ? parseInt(limit) : 100;
+            const parsedPage = page ? parseInt(page) : 1;
 
-            // Validaciones
-            if (limit < 1 || limit > 200) {
+            if (parsedLimit < 1 || parsedLimit > 200) {
                 throw new Error("VALIDATION_ERROR: El límite debe estar entre 1 y 200");
             }
 
-            if (page < 1) {
+            if (parsedPage < 1) {
                 throw new Error("VALIDATION_ERROR: La página debe ser mayor a 0");
             }
 
-            // Calcular offset
-            const offset = (page - 1) * limit;
+            const offset = (parsedPage - 1) * parsedLimit;
 
-            // Obtener habilidades
-            const result = await enciclopediaRepository.findAllAbilities({
+            const result = await enciclopediaRepository.findAllAbilities(
                 search,
-                limit: parseInt(limit),
+                parsedLimit,
                 offset
-            });
+            );
 
             return {
                 success: true,

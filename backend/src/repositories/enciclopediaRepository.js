@@ -30,12 +30,14 @@ convecion nombres:
 
 * en repository: Loguearse, no se hace directamente. La verificacion de la contrasenia no se maneja aca si no que devolvemos el obj que buscamos con el username.
 
+* ademas para no especificar cada atirbuto como parametro se puede utilizar los iguiente (filter = {}), ese filter se rellena con lo que llega.
+
 */
+
 
 class EnciclopediaRepository {
     
-    // 1. Lista Pokémon con filtros (YA LO TIENES)
-    async findAll({ limit, offset, type, search, min_hp, max_hp, sort = 'id_pokemon', order = 'ASC' }) {
+    async findAll(limit, offset, type, search, min_hp, max_hp, sort, order) {
         return new Promise((resolve, reject) => {
             let query = "SELECT * FROM pokemon WHERE 1=1";
             let countQuery = "SELECT COUNT(*) as total FROM pokemon WHERE 1=1";
@@ -55,14 +57,14 @@ class EnciclopediaRepository {
                 params.push(`%${search}%`);
                 countParams.push(`%${search}%`);
             }
-            
+
             if (min_hp) {
                 query += " AND hp_base >= ?";
                 countQuery += " AND hp_base >= ?";
                 params.push(min_hp);
                 countParams.push(min_hp);
             }
-            
+
             if (max_hp) {
                 query += " AND hp_base <= ?";
                 countQuery += " AND hp_base <= ?";
@@ -70,13 +72,18 @@ class EnciclopediaRepository {
                 countParams.push(max_hp);
             }
 
+            const validSortColumns = ['id_pokemon', 'nombre', 'hp_base', 'ataque_base', 'defensa_base', 'velocidad_base'];
+            const sortColumn = validSortColumns.includes(sort) ? sort : 'id_pokemon';
+            const sortOrder = order === 'desc' ? 'DESC' : 'ASC';
+            query += ` ORDER BY ${sortColumn} ${sortOrder}`;
+
             query += " LIMIT ? OFFSET ?";
-            const queryParams = [...params, limit, offset];
+            params.push(limit, offset);
 
             db.get(countQuery, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
 
-                db.all(query, queryParams, (err, rows) => {
+                db.all(query, params, (err, rows) => {
                     if (err) return reject(err);
                     resolve({
                         data: rows,
@@ -87,7 +94,6 @@ class EnciclopediaRepository {
         });
     }
 
-    // 2. Obtener Pokémon por ID (CORREGIR NOMBRE)
     async findPokemonById(id) {
         const sqlPokemon = "SELECT * FROM pokemon WHERE id_pokemon = ? LIMIT 1";
         const sqlHabilidades = `
@@ -95,7 +101,7 @@ class EnciclopediaRepository {
             FROM habilidades h
             JOIN pokemon_puede_tener_habilidad ppth ON h.id_habilidad = ppth.id_habilidad
             WHERE ppth.id_pokemon = ?`;
-        
+    
         try {
             const row = await new Promise((resolve, reject) => {
                 db.get(sqlPokemon, [id], (err, row) => err ? reject(err) : resolve(row));
@@ -131,8 +137,7 @@ class EnciclopediaRepository {
         }
     }
 
-    // 3. Obtener movimientos de un Pokémon (CORREGIDO)
-    async findMovesByPokemonId(id_pokemon, filters = {}) {
+    async findMovesByPokemonId(id_pokemon, level, method, type, category, min_power, max_power) {
         return new Promise((resolve, reject) => {
             let sql = `
                 SELECT 
@@ -153,35 +158,34 @@ class EnciclopediaRepository {
             
             const params = [id_pokemon];
             
-            // Aplicar filtros
-            if (filters.level) {
+            if (level) {
                 sql += " AND pam.nivel <= ?";
-                params.push(filters.level);
+                params.push(level);
             }
             
-            if (filters.method) {
+            if (method) {
                 sql += " AND pam.metodo_aprendizaje = ?";
-                params.push(filters.method);
+                params.push(method);
             }
             
-            if (filters.type) {
+            if (type) {
                 sql += " AND m.tipo = ?";
-                params.push(filters.type);
+                params.push(type);
             }
             
-            if (filters.category) {
+            if (category) {
                 sql += " AND m.categoria = ?";
-                params.push(filters.category);
+                params.push(category);
             }
             
-            if (filters.min_power) {
+            if (min_power) {
                 sql += " AND m.poder >= ?";
-                params.push(filters.min_power);
+                params.push(min_power);
             }
             
-            if (filters.max_power) {
+            if (max_power) {
                 sql += " AND m.poder <= ?";
-                params.push(filters.max_power);
+                params.push(max_power);
             }
             
             sql += " ORDER BY pam.nivel ASC, m.nombre ASC";
@@ -193,73 +197,65 @@ class EnciclopediaRepository {
         });
     }
 
-    // 4. Listar movimientos generales (MEJORADO)
-    async findAllMoves(filters = {}) {
+    async findAllMoves(type, category, min_power, max_power, min_accuracy, max_accuracy, search, limit, offset) {
         return new Promise((resolve, reject) => {
             let sql = "SELECT * FROM movimiento WHERE 1=1";
             let countSql = "SELECT COUNT(*) as total FROM movimiento WHERE 1=1";
             const params = [];
             const countParams = [];
 
-            if (filters.type) {
-                sql += " AND tipo = ?";
+            if (type) {
+                sql += " AND tipo= ?";
                 countSql += " AND tipo = ?";
-                params.push(filters.type);
-                countParams.push(filters.type);
+                params.push(type);
+                countParams.push(type);
             }
             
-            if (filters.category) {
+            if (category) {
                 sql += " AND categoria = ?";
                 countSql += " AND categoria = ?";
-                params.push(filters.category);
-                countParams.push(filters.category);
+                params.push(category);
+                countParams.push(category);
             }
             
-            if (filters.search) {
+            if (search) {
                 sql += " AND nombre LIKE ?";
                 countSql += " AND nombre LIKE ?";
-                params.push(`%${filters.search}%`);
-                countParams.push(`%${filters.search}%`);
+                params.push(`%${search}%`);
+                countParams.push(`%${search}%`);
             }
             
-            if (filters.min_power) {
+            if (min_power) {
                 sql += " AND poder >= ?";
                 countSql += " AND poder >= ?";
-                params.push(filters.min_power);
-                countParams.push(filters.min_power);
+                params.push(min_power);
+                countParams.push(min_power);
             }
             
-            if (filters.max_power) {
+            if (max_power) {
                 sql += " AND poder <= ?";
                 countSql += " AND poder <= ?";
-                params.push(filters.max_power);
-                countParams.push(filters.max_power);
+                params.push(max_power);
+                countParams.push(max_power);
             }
             
-            if (filters.min_accuracy) {
+            if (min_accuracy) {
                 sql += " AND precision >= ?";
                 countSql += " AND precision >= ?";
-                params.push(filters.min_accuracy);
-                countParams.push(filters.min_accuracy);
+                params.push(min_accuracy);
+                countParams.push(min_accuracy);
             }
             
-            if (filters.max_accuracy) {
+            if (max_accuracy) {
                 sql += " AND precision <= ?";
                 countSql += " AND precision <= ?";
-                params.push(filters.max_accuracy);
-                countParams.push(filters.max_accuracy);
+                params.push(max_accuracy);
+                countParams.push(max_accuracy);
             }
 
-            // Paginación
-            if (filters.limit && filters.offset !== undefined) {
-                sql += " LIMIT ? OFFSET ?";
-                params.push(filters.limit, filters.offset);
-            } else if (filters.limit) {
-                sql += " LIMIT ?";
-                params.push(filters.limit);
-            }
+            sql += " LIMIT ? OFFSET ?";
+            params.push(limit, offset);
 
-            // Obtener total y datos
             db.get(countSql, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
 
@@ -267,8 +263,7 @@ class EnciclopediaRepository {
                     if (err) return reject(err);
                     
                     const total = countRow.total;
-                    const limit = filters.limit || total;
-                    const page = filters.offset ? Math.floor(filters.offset / limit) + 1 : 1;
+                    const page = Math.floor(offset / limit) + 1;
                     
                     resolve({
                         data: rows,
@@ -284,7 +279,6 @@ class EnciclopediaRepository {
         });
     }
 
-    // 5. Listar naturalezas (NUEVO MÉTODO)
     async findAllNatures() {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM naturaleza ORDER BY id_naturaleza";
@@ -295,31 +289,23 @@ class EnciclopediaRepository {
         });
     }
 
-    // 6. Listar habilidades (NUEVO MÉTODO)
-    async findAllAbilities(filters = {}) {
+    async findAllAbilities(search, limit, offset) {
         return new Promise((resolve, reject) => {
             let sql = "SELECT * FROM habilidades WHERE 1=1";
             let countSql = "SELECT COUNT(*) as total FROM habilidades WHERE 1=1";
             const params = [];
             const countParams = [];
 
-            if (filters.search) {
+            if (search) {
                 sql += " AND nombre LIKE ?";
                 countSql += " AND nombre LIKE ?";
-                params.push(`%${filters.search}%`);
-                countParams.push(`%${filters.search}%`);
+                params.push(`%${search}%`);
+                countParams.push(`%${search}%`);
             }
 
-            // Paginación
-            if (filters.limit && filters.offset !== undefined) {
-                sql += " LIMIT ? OFFSET ?";
-                params.push(filters.limit, filters.offset);
-            } else if (filters.limit) {
-                sql += " LIMIT ?";
-                params.push(filters.limit);
-            }
+            sql += " LIMIT ? OFFSET ?";
+            params.push(limit, offset);
 
-            // Obtener total y datos
             db.get(countSql, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
 
@@ -327,8 +313,7 @@ class EnciclopediaRepository {
                     if (err) return reject(err);
                     
                     const total = countRow.total;
-                    const limit = filters.limit || total;
-                    const page = filters.offset ? Math.floor(filters.offset / limit) + 1 : 1;
+                    const page = Math.floor(offset / limit) + 1;
                     
                     resolve({
                         data: rows,
