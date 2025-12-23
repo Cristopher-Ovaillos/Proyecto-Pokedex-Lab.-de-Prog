@@ -2,49 +2,72 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
-// helmet (adicional)
+// helmet 
 const helmet = require('helmet');
 const cors = require('cors');
 // import routes
-const pokedexRoutes = require('./src/routes/pokedexRoutes');
-
-
-//-------------
+const enciclopediaRoutes = require('./src/routes/enciclopediaRoutes');
+const usuarioRoutes = require('./src/routes/usuarioRoutes');
 // instancia de la app
+
 app.use(helmet({
-    contentSecurityPolicy: false 
+    contentSecurityPolicy: false
 }));
 app.use(cors());
 //middleware para entender json
 app.use(express.json());
+//se producia un error en la consola debido a solicitud de archivo, esto maneja ese error.
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
-// --- conexion rutas ---
-app.use('/api/pokedex', pokedexRoutes);
+// Rutas
+app.use('/api/enciclopedia', enciclopediaRoutes);
+app.use('/api/auth', usuarioRoutes);
 
-// express/ el proceso inicia con la llegada de un paquete http (envian dato al servidor (this))
-// ... (tus otros comentarios se mantienen igual) ...
-
-app.get('/health', (req,res) =>{
+//express/ el proceso inicia con la llegada de un paquete http (envian dato al servidor (this))
+//express recibe esa info cruda, lo empaqueta en un objeto javascript para ser facil de leer.
+//ese objeto se llama req.
+//express crea un objeto para contestar al emisor.
+// definicion de una ruta
+//orden peticion y luego la respuesta (solo existen tres parametros(req,rest,NEXT)
+app.get('/health', (req, res) => {
     res.status(200).json({
-        status:'ok',
-        date: new Date().toISOString()});
+        status: 'ok',
+        date: new Date().toISOString()
+    });
 });
 
-app.listen(PORT, ()=> {
+//encender el servidor
+//express le pide a node.js que abra un socket tcp en un puerto (3000)
+//haciendo esto, internamente se convierte en un proceso persistente que se queda esperando señaes de la red
+// node.js, solicita al SO usar este puerto  (syscall)
+app.listen(PORT, () => {
+    //esto es un callback ()=>{}
+    //solo se ejecuta cuando el server esta listo para recibir peticiones
+    // el PORT es para indicar al cliente donde enviar datos
     console.log(`Servidor escucha en http://localhost:${PORT}`);
     console.log("-------------------------------------------------");
-    console.log("POKEDEX");
-    console.log(" GET http://localhost:3000/api/pokedex?page=2");
-    console.log(" GET http://localhost:3000/api/pokedex/1");
-    console.log(" GET http://localhost:3000/api/pokedex?page=2&limit=30");
-    console.log(" GET http://localhost:3000/api/pokedex/?search=bul");
+    console.log("ENCICLOPEDIA");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon?type=fire&search=char&limit=10");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25/movimientos");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25/movimientos?level=50&type=eléctrico");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos?type=fire&category=especial&poder=90");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/naturalezas");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/habilidades");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/habilidades?search=fire");
     console.log("-------------------------------------------------");
     console.log("EQUIPO");
     console.log(" GET http://localhost:3000/api/pokedex?page=2");
     console.log(" GET http://localhost:3000/api/pokedex/1");
     console.log(" GET http://localhost:3000/api/pokedex?page=2&limit=30");
     console.log(" GET http://localhost:3000/api/pokedex/?search=bul");
+    console.log("-------------------------------------------------");
+    console.log("-------------------------------------------------");
+    console.log("USUARIO");
+    console.log(" POST http://localhost:3000/api/auth/register");
+    console.log(" GET http://localhost:3000/api/auth/login");
     console.log("-------------------------------------------------");
 
 

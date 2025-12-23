@@ -1,51 +1,25 @@
-GET /pokemon
-→ Lista todos (SELECT * FROM pokemon)
-Query: ?search=pikachu&type=electric&page=1
+# Usuarios y Autenticacion ()
 
-GET /pokemon/:id
-→ Detalle Pokémon + movimientos + habilidades
+POST	/api/auth/register	Registro de nuevo usuario.
 
-POST /equipos
-→ Crea equipo (INSERT INTO equipo)
+POST	/api/auth/login	Login y generación de sesión/token.
 
-GET /equipos
-→ Lista equipos usuario (SELECT * FROM equipo WHERE id_usuario = ?)
+GET	/api/auth/me	Datos del usuario autenticado.
 
-GET /equipos/:id
-→ Obtiene equipo completo con todos los JOINs
+# equipo
 
-PUT /equipos/:id
-→ Actualiza equipo
+GET	/api/usuarios/:id_usuario/equipos	Lista los equipos de un usuario específico.
+  - Verifica en el Service que el id_usuario de la URL coincida con el usuario que está logueado (el de tu auth/me), para que un usuario no pueda ver los equipos de otro si no quieres que sean públicos.
+POST	/api/equipos	Crea cabecera del equipo (usa this.lastID para devolver el ID).
+GET	/api/equipos/:id	Detalle profundo de un equipo (JOINs con pokémon, movimientos, etc).
+PUT	/api/equipos/:id	Actualiza nombre o integrantes (reemplaza equipo_pokemon).
+DELETE	/api/equipos/:id	Elimina equipo y sus relaciones en cascada.
 
-DELETE /equipos/:id
-→ Elimina equipo
+# Enciclopedia
 
-GET /naturalezas
-→ SELECT * FROM naturaleza
-
-GET /habilidades
-→ SELECT * FROM habilidades
-
-GET /habilidades/pokemon/:id_pokemon
-→ Habilidades de un Pokémon específico
-
-GET /movimientos/pokemon/:id_pokemon
-→ Movimientos que aprende un Pokémon
-
-POST /auth/register
-{
-  "nombre_usuario": "ash",
-  "contrasenia": "pikachu123",
-  "email": "ash@pokemon.com"
-}
-
-POST /auth/login
-{
-  "nombre_usuario": "ash",
-  "contrasenia": "pikachu123"
-}
-
-GET /auth/me (protegido)
-→ Devuelve usuario actual
-
-POST /calculator
+GET	/api/pokemon	Listado con filtros: ?type=fire&search=pika&limit=20.
+GET	/api/pokemon/:id	Stats base + tipos + habilidades posibles.
+GET	/api/pokemon/:id/movimientos	Lista de movimientos que este pokémon puede aprender con filtro
+GET /api/movimientos: Listado general con filtros
+GET	/api/naturalezas	Lista de naturalezas y sus modificadores (+/-).
+GET	/api/habilidades	Diccionario general de habilidades.

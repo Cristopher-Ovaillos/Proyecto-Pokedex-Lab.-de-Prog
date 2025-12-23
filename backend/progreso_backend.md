@@ -8,6 +8,7 @@
 
 * Este comando, crea una carpeta node_modules, donde reside express y las dependencias.
 - npm install express
+
 Ademas, se crea un archivo package-lock.json, guarda la version exacta y el arbol de dependencias para que si se lelva el codigo a otra computadra, se instale exactamente el mismo (evita problemas, y no alguien venga y diga que en mi pc no funciona).
 
 * crear un index.js, QUE ES UN MI PUNTO DE ENTRADA.
@@ -91,3 +92,52 @@ Eliminar	DELETE	remove o delete
 AYUDA:
 - En service se usa await, y se llama a controller.
 - debemos desarmar el cuerpo
+
+
+
+---
+
+en backend
+
+hacer
+npm init
+
+
+
+FUTURO:
+in backend/
+
+para hashear contraseñas utilizaremos:
+BCRYPT
+comando: npm install bcrypt
+
+En service:
+
+- regiter hashear la contraseña antes de guardarla.
+- en login comparar contrasenia ingresa con el hash almacenado.
+- no devolver la contrasenia como respuesta.
+
+- implementar autenticacion con JWT
+  - instalar: npm install jsonwebtoken
+  - crear un middleware de autenticacion.
+  -  modificar la ruta /me para usar el middleware.
+  - en el metodo login generar y retoranr un token jwt.
+  - eliminar la contraseña del objeto del usuario antes de retornarlo.
+
+- Agregar validacion de email unico en usuario repository y servie.
+  - crear metodo findbyemail en el repo.
+  - verificar en el service que el email no este registrado antes de crear usuario.
+
+- Crear clases de errores personalizados ((ValidationError, ConflictError, AuthenticationError)). Implementar diferentes codigos de estado http segun el tipo de error.
+
+IA:
+Validar formato de email con expresión regular
+
+Validar fortaleza de contraseña (mayúsculas, números, caracteres especiales)
+
+Sanitizar entradas para prevenir inyección SQL
+
+Crear archivo .env para JWT_SECRET, puerto, etc.
+
+Usar dotenv para cargar variables de entorno
+

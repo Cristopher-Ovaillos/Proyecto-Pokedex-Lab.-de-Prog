@@ -12,13 +12,13 @@ Express realiza un parseo de string (split por & y =).
 
 */
 
-
 const express = require('express');
 const router = express.Router();
-const pokemonController = require('../controllers/pokemonController');
+const usuarioController = require('../controllers/usuarioController');
 
-// gestion de peticiones
-router.get('/', (req, res) => pokemonController.getList(req, res));
-router.get('/:id', (req, res) => pokemonController.getOne(req, res));
+router.post('/register', (req, res) => usuarioController.register(req, res));
+// el login es post, debido a que usar GET los datos viajarian por la URL. Los datos ocultos irian en body
+router.post('/login', (req, res) => usuarioController.login(req, res));
+router.get('/me', (req, res) => usuarioController.me(req, res)); // esto deberia ser protegido, es decir requerir token (no implementado todavia)-Obtener datos del usuario autenticado (requiere token)
 
 module.exports = router;

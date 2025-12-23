@@ -1,2 +1,6 @@
 #node
 node_modules/
+
+# diagram
+.vscode
+.bevel

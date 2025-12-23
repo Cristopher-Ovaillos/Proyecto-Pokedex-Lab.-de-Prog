@@ -19,8 +19,7 @@ app.get('/', (req, res) => {
     res.send('Servidor Arriba - Ruta Raíz');
 });
 
-// definicion de una ruta
-//orden peticion y luego la respuesta (solo existen tres parametros, NEXT)
+
 
 
 //express/ el proceso inicia con la llegada de un paquete http (envian dato al servidor (this))
