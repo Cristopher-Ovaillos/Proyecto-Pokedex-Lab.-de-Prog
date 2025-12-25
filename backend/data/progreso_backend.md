@@ -141,3 +141,4 @@ Crear archivo .env para JWT_SECRET, puerto, etc.
 
 Usar dotenv para cargar variables de entorno
 
+* buscar termino snippet.

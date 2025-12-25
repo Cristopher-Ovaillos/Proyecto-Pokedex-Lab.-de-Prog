@@ -1,6 +1,6 @@
 const enciclopediaRepository = require('../repositories/enciclopediaRepository');
-
-
+//para la url de las imagenes
+const URL = require('../shared/config');
 
 class EnciclopediaService {
 
@@ -26,12 +26,12 @@ class EnciclopediaService {
                 const tiposValidos = ['normal', 'fire', 'water', 'electric', 'grass', 'ice',
                     'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
                     'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
-                    
+
                 if (!tiposValidos.includes(type.toLowerCase())) {
                     throw new Error(`VALIDATION_ERROR: Tipo '${type}' no válido`);
                 }
             }
-
+            //envio los campos
             const result = await enciclopediaRepository.findAll(
                 parsedLimit,
                 offset,
@@ -42,10 +42,15 @@ class EnciclopediaService {
                 sort || 'id_pokemon',
                 order ? order.toLowerCase() : 'asc'
             );
+            //aniado el link, uso de Spread Operator para simplificar (se accede a la data de una tupla y concateno la url)
+            const dataConImagenes = result.data.map(p => ({
+                ...p,
+                imagenUrl: `${URL.BASE_URL}/pokemon/${p.id_pokemon}.png`
+            }));
 
             return {
                 success: true,
-                data: result.data,
+                data: dataConImagenes,
                 meta: {
                     pagination: {
                         total: result.total,
@@ -71,9 +76,13 @@ class EnciclopediaService {
 
             const pokemon = await enciclopediaRepository.findPokemonById(pokemonId);
 
+
             if (!pokemon) {
                 throw new Error("NOT_FOUND_ERROR: Pokémon no encontrado");
             }
+            pokemon.imagenUrl = `${URL.BASE_URL}/pokemon/${pokemon.id}.png`;
+
+
 
             return {
                 success: true,
@@ -99,14 +108,14 @@ class EnciclopediaService {
             }
 
             if (method) {
-                const metodosValidos =['level-up', 'tm', 'hm', 'egg', 'tutor'];
+                const metodosValidos = ['level-up', 'tm', 'hm', 'egg', 'tutor'];
                 if (!metodosValidos.includes(method.toLowerCase())) {
                     throw new Error(`VALIDATION_ERROR: Método de aprendizaje '${method}' no válido`);
                 }
             }
 
             if (category) {
-                const categoriasValidas =  ['physical', 'special', 'status'];
+                const categoriasValidas = ['physical', 'special', 'status'];
                 if (!categoriasValidas.includes(category.toLowerCase())) {
                     throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
                 }

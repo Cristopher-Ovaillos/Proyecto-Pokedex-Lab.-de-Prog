@@ -1,4 +1,7 @@
 const db = require('../shared/db');
+//
+const URL = require('../shared/config');
+
 //sqlite https://github.com/TryGhost/node-sqlite3/wiki/API, debependiendo del motor cambia, en este caso es db.accion
 
 /*
@@ -80,13 +83,15 @@ class EnciclopediaRepository {
             query += " LIMIT ? OFFSET ?";
             params.push(limit, offset);
 
+            
+
             db.get(countQuery, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
 
                 db.all(query, params, (err, rows) => {
                     if (err) return reject(err);
                     resolve({
-                        data: rows,
+                        data: rows,  
                         total: countRow.total
                     });
                 });

@@ -16,7 +16,7 @@ class EquiposController {
     async listarEquiposUsuario(req, res) {
         try {
             const idUsuarioUrl = req.params.id_usuario;
-            // nota: cuando tengas autenticacion, aqui obtienes el usuario logueado
+            // nota: cuando se haya hecho la parte de  autenticacion, aqui se obtienes el usuario logueado
             // const usuarioLogueadoId = req.user.id; // desde middleware de autenticacion
             const usuarioLogueadoId = 1; // temporal - simula usuario logueado
 

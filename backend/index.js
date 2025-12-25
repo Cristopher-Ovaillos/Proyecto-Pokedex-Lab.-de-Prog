@@ -1,7 +1,8 @@
 // importacion del modulo
 const express = require('express');
+const config = require('./src/shared/config')
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = config.PORT;
 // helmet 
 const helmet = require('helmet');
 const cors = require('cors');
@@ -24,6 +25,9 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.use('/api/enciclopedia', enciclopediaRoutes);
 app.use('/api/auth', usuarioRoutes);
 app.use('/api', equiposRoutes);
+// en enciclopedia service, vamos a devolver la url de la imagen entonces devemos exponerla. Importar Path
+const path = require('path');
+app.use('/pokemon', express.static(path.join(__dirname, config.IMAGE_URL)));
 //express/ el proceso inicia con la llegada de un paquete http (envian dato al servidor (this))
 //express recibe esa info cruda, lo empaqueta en un objeto javascript para ser facil de leer.
 //ese objeto se llama req.
@@ -66,11 +70,43 @@ app.listen(PORT, () => {
     console.log(" PUT http://localhost:3000/api/equipos/:id");
     console.log(" DELETE http://localhost:3000/api/equipos/:id");
     console.log("-------------------------------------------------");
-    console.log("-------------------------------------------------");
     console.log("USUARIO");
     console.log(" POST http://localhost:3000/api/auth/register");
     console.log(" GET http://localhost:3000/api/auth/login");
     console.log("-------------------------------------------------");
+
+    /*
+    enciclopedia
+   
+    GET  http://localhost:3000/api/enciclopedia/pokemon
+        - query type, search, limit, page, sort, order
+    GET  http://localhost:3000/api/enciclopedia/pokemon/:id
+
+    GET  http://localhost:3000/api/enciclopedia/pokemon/:id/movimientos
+        -  query:  level, method, type, category,  min_power, max_power.
+    GET  http://localhost:3000/api/enciclopedia/movimientos
+        - query: type, category, min_power, max_power, min_accuracy, max_accuracy, search, limit, page
+    GET  http://localhost:3000/api/enciclopedia/naturalezas
+    GET  http://localhost:3000/api/enciclopedia/habilidades
+        -query search limit page
+
+ 
+    EQUIPO"
+    GET http://localhost:3000/api/usuarios/:id_usuario/equipos
+    GET http://localhost:3000/api/equipos/:id
+        - lista de pokemon del equipo elegido
+    POST http://localhost:3000/api/equipos
+    PUT http://localhost:3000/api/equipos/:id;
+    DELETE http://localhost:3000/api/equipos/:id
+
+    USUARIO
+    POST http://localhost:3000/api/auth/register
+    GET http://localhost:3000/api/auth/login
+    * esto todavia no tiene middleware, ni hash.
+ 
+
+    
+    */
 
 
 });
