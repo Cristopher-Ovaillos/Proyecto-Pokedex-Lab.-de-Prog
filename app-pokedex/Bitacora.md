@@ -86,13 +86,55 @@ Caracteristicas que usamos de ahora en adelante (hay que entenderlo):
 
 ** COMO ESTO ES LOCAL HOST, Y REQUERIMOS USAR EXPO GO, cambiar la URL de config.js por la IP que se consigue en la terminal con el comando: ipconfig (NO SUBIR ESTO A GITHUB XD).
 
+LocalHost: Ejectuamos nuestro backend en nuestra computadora, y usamos expo go. El error es "NETWORK request failed".
 
+Esto sucede porque localhost se refiere al propio dispositivo. Expo go no funciona en nuestro dispositivo que es la pc donde se ejecuta el backend.
+Solucion: Busco mi IP local (de mi red) usando ipconfig. 
 
 ---
 
 VISUALIZACION:
 
-- https://docs.expo.dev/develop/user-interface/fonts/ 
+Tenemos pensado usar un estilo 8 bits, y el texto por defecto no va con el estilo. Es esta razon, que intentaremos utilizar la practica que se hace en pagina web de escritorio que es de @importar la fuente que esta almacenada en google fonts pero en REACT/expo.
+busqueda: "how to use google fonts in expo".
+- https://docs.expo.dev/develop/user-interface/fonts/  (ver ejemplo de codigo de los imports que hace, muy bien explicado esta-LEER)
+
+command: 
+- npm install expo
+- npx expo install expo-font @expo-google-fonts/press-start-2p 
+- Ver efecto en app.json.
+
+* la pagina dice que instalar esto: npx expo install expo-font expo-splash-screen
+
+Acontinuacion, ARCHIVO App.js el SO necesita cargar el archivo .ttf en la ram antes de que react native intente renderizar cualquier texto. 
+
+```
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+```
+** CODIGO antes de modificacion.
+
+Necesitamos renderizar cualquier texto, debemos hacer uso de CALLBACKs, view, useFonts.
+- https://react.dev/reference/react/useCallback (hook que nos ayudara a almacenar una configuracion en cache- useCallback(fn, dependencies)).
+
 
 ---
 

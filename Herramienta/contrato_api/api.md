@@ -17,9 +17,40 @@ DELETE	/api/equipos/:id	Elimina equipo y sus relaciones en cascada.
 
 # Enciclopedia
 
-GET	/api/pokemon	Listado con filtros: ?type=fire&search=pika&limit=20.
-GET	/api/pokemon/:id	Stats base + tipos + habilidades posibles.
-GET	/api/pokemon/:id/movimientos	Lista de movimientos que este pokémon puede aprender con filtro
+GET /api/enciclopedia/pokemon
+Filtros:
+- type (string): Tipo de Pokémon (fire, water, grass, electric, etc.)
+- search (string): Búsqueda por nombre (ej: pika, char, bulba)
+- limit (number, default: 20): Resultados por página (1-100)
+- page (number, default: 1): Número de página
+- min_hp (number): HP base mínimo
+- max_hp (number): HP base máximo
+- sort (string): Ordenar por (id_pokemon, nombre, hp_base, ataque_base, defensa_base, velocidad_base)
+- order (string): asc o desc
+GET	/api/pokemon/:id	
+
+GET	/api/pokemon/:id/movimientos
+- level (number): Nivel máximo para aprender movimiento
+- method (string): Método de aprendizaje (level, tm, hm, egg, tutor)
+- type (string): Tipo de movimiento (fire, water, grass, etc.)
+- category (string): Categoría (physical, special, status)
+- min_power (number): Poder mínimo del movimiento
+- max_power (number): Poder máximo del movimiento
+
 GET /api/movimientos: Listado general con filtros
+- type (string): Tipo de movimiento
+- category (string): Categoría (physical, special, status)
+- min_power (number): Poder mínimo
+- max_power (number): Poder máximo
+- min_accuracy (number, 0-100): Precisión mínima
+- max_accuracy (number, 0-100): Precisión máxima
+- search (string): Búsqueda por nombre
+- limit (number, default: 50): Resultados por página
+- page (number, default: 1): Número de página
+
 GET	/api/naturalezas	Lista de naturalezas y sus modificadores (+/-).
+
 GET	/api/habilidades	Diccionario general de habilidades.
+- search (string): Búsqueda por nombre
+- limit (number, default: 100): Resultados por página
+- page (number, default: 1): Número de página
