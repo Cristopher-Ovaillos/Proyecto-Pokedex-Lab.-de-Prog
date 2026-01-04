@@ -1,0 +1,20 @@
+meta {
+  name: me
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/api/auth/protected
+  body: none
+  auth: inherit
+}
+
+headers {
+  authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmVfdXN1YXJpbyI6InVzdWFyaW8iLCJpYXQiOjE3Njc0NDc0ODAsImV4cCI6MTc2NzQ1MTA4MH0.xPeqMBOFg_V_R-hDSDVKUYKhZx6ORsoKN-hl_LANkuM
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

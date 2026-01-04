@@ -1,0 +1,88 @@
+meta {
+  name: registrarse
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/auth/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nombre_usuario": "user1",
+    "email": "usuario@1test.com",
+    "contrasenia": "Usuario1"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: http://localhost:3000/api/auth/register
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "nombre_usuario": "user",
+        "email": "usuario@test.com",
+        "contrasenia": "Usuario1"
+      }
+        
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 252
+      etag: W/"fc-V2yc2mP3/Rat6X5S4wGQfH5t74M"
+      date: Sat, 03 Jan 2026 19:25:03 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": "Usuario creado exitosamente",
+          "data": {
+            "id_usuario": 2,
+            "nombre_usuario": "user",
+            "email": "usuario@test.com",
+            "fecha_creacion": "2026-01-03T19:25:03.771Z",
+            "contrasenia": "$2b$10$MNLtqxB0bdmEQAwE2dDLROBvxNFGecZ6/Sp/lstRHC1GOdRGytD5q"
+          }
+        }
+      '''
+    }
+  }
+}

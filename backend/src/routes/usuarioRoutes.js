@@ -15,10 +15,38 @@ Express realiza un parseo de string (split por & y =).
 const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
+//authMiddleware 
+const auth = require('../shared/authMiddleware');
 
 router.post('/register', (req, res) => usuarioController.register(req, res));
 // el login es post, debido a que usar GET los datos viajarian por la URL. Los datos ocultos irian en body
 router.post('/login', (req, res) => usuarioController.login(req, res));
-router.get('/me', (req, res) => usuarioController.me(req, res)); // esto deberia ser protegido, es decir requerir token (no implementado todavia)-Obtener datos del usuario autenticado (requiere token)
+router.get('/protected', auth, (req, res) => usuarioController.me(req, res)); // esto deberia ser protegido, es decir requerir token (no implementado todavia)-Obtener datos del usuario autenticado (requiere token)
+//router.get tiene  el endpoint /me, usa el middleware auth para verificar token, y llama a usuarioController.me
+//el get verifica auth si el token es valido, y si lo es llama a usuarioController.me
+
+//para cerrar sesion, en el cliente se borra el token guardado localmente. No es necesario un endpoint en el servidor para logout en JWT
+// porque el servidor no mantiene estado de sesion. El token simplemente expira despues de un tiempo definido.
 
 module.exports = router;
+
+//bruno api
+// ejemplo de /me
+// GET /me
+// Headers:
+// Authorization: Bearer <token_jwt_aqui>
+//
+// Respuesta exitosa (200 OK):
+// {
+//   "id": 1,
+//   "nombre": "Cristopher",
+//   "email": "cristopher@example.com"
+// }
+
+//devuelve {
+// "id_usuario": 1,
+//   "nombre_usuario": "usuario",
+//   "iat": 1767367993,
+//   "exp": 1767371593
+// }
+// significa issued at (emitido en) y expiration (expiracion) en segundos desde epoch time (1970)

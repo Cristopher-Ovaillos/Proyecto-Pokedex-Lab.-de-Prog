@@ -1,6 +1,8 @@
 module.exports = {
     
-    BASE_URL: 'http://localhost:3000',
+    BASE_URL: '192.168.1.59:3000',
     PORT: 3000,
-    IMAGE_URL: 'data/public/pokemon',
+    IMAGE_URL: 'data/pokemon',
+    SALT_ROUNDS: 10,
+    JWT_SECRET: process.env.JWT_SECRET || 'default_secret_key'
 };

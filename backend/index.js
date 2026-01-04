@@ -12,9 +12,11 @@ const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const equiposRoutes = require('./src/routes/equipoRoutes')
 // instancia de la app
 
+
 app.use(helmet({
     contentSecurityPolicy: false
 }));
+
 app.use(cors());
 //middleware para entender json
 app.use(express.json());
@@ -49,7 +51,7 @@ app.listen(PORT, () => {
     //esto es un callback ()=>{}
     //solo se ejecuta cuando el server esta listo para recibir peticiones
     // el PORT es para indicar al cliente donde enviar datos
-    console.log(`Servidor escucha en http://localhost:${PORT}`);
+    console.log(`Servidor escucha en http://${config.BASE_URL}`);
     console.log("-------------------------------------------------");
     console.log("ENCICLOPEDIA");
     console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon");
@@ -73,7 +75,33 @@ app.listen(PORT, () => {
     console.log("USUARIO");
     console.log(" POST http://localhost:3000/api/auth/register");
     console.log(" GET http://localhost:3000/api/auth/login");
+    console.log(" GET http://localhost:3000/api/auth/protected  (requiere token)");
     console.log("-------------------------------------------------");
+
+    //lista de endpoints con body, query params, path params, headers
+    // 1. enciclopedia
+    // a. pokemon necesita query params
+    //      params: type, search, limit, page, sort, order
+    // b. pokemon por id necesita path param
+    //      param: id
+    // c. movimientos de un pokemon necesita path param + query params
+    //      params: level, method, type, category, min_power, max_power
+    // b. movimientos necesita query params
+    // c. naturalezas no necesita nada
+    // d. habilidades necesita query params
+    // 2. equipo
+    // a. listar equipos de un usuario (path param)
+    // b. obtener equipo por id (path param)
+    // c. crear equipo (body)
+    //      body: { nombre, id_usuario }
+    // d. actualizar equipo (path param + body)
+    // e. eliminar equipo (path param)
+    // 3. usuario
+    // a. register (body)
+    // b. login (body)
+    // c. protected (header con token)
+
+
 
     /*
     enciclopedia
@@ -81,7 +109,38 @@ app.listen(PORT, () => {
     GET  http://localhost:3000/api/enciclopedia/pokemon
         - query type, search, limit, page, sort, order
     GET  http://localhost:3000/api/enciclopedia/pokemon/:id
-
+        - {
+  "success": true,
+  "data": {
+    "id": 1,
+    "nombre": "bulbasaur",
+    "tipos": [
+      "grass",
+      "poison"
+    ],
+    "estadisticas": {
+      "hp_base": 45,
+      "ataque_base": 49,
+      "ataque_especial_base": 65,
+      "defensa_base": 49,
+      "defensa_especial_base": 65,
+      "velocidad_base": 45
+    },
+    "habilidades": [
+      {
+        "nombre": "overgrow",
+        "descripcion": "When this Pokémon has 1/3 or less of its HP remaining, its grass-type moves inflict 1.5× as much regular damage.",
+        "oculta": false
+      },
+      {
+        "nombre": "chlorophyll",
+        "descripcion": "This Pokémon's Speed is doubled during strong sunlight.\n\nThis bonus does not count as a stat modifier.",
+        "oculta": true
+      }
+    ],
+    "imagenUrl": "192.168.1.59:3000/pokemon/1.png"
+  }
+}
     GET  http://localhost:3000/api/enciclopedia/pokemon/:id/movimientos
         -  query:  level, method, type, category,  min_power, max_power.
     GET  http://localhost:3000/api/enciclopedia/movimientos

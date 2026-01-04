@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 //bitacora3
 import useLogout from "../hooks/useLogout";//bitacora-3
 import styles from '../constants/styles';
-import { Button, View, ActivityIndicator } from 'react-native' // Agregué View y ActivityIndicator para la carga
+import { TouchableOpacity, Text, View, ActivityIndicator } from 'react-native' // Agregué View y ActivityIndicator para la carga
 
 
 // se define ruta name="X". EL comopontente={y} recibira el navigation popr defecto
@@ -35,8 +35,12 @@ function MyDrawer() {
       screenOptions={{
         headerShown: true,
         drawerStyle: { width: 200 },
-        //bitacora-3
-        headerRight: () => <Button onPress={logout} title='Salir' className={styles.home.button}/> 
+        drawerLabelStyle: styles.drawer.drawerLabel, // aplica la fuente pixel
+        headerRight: () => (
+          <TouchableOpacity onPress={logout} className={styles.drawer.logoutButton}>
+            <Text className={styles.drawer.logoutButtonText}>Salir</Text>
+          </TouchableOpacity>
+        ),
       }}
     >
       <Drawer.Screen name="Inicio" component={InicioScreen} />

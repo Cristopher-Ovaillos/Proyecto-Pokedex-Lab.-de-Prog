@@ -12,9 +12,11 @@ Este backend está construido siguiendo un patrón de **Arquitectura en Capas (L
 
 Para este proyecto, la lógica se divide en tres niveles de abstracción:
 
-1. **Controller (API Layer):** Gestiona las peticiones HTTP. Recibe la solicitud del usuario y delega la ejecución a la capa de servicio.
-2. **Service (Business Logic Layer):** Es el núcleo de la aplicación. Aquí se procesan las reglas de negocio (validaciones, cálculos, lógica de evolución) antes de interactuar con los datos.
-3. **Repository (Data Access Layer):** Centraliza el acceso a los datos. Implementa **Prepared Statements** para asegurar la protección contra ataques de **Inyección SQL**.
+
+1. **Routes:** Definen los endpoints y delegan al controller. No contienen lógica de negocio ni acceso a datos.
+2. **Controller (API Layer):** Gestiona las peticiones HTTP usando helpers para manejo de errores y respuestas. Recibe la solicitud y delega la ejecución a la capa de servicio.
+3. **Service (Business Logic Layer):** Es el núcleo de la aplicación. Aquí se procesan las reglas de negocio (validaciones, cálculos, lógica de evolución, autenticación) antes de interactuar con los datos.
+4. **Repository (Data Access Layer):** Centraliza el acceso a los datos. Implementa **Prepared Statements** para asegurar la protección contra ataques de **Inyección SQL**.
 
 ---
 
@@ -25,9 +27,13 @@ En la carpeta backend/data/public/
 - config.js tiene PORT, URL_IMAGE, BASE_URL.
 
 * No almacenamos la url en la base de datos si no que la formamos con la URL+ID+.PNG en enciclopediaService.js
-* Para añadir este dato a lo que responde esciclopediaRepository (dependiendo de si es array) usamos el 
 
-- mas info: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax 
+* Para añadir este dato a lo que responde enciclopediaRepository (dependiendo de si es array) usamos el **spread operator** (`...`).
+  - Ejemplo en JS: `{ ...obj, nuevoCampo: valor }` crea un nuevo objeto copiando todas las propiedades de `obj` y agregando/modificando `nuevoCampo`.
+  - Equivalente en Python: `{ **obj, 'nuevoCampo': valor }` (dict unpacking).
+  - Equivalente en otros lenguajes: suele llamarse "object/array unpacking" o "merge".
+
+- Más info: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 
 
 ---
@@ -39,6 +45,7 @@ En la carpeta backend/data/public/
   → HTTP POST /api/recursos 
   → Body: {"nombre": "Ejemplo", "valor": 100, "activo": true}
 
+  
 [ROUTES] 
   → Recibe: {method: 'POST', url: '/api/recursos', body: {...}}
   → Direcciona: resourceRoutes.create → ResourceController.create(req, res)
@@ -46,6 +53,7 @@ En la carpeta backend/data/public/
 [CONTROLLER] 
   → Extrae: {params: {}, query: {}, body: {...}}
   → Llama: resourceService.crear({nombre: "Ejemplo", valor: 100, activo: true})
+  → Usa helpers (handleRequest, getHttpStatus) para manejar errores y respuestas
 
 [SERVICE] 
   → Valida: {nombre: string, valor: number, activo: boolean}
@@ -64,6 +72,7 @@ En la carpeta backend/data/public/
 **BOTTOM-UP (La Respuesta)**
 
 ```
+  
 [DATABASE] 
   → Retorna: [[456, "EJEMPLO", 100.00, 1, "2025-01-15"]] (Array de arrays)
   → Estructura: [id, nombre, valor, activo, fecha]
@@ -105,6 +114,7 @@ En la carpeta backend/data/public/
         },
         pagination: null
     })
+  → Si ocurre un error: res.status(400).json({ success: false, error: "MENSAJE_DE_ERROR" })
 
 [ROUTES] 
   → Envía: HTTP/1.1 201 Created
@@ -123,11 +133,17 @@ En la carpeta backend/data/public/
         },
         "pagination": null
     }
+  → Si ocurre un error:
+    {
+      "success": false,
+      "error": "MENSAJE_DE_ERROR"
+    }
 ```
 ---
+
 ## ESTRUCTURAS DE DATOS POR CAPA
 
-DATOS BRUTOS ENTRE CAPAS
+### DATOS BRUTOS ENTRE CAPAS
 
 ```
 CLIENTE → ROUTES: 
@@ -167,7 +183,8 @@ REPOSITORY → DATABASE:
   }
 ```
 
-ESTRUCTURAS DE RETORNO
+
+### ESTRUCTURAS DE RETORNO
 
 ```
 DATABASE → REPOSITORY:
@@ -203,19 +220,29 @@ SERVICE → CONTROLLER:
 
 CONTROLLER → ROUTES:
   Formato: Objeto respuesta HTTP
-  Ejemplo: {
+  Ejemplo éxito: {
     statusCode: 201,
     headers: { 'Content-Type': 'application/json' },
     body: '{"success":true,"data":{...}}'
   }
+  Ejemplo error: {
+    statusCode: 400,
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"success":false,"error":"MENSAJE_DE_ERROR"}'
+  }
 
 ROUTES → CLIENTE:
   Formato: HTTP Response
-  Ejemplo: HTTP/1.1 201 Created
+  Ejemplo éxito: HTTP/1.1 201 Created
            Content-Type: application/json
            Content-Length: 245
            
            {"success":true,"data":{...}}
+  Ejemplo error: HTTP/1.1 400 Bad Request
+           Content-Type: application/json
+           Content-Length: 80
+           
+           {"success":false,"error":"MENSAJE_DE_ERROR"}
 ```
 
 ---
@@ -241,4 +268,6 @@ Para el diseño de esta arquitectura se consultaron las siguientes bases técnic
 *   **[Microsoft - Diseño de Capa de Persistencia](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design):** Guía detallada sobre el desacoplamiento mediante el patrón Repository.
 
 ---
+
+https://www.npmjs.com/package/bcrypt
 

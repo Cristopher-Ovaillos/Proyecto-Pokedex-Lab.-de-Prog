@@ -2,6 +2,10 @@ const usuarioRepository = require('../repositories/usuarioRepository');
 //En service utilizare en el futuro, una lib para hashear la contrasenia
 //desempaqueto
 // Siempre relanza(thow) el error para que el controlador lo capture
+const bcrypt = require('bcrypt');
+const { SALT_ROUNDS, JWT_SECRET } = require('../shared/config')
+//login
+const jwt = require('jsonwebtoken');
 class UsuarioService {
 
     async register(data) {
@@ -20,14 +24,15 @@ class UsuarioService {
             if (!contrasenia || contrasenia.length < 8) {
                 throw new Error("VALIDATION_ERROR: La contraseña es demasiado corta");
             }
-            //
+           
             const existe = await usuarioRepository.findByUsername(nombre_usuario);
             if (existe) {
-                throw new Error("CONFLICT_ERROR: El nombre de usuario ya está registrado");
+                throw new Error("CONFLICT_ERROR: El nombre de usuario ya esta registrado");
             }
-
+             //BSCRYPT
+            const contrasenia_hash = await bcrypt.hash(contrasenia, SALT_ROUNDS);
             //
-            const usuario = await usuarioRepository.create({ nombre_usuario, contrasenia, email });
+            const usuario = await usuarioRepository.create({ nombre_usuario, contrasenia: contrasenia_hash, email });
 
             if (!usuario) return null;
 
@@ -39,7 +44,8 @@ class UsuarioService {
                     id_usuario: usuario.id_usuario,
                     nombre_usuario: usuario.nombre_usuario,
                     email: usuario.email,
-                    fecha_creacion: usuario.fecha_creacion
+                    fecha_creacion: usuario.fecha_creacion,
+                    contrasenia: usuario.contrasenia
                 }
             };
 
@@ -59,13 +65,26 @@ class UsuarioService {
             if (!usuario) {
                 throw new Error("AUTH_ERROR: Usuario no encontrado");
             }
+            //se hashea la contrasenia y se compara, no se deshashea...ademas la contrasenia del usuario tiene dato para hashear.
+            const contraseniaMatch = await bcrypt.compare(contrasenia, usuario.contrasenia);
 
-            if (contrasenia !== usuario.contrasenia) {
+            if (contraseniaMatch === false) {
                 throw new Error("Contraseña incorrecta");
             }
 
+            const tokenPayload = {
+                id_usuario: usuario.id_usuario,
+                nombre_usuario: usuario.nombre_usuario
+            };
+            // generar token JWT con duracion de 2 horas, parametros: payload, secret, opciones
+            // paylos es la info que queremos guardar en el token
+            // secret es una cadena secreta para firmar el token
+            // opciones puede incluir expiracion, algoritmo, etc    
+            const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '1h' });  
+
             return {
                 success: true,
+                token: token,
                 message: "Login exitoso",
                 data: {
                     id_usuario: usuario.id_usuario,
