@@ -3,7 +3,7 @@ import './global.css';
 //import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+//import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { useEffect } from 'react';
 //import { View, Text } from 'react-native';

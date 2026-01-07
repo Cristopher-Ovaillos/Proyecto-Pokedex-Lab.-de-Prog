@@ -1,6 +1,6 @@
 // Configuracion centralizada para variables de entorno y URLs
 export const ENV = {
-  API_URL: 'http://192.168.1.59:3000/api', // URL de desarrollo
+  API_URL: 'http://ip:3000/api', 
   TIMEOUT: 15000,
 };
 

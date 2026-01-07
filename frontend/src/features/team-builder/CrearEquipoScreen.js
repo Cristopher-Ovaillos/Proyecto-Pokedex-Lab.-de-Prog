@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { View, Text } from 'react-native';
-const styles = require('../../../constants/styles');
+const styles = require('../../constants/styles');
 
 export const CrearEquipoScreen = () => (
   <View className={styles.crearEquipo.container}>
