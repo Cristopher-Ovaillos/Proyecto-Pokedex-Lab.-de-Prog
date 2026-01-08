@@ -6,7 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // pantallas
 import { InicioScreen } from '../features/home/screens/InicioScreen';
-import { PokedexScreen } from '../features/pokedex/';
+import { PokedexScreen } from '../features/pokedex/screens/PokedexScreen';
 import { MovimientosScreen } from '../features/moves/MovimientosScreen';
 import { PerfilScreen } from '../features/profile/PerfilScreen';
 import { CrearEquipoScreen } from '../features/team-builder/CrearEquipoScreen';

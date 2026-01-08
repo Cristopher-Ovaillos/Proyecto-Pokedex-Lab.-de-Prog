@@ -45,7 +45,8 @@ class EnciclopediaService {
             //aniado el link, uso de Spread Operator para simplificar (se accede a la data de una tupla y concateno la url)
             const dataConImagenes = result.data.map(p => ({
                 ...p,
-                imagenUrl: `http://${URL.BASE_URL}/pokemon/${p.id_pokemon}.png`
+                // imagenUrl: `http://${URL.BASE_URL}/pokemon/${p.id_pokemon}.png`
+                imagenUrl: `${URL.BASE_CLOUDINARY}/${p.id_pokemon}.png`
             }));
 
             return {
