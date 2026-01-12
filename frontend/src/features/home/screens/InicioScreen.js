@@ -1,10 +1,9 @@
 import React from 'react';
-
 import { View, Text } from 'react-native';
-const styles = require('../../../constants/styles');
+import styles from '../../../constants/styles';
 
 export const InicioScreen = () => (
-  <View className={styles.inicio.container}>
-    <Text className={styles.inicio.title}>pantalladeinicioo</Text>
+  <View className={styles.layout.screen}>
+    <Text className={styles.ui.titleMain}>Pantalla de Inicio</Text>
   </View>
 );

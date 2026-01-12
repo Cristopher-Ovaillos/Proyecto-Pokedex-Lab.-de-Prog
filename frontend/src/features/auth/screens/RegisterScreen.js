@@ -36,20 +36,20 @@ export function RegisterScreen({ navigation }) {
 
   */
   return (
-    <View className={styles.register.container}>
-      <Text className={styles.register.title}>Crear POKE-cuenta</Text>
+    <View className={styles.layout.centerAll}>
+      <Text className={styles.ui.titleMain}>Crear POKE-cuenta</Text>
 
-      <TextInput className={styles.register.input} placeholder="Nombre de usuario" value={nombre_usuario} onChangeText={setNombre_usuario} autoCapitalize="none" />
-      <TextInput className={styles.register.input} placeholder="Email" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
-      <TextInput className={styles.register.input} placeholder="contrasenia" value={contrasenia} onChangeText={setContrasenia} secureTextEntry />
+      <TextInput className={styles.ui.input} placeholder="Nombre de usuario" value={nombre_usuario} onChangeText={setNombre_usuario} />
+      <TextInput className={styles.ui.input} placeholder="Email" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
+      <TextInput className={styles.ui.input} placeholder="contrasenia" value={contrasenia} onChangeText={setContrasenia} secureTextEntry />
 
-      <TouchableOpacity className={styles.register.button} onPress={submit} disabled={loading}>
-        <Text className={styles.register.buttonText}> {loading ? '...' : 'Crear Cuenta'}</Text>
+      <TouchableOpacity className={styles.ui.btnPrimary} onPress={submit} disabled={loading}>
+        <Text className={styles.ui.btnText}> {loading ? '...' : 'Crear Cuenta'}</Text>
       </TouchableOpacity>
 
-      {error && <Text className={styles.register.errorText}>{error}</Text>}
+      {error && <Text className={styles.ui.error}>{error}</Text>}
       <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginTop: 20 }}>
-        <Text className={styles.register.input}>¿Ya tienes cuenta? Inicia Sesion</Text>
+        <Text className={styles.ui.label}>¿Ya tienes cuenta? Inicia Sesion</Text>
       </TouchableOpacity>
 
     </View>

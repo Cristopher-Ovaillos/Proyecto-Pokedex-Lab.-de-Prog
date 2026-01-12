@@ -33,19 +33,21 @@ export function LoginScreen({ navigation }) {
   
   */
   return (
-    <View className={styles.login.container}>
-      <Text className={styles.login.title}>Iniciar sesion</Text>
-      <TextInput className={styles.login.input} placeholder="nombre de usuario" value={nombre} onChangeText={setNombre} autoCapitalize="none" keyboardType="email-address" />
-      <TextInput className={styles.login.input} placeholder="contrasenia" value={contrasenia} onChangeText={setContrasenia} secureTextEntry />
+    <View className={styles.layout.centerAll}>
 
-      {error && <Text className={styles.login.errorText}>{error}</Text>}
+      <Text className={styles.ui.titleMain}>Iniciar sesion</Text>
 
-      <TouchableOpacity className={styles.login.button} onPress={submit} disabled={loading}>
-        <Text className={styles.login.buttonText}>{loading ? '...' : 'Entrar'}</Text>
+      <TextInput className={styles.ui.input} placeholder="nombre de usuario" value={nombre} onChangeText={setNombre} autoCapitalize="none" keyboardType="email-address" />
+      <TextInput className={styles.ui.input} placeholder="contrasenia" value={contrasenia} onChangeText={setContrasenia} secureTextEntry />
+
+      {error && <Text className={styles.ui.error}>{error}</Text>}
+
+      <TouchableOpacity className={styles.ui.btnPrimary} onPress={submit} disabled={loading}>
+        <Text className={styles.ui.btnText}>{loading ? '...' : 'Entrar'}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('Register')} style={{ marginTop: 20 }}>
-        <Text className={styles.login.input}>¿No tienes cuenta? Regístrate</Text>
+        <Text className={styles.ui.label}>¿No tienes cuenta? Regístrate</Text>
       </TouchableOpacity>
     </View>
 

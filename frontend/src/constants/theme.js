@@ -1,4 +1,4 @@
-export const COLORS = {
+const COLORS = {
   primary: '#2563EB',   // Blue 600
   secondary: '#10B981', // Emerald 500
   background: '#F1F5F9', // Usaremos un fondo más claro para la Pokédex (Slate 100)
@@ -11,13 +11,13 @@ export const COLORS = {
   light: '#F1F5F9',     // Slate 100
 };
 
-export const FONTS = {
+const FONTS = {
   regular: 'System', // Cambiar por nombre de fuente custom cargada
   bold: 'System',
 };
 
 
-export const TYPE_COLORS = {
+const TYPE_COLORS = {
   normal: '#A8A77A',
   fire: '#EE8130',
   water: '#6390F0',
@@ -37,3 +37,5 @@ export const TYPE_COLORS = {
   steel: '#B7B7CE',
   fairy: '#D685AD',
 };
+
+module.exports = { COLORS, FONTS, TYPE_COLORS };
