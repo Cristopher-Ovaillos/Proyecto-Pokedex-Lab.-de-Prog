@@ -36,10 +36,10 @@ const styles = {
     image: "w-20 h-20",
     infoContainer: "mt-2 items-center",
     id: "text-emerald-400  p-1 font-bold self-start",
-    name: "text-emerald-400 text-xl py-1 font-bold capitalize font-pixel ",
+    name: "text-emerald-400 text-xl py-1 font-bold capitalize  ",
     typeContainer: "flex flex-row gap-3 justify-center mt-2 mb-2",
     typePill: "px-3 py-1 bg-white  mr-1",
-    typeText: "text-white text-xs font-bold capitalize",
+    typeText: "font-pixel text-white text-xs font-bold capitalize",
   },
   list: {
     container: "px-2",
@@ -51,11 +51,26 @@ const styles = {
       "flex-1 bg-background font-pixel p-4 justify-center items-center",
     title: "text-info text-2xl",
   },
+
+
+
+
+
   perfil: {
-    container:
-      "flex-1 bg-background font-pixel p-4 justify-center items-center",
-    title: "text-dark text-2xl",
+    container: "flex-1 my-4",
+    iconPerfil1: " bg-neutral-300  w-[9rem] h-[9rem] rounded-full items-center justify-center ",
+   
+    containerOpciones: "items-center justify-center ",
+    fotoContainer: " bg-sky-200 w-[8rem] h-[8rem] self-center rounded-full",
+    foto: "w-full h-full ",
+    editIcon: "w-7 h-7 absolute bottom-0 right-0",
+    opciones: "mt-8 justify-center items-center"
   },
+
+
+
+
+
   crearEquipo: {
     container:
       "flex-1 bg-background font-pixel p-4 justify-center items-center",
