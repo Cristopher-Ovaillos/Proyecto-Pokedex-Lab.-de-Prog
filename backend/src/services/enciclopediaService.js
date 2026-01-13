@@ -46,7 +46,7 @@ class EnciclopediaService {
             const dataConImagenes = result.data.map(p => ({
                 ...p,
                 // imagenUrl: `http://${URL.BASE_URL}/pokemon/${p.id_pokemon}.png`
-                imagenUrl: `${URL.BASE_CLOUDINARY}/${p.id_pokemon}.png`
+                imagenUrl: `${URL.IMAGE_URL}/${p.id_pokemon}.png`
             }));
 
             return {
@@ -81,7 +81,7 @@ class EnciclopediaService {
             if (!pokemon) {
                 throw new Error("NOT_FOUND_ERROR: Pokémon no encontrado");
             }
-            pokemon.imagenUrl = `http://${URL.BASE_URL}/pokemon/${pokemon.id}.png`;
+            pokemon.imagenUrl = `${URL.IMAGE_URL}/${pokemon.id}.png`;
 
 
 
