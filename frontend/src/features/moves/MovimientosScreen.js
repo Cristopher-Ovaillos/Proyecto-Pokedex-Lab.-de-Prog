@@ -1,10 +1,9 @@
 import React from 'react';
-
 import { View, Text } from 'react-native';
-const styles = require('../../constants/styles');
+import styles from '../../constants/styles';
 
 export const MovimientosScreen = () => (
-  <View className={styles.movimientos.container}>
-    <Text className={styles.movimientos.title}>Pantalla de Movimientos</Text>
+  <View className={styles.layout.screen}>
+    <Text className={styles.ui.titleMain}>Pantalla de Movimientos</Text>
   </View>
 );
