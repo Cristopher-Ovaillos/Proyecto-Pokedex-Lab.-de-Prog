@@ -11,11 +11,6 @@ const COLORS = {
   light: '#F1F5F9',     // Slate 100
 };
 
-const FONTS = {
-  regular: 'System', // Cambiar por nombre de fuente custom cargada
-  bold: 'System',
-};
-
 
 const TYPE_COLORS = {
   normal: '#A8A77A',
@@ -38,4 +33,4 @@ const TYPE_COLORS = {
   fairy: '#D685AD',
 };
 
-module.exports = { COLORS, FONTS, TYPE_COLORS };
+module.exports = { COLORS, TYPE_COLORS };

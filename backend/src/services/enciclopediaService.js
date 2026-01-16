@@ -1,55 +1,51 @@
 const enciclopediaRepository = require('../repositories/enciclopediaRepository');
-//para la url de las imagenes
-const URL = require('../shared/config');
+const { BASE_URL } = require('../shared/config');
+
+const TIPOS_VALIDOS = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
+const METODOS_APRENDIZAJE_VALIDOS = ['level-up', 'tm', 'hm', 'egg', 'tutor'];
+const CATEGORIAS_VALIDAS = ['physical', 'special', 'status'];
+
+function validar(condicion, mensaje) {
+    if (condicion) {
+        throw new Error(`VALIDATION_ERROR: ${mensaje}`);
+    }
+}
 
 class EnciclopediaService {
 
-    async getPokemonList(type, search, limit, page, min_hp, max_hp, sort, order) {
+    async listarPokemons(queryParams) {
         try {
-            //parsed para usar convertir datos
-            const parsedLimit = limit ? parseInt(limit) : 20;
-            const parsedPage = page ? parseInt(page) : 1;
-            const parsedMinHp = min_hp ? parseInt(min_hp) : null;
-            const parsedMaxHp = max_hp ? parseInt(max_hp) : null;
+            const { type, search, limit = 20, page = 1, sort = 'id_pokemon', order = 'asc', ...stats } = queryParams;
+            
+            const parsedLimit = parseInt(limit);
+            const parsedPage = parseInt(page);
 
-            if (parsedLimit < 1 || parsedLimit > 100) {
-                throw new Error("VALIDATION_ERROR: El límite debe estar entre 1 y 100");
-            }
+            validar(parsedLimit < 1 || parsedLimit > 100, "El límite debe estar entre 1 y 100");
+            validar(parsedPage < 1, "La página debe ser mayor a 0");
+            if (type) validar(!TIPOS_VALIDOS.includes(type.toLowerCase()), `Tipo '${type}' no válido`);
 
-            if (parsedPage < 1) {
-                throw new Error("VALIDATION_ERROR: La página debe ser mayor a 0");
-            }
-
-            const offset = (parsedPage - 1) * parsedLimit;
-
-            if (type) {
-                const tiposValidos = ['normal', 'fire', 'water', 'electric', 'grass', 'ice',
-                    'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
-                    'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
-
-                if (!tiposValidos.includes(type.toLowerCase())) {
-                    throw new Error(`VALIDATION_ERROR: Tipo '${type}' no válido`);
-                }
-            }
-            //envio los campos
-            const result = await enciclopediaRepository.findAll(
-                parsedLimit,
-                offset,
-                type ? type.toLowerCase() : null,
+            const filters = {
+                limit: parsedLimit,
+                offset: (parsedPage - 1) * parsedLimit,
+                type: type ? type.toLowerCase() : null,
                 search,
-                parsedMinHp,
-                parsedMaxHp,
-                sort || 'id_pokemon',
-                order ? order.toLowerCase() : 'asc'
-            );
-            //aniado el link, uso de Spread Operator para simplificar (se accede a la data de una tupla y concateno la url)
-            const dataConImagenes = result.data.map(p => ({
-                ...p,
-                imagenUrl: `http://${URL.BASE_URL}/pokemon/${p.id_pokemon}.png`
+                sort,
+                order: order ? order.toLowerCase() : 'asc'
+            };
+
+            ['hp', 'ataque', 'defensa', 'ataque_especial', 'defensa_especial', 'velocidad'].forEach(stat => {
+                if (stats[`min_${stat}`]) filters[`min_${stat}`] = parseInt(stats[`min_${stat}`]);
+                if (stats[`max_${stat}`]) filters[`max_${stat}`] = parseInt(stats[`max_${stat}`]);
+            });
+
+            const result = await enciclopediaRepository.buscarPokemons(filters);
+            
+            const dataConImagenes = result.data.map(pokemon => ({
+                ...pokemon,
+                imagenUrl: `${BASE_URL}/pokemon/${pokemon.id_pokemon}.png`
             }));
 
             return {
-                success: true,
                 data: dataConImagenes,
                 meta: {
                     pagination: {
@@ -67,27 +63,17 @@ class EnciclopediaService {
         }
     }
 
-    async getPokemonById(id) {
+    async obtenerPokemonPorId(id) {
         try {
             const pokemonId = parseInt(id);
-            if (isNaN(pokemonId) || pokemonId < 1) {
-                throw new Error("VALIDATION_ERROR: ID de Pokémon inválido");
-            }
+            validar(isNaN(pokemonId) || pokemonId < 1, "ID de Pokémon inválido");
 
-            const pokemon = await enciclopediaRepository.findPokemonById(pokemonId);
+            const pokemon = await enciclopediaRepository.buscarPokemonPorId(pokemonId);
+            validar(!pokemon, "NOT_FOUND_ERROR: Pokémon no encontrado");
+            
+            pokemon.imagenUrl = `${BASE_URL}/pokemon/${pokemon.id_pokemon}.png`;
 
-
-            if (!pokemon) {
-                throw new Error("NOT_FOUND_ERROR: Pokémon no encontrado");
-            }
-            pokemon.imagenUrl = `http://${URL.BASE_URL}/pokemon/${pokemon.id}.png`;
-
-
-
-            return {
-                success: true,
-                data: pokemon
-            };
+            return { data: pokemon };
 
         } catch (error) {
             console.error(`[EnciclopediaService Error]: ${error.message}`);
@@ -95,51 +81,36 @@ class EnciclopediaService {
         }
     }
 
-    async getPokemonMoves(pokemonId, level, method, type, category, min_power, max_power) {
+    async obtenerMovimientosDePokemon(pokemonId, queryParams) {
         try {
             const id = parseInt(pokemonId);
-            if (isNaN(id) || id < 1) {
-                throw new Error("VALIDATION_ERROR: ID de Pokémon inválido");
-            }
+            validar(isNaN(id) || id < 1, "ID de Pokémon inválido");
+
+            const { level, method, type, category, min_power, max_power } = queryParams;
 
             const parsedLevel = level ? parseInt(level) : null;
-            if (parsedLevel && (parsedLevel < 1 || parsedLevel > 100)) {
-                throw new Error("VALIDATION_ERROR: El nivel debe estar entre 1 y 100");
-            }
+            if (parsedLevel) validar(parsedLevel < 1 || parsedLevel > 100, "El nivel debe estar entre 1 y 100");
+            if (method) validar(!METODOS_APRENDIZAJE_VALIDOS.includes(method.toLowerCase()), `Método de aprendizaje '${method}' no válido`);
+            if (type) validar(!TIPOS_VALIDOS.includes(type.toLowerCase()), `Tipo '${type}' no válido`);
+            if (category) validar(!CATEGORIAS_VALIDAS.includes(category.toLowerCase()), `Categoría '${category}' no válida`);
+            
+            const filters = {
+                level: parsedLevel,
+                method: method ? method.toLowerCase() : null,
+                type: type ? type.toLowerCase() : null,
+                category: category ? category.toLowerCase() : null,
+                min_power: min_power ? parseInt(min_power) : null,
+                max_power: max_power ? parseInt(max_power) : null
+            };
 
-            if (method) {
-                const metodosValidos = ['level-up', 'tm', 'hm', 'egg', 'tutor'];
-                if (!metodosValidos.includes(method.toLowerCase())) {
-                    throw new Error(`VALIDATION_ERROR: Método de aprendizaje '${method}' no válido`);
-                }
-            }
-
-            if (category) {
-                const categoriasValidas = ['physical', 'special', 'status'];
-                if (!categoriasValidas.includes(category.toLowerCase())) {
-                    throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
-                }
-            }
-
-            const moves = await enciclopediaRepository.findMovesByPokemonId(
-                id,
-                parsedLevel,
-                method ? method.toLowerCase() : null,
-                type ? type.toLowerCase() : null,
-                category ? category.toLowerCase() : null,
-                min_power ? parseInt(min_power) : null,
-                max_power ? parseInt(max_power) : null
-            );
+            const moves = await enciclopediaRepository.buscarMovimientosDePokemon(id, filters);
 
             if (moves.length === 0) {
-                const pokemonExists = await enciclopediaRepository.findPokemonById(id);
-                if (!pokemonExists) {
-                    throw new Error("NOT_FOUND_ERROR: Pokémon no encontrado");
-                }
+                const pokemonExists = await enciclopediaRepository.buscarPokemonPorId(id);
+                validar(!pokemonExists, "NOT_FOUND_ERROR: Pokémon no encontrado");
             }
 
             return {
-                success: true,
                 data: moves,
                 meta: {
                     count: moves.length,
@@ -153,57 +124,42 @@ class EnciclopediaService {
         }
     }
 
-    async getMovesList(type, category, min_power, max_power, min_accuracy, max_accuracy, search, limit, page) {
+    async listarMovimientos(queryParams) {
         try {
-            const parsedLimit = limit ? parseInt(limit) : 50;
-            const parsedPage = page ? parseInt(page) : 1;
-            const parsedMinPower = min_power ? parseInt(min_power) : null;
-            const parsedMaxPower = max_power ? parseInt(max_power) : null;
-            const parsedMinAccuracy = min_accuracy ? parseInt(min_accuracy) : null;
-            const parsedMaxAccuracy = max_accuracy ? parseInt(max_accuracy) : null;
+            const { type, category, min_power, max_power, min_accuracy, max_accuracy, search, limit = 50, page = 1 } = queryParams;
 
-            if (parsedLimit < 1 || parsedLimit > 100) {
-                throw new Error("VALIDATION_ERROR: El límite debe estar entre 1 y 100");
-            }
+            const parsedLimit = parseInt(limit);
+            const parsedPage = parseInt(page);
+            
+            validar(parsedLimit < 1 || parsedLimit > 100, "El límite debe estar entre 1 y 100");
+            validar(parsedPage < 1, "La página debe ser mayor a 0");
+            if (category) validar(!CATEGORIAS_VALIDAS.includes(category.toLowerCase()), `Categoría '${category}' no válida`);
+            if (min_accuracy) validar(parseInt(min_accuracy) < 0 || parseInt(min_accuracy) > 100, "La precisión mínima debe estar entre 0 y 100");
+            if (max_accuracy) validar(parseInt(max_accuracy) < 0 || parseInt(max_accuracy) > 100, "La precisión máxima debe estar entre 0 y 100");
 
-            if (parsedPage < 1) {
-                throw new Error("VALIDATION_ERROR: La página debe ser mayor a 0");
-            }
-
-            const offset = (parsedPage - 1) * parsedLimit;
-
-            if (category) {
-                const categoriasValidas = ['physical', 'special', 'status'];
-                if (!categoriasValidas.includes(category.toLowerCase())) {
-                    throw new Error(`VALIDATION_ERROR: Categoría '${category}' no válida`);
-                }
-            }
-
-            if (parsedMinAccuracy && (parsedMinAccuracy < 0 || parsedMinAccuracy > 100)) {
-                throw new Error("VALIDATION_ERROR: La precisión mínima debe estar entre 0 y 100");
-            }
-
-            if (parsedMaxAccuracy && (parsedMaxAccuracy < 0 || parsedMaxAccuracy > 100)) {
-                throw new Error("VALIDATION_ERROR: La precisión máxima debe estar entre 0 y 100");
-            }
-
-            const result = await enciclopediaRepository.findAllMoves(
-                type ? type.toLowerCase() : null,
-                category ? category.toLowerCase() : null,
-                parsedMinPower,
-                parsedMaxPower,
-                parsedMinAccuracy,
-                parsedMaxAccuracy,
+            const filters = {
+                type: type ? type.toLowerCase() : null,
+                category: category ? category.toLowerCase() : null,
+                min_power: min_power ? parseInt(min_power) : null,
+                max_power: max_power ? parseInt(max_power) : null,
+                min_accuracy: min_accuracy ? parseInt(min_accuracy) : null,
+                max_accuracy: max_accuracy ? parseInt(max_accuracy) : null,
                 search,
-                parsedLimit,
-                offset
-            );
+                limit: parsedLimit,
+                offset: (parsedPage - 1) * parsedLimit
+            };
+
+            const result = await enciclopediaRepository.buscarMovimientos(filters);
 
             return {
-                success: true,
                 data: result.data,
                 meta: {
-                    pagination: result.pagination
+                    pagination: {
+                        total: result.total,
+                        page: parsedPage,
+                        limit: parsedLimit,
+                        totalPages: Math.ceil(result.total / parsedLimit)
+                    }
                 }
             };
 
@@ -213,50 +169,46 @@ class EnciclopediaService {
         }
     }
 
-    async getNaturesList() {
+    async listarNaturalezas() {
         try {
-            const natures = await enciclopediaRepository.findAllNatures();
-
+            const natures = await enciclopediaRepository.buscarNaturalezas();
             return {
-                success: true,
                 data: natures,
-                meta: {
-                    count: natures.length
-                }
+                meta: { count: natures.length }
             };
-
         } catch (error) {
             console.error(`[EnciclopediaService Error]: ${error.message}`);
             throw error;
         }
     }
 
-    async getAbilitiesList(search, limit, page) {
+    async listarHabilidades(queryParams) {
         try {
-            const parsedLimit = limit ? parseInt(limit) : 100;
-            const parsedPage = page ? parseInt(page) : 1;
+            const { search, limit = 100, page = 1 } = queryParams;
 
-            if (parsedLimit < 1 || parsedLimit > 200) {
-                throw new Error("VALIDATION_ERROR: El límite debe estar entre 1 y 200");
-            }
+            const parsedLimit = parseInt(limit);
+            const parsedPage = parseInt(page);
 
-            if (parsedPage < 1) {
-                throw new Error("VALIDATION_ERROR: La página debe ser mayor a 0");
-            }
+            validar(parsedLimit < 1 || parsedLimit > 200, "El límite debe estar entre 1 y 200");
+            validar(parsedPage < 1, "La página debe ser mayor a 0");
 
-            const offset = (parsedPage - 1) * parsedLimit;
-
-            const result = await enciclopediaRepository.findAllAbilities(
+            const filters = {
                 search,
-                parsedLimit,
-                offset
-            );
+                limit: parsedLimit,
+                offset: (parsedPage - 1) * parsedLimit
+            };
+            
+            const result = await enciclopediaRepository.buscarHabilidades(filters);
 
             return {
-                success: true,
                 data: result.data,
                 meta: {
-                    pagination: result.pagination
+                    pagination: {
+                        total: result.total,
+                        page: parsedPage,
+                        limit: parsedLimit,
+                        totalPages: Math.ceil(result.total / parsedLimit)
+                    }
                 }
             };
 

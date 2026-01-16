@@ -14,7 +14,7 @@ export function LoginScreen({ navigation }) {
   const submit = () => {
     login(nombre, contrasenia)
       .then(() => {
-        // CORRECCIÓN: Quitamos el '?.' y usamos replace directo o reset.
+        // CORRECCION: Quitamos el '?.' y usamos replace directo o reset.
         // Replace es más limpio aquí para ir al Drawer.
         navigation.replace('MainDrawer');
       })

@@ -1,19 +1,20 @@
 const styles = {
-
-
+// https://lenguajecss.com/css/posicionamiento/position-absolute/
+// https://lenguajecss.com/css/posicionamiento/position-absolute/ absolute toma del padre, el padre debe ser position relative
+//react antive por defecto es flexbox y column direction 
     layout: {
-        screen: "flex-1 bg-background font-pixel p-4",
+        screen: "flex-1 bg-background p-4",
         centerAll: "flex-1 bg-background justify-center items-center p-4",
-        
+
         row: "flex-row flex-wrap items-center",
-        spaceBetween: "flex-row justify-between items-center w-full", 
-        
+        spaceBetween: "flex-row justify-between items-center w-full",
+
         col100: "w-full p-2",       // 1 bloque (100%)
-        col75:  "w-3/4 p-2",        // 3 bloques (75%)
-        col66:  "w-2/3 p-2",        // 2 tercios (66.6%)
-        col50:  "w-1/2 p-2",        // Mitad (50%)
-        col33:  "w-1/3 p-2",        // 1 tercio (33.3%)
-        col25:  "w-1/4 p-2",        // 1 cuarto (25%)
+        col75: "w-3/4 p-2",        // 3 bloques (75%)
+        col66: "w-2/3 p-2",        // 2 tercios (66.6%)
+        col50: "w-1/2 p-2",        // Mitad (50%)
+        col33: "w-1/3 p-2",        // 1 tercio (33.3%)
+        col25: "w-1/4 p-2",        // 1 cuarto (25%)
     },
 
     ui: {
@@ -24,11 +25,11 @@ const styles = {
         // Formularios
         input: "w-full border-gray-300 rounded-lg px-4 py-3 mb-4 font-pixel bg-white border",
         label: "text-gray-700 font-pixel mb-1 ml-1 text-sm",
-        
+
         // Botones
         btnPrimary: "bg-secondary w-full py-3 rounded-lg items-center shadow-md active:opacity-80",
         btnText: "text-white font-pixel text-lg text-center",
-        
+
         // Feedback
         error: "text-error text-sm font-pixel text-center mb-4",
     },
@@ -54,14 +55,14 @@ const styles = {
         container: "w-11/12 h-5/6 rounded-2xl shadow-lg p-5",
         closeButton: "absolute top-4 right-4 bg-black/30 rounded-full w-8 h-8 justify-center items-center z-10",
         closeButtonText: "text-white font-bold text-base",
-        
+
         header: "flex-row justify-between items-start",
         pokemonName: "text-white text-3xl font-bold capitalize font-pixel flex-1", // flex-1 para que el texto se ajuste
         pokemonId: "text-white/80 text-2xl font-bold font-pixel ml-2",
-        
+
         imageBg: "self-center h-48 w-48 bg-white/20 rounded-full justify-center items-center my-2",
         image: "h-40 w-40",
-        
+
         detailsContainer: "bg-white/15 rounded-xl p-4 mt-4",
         sectionTitle: "text-white text-xl font-pixel mb-3 pb-2 border-b border-white/20",
 
@@ -70,20 +71,37 @@ const styles = {
         statValue: "w-1/6 text-white font-pixel font-bold text-base",
         statBarContainer: "flex-1 h-3 bg-black/30 rounded-full",
         statBar: "h-full rounded-full border border-white/50",
-        
+
         abilityContainer: "mb-3",
         abilityName: "text-white font-pixel text-base capitalize mb-1",
         abilityDescription: "text-white/80 text-sm italic",
     },
 
- 
+
     login: { container: "flex-1 bg-background p-4 justify-center items-center" },
     register: { container: "flex-1 bg-background p-4 justify-center items-center" },
     app: { container: "flex-1 bg-background font-pixel", title: "text-primary text-3xl font-pixel text-center my-4" },
 
     team: {
-        itemContainer: "bg-white p-4 rounded-lg shadow-md mb-3"
-,    }
+        btnTeam: "bg-secondary w-full items-center p-5 rounded-lg", 
+        cardTeam: "w-full p-6 bg-primary rounded-xl mb-2"
+    },
+
+    teamBuilder:{
+        slotContainer : "flex-row flex-wrap justify-centener mb-5",
+        slot: "w-24 h-24 rounded-lg bg-white/10 justify-center items-center m-1 border-2 border-dashed border-white/20",
+        slotPokemonImage: "w-20 h-20",
+        slotPokemonName: "text-white text-xs font-pixel text-center absolute bottom-1",
+
+        teamListContainer: "mt-5",
+        teamCard: "bg-white/10 p-4 rounded-lg mb-3",
+        teamCardHeader: "flex-row justify-between items-center",
+        teamCardName: "text-white front-pixel text-lg",
+        teamCardDate: "text-white/70 text-sm mt-1",
+        teamCardPokemons: "flex-row mt-3",
+        teamCardPokemonImage: "w-10 h-10 rounded-full bg-black/20 mr-2 border-2 border-white/20", 
+
+    },
 };
 
 module.exports = styles;

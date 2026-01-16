@@ -10,14 +10,10 @@ post {
   auth: inherit
 }
 
-headers {
-  : 
-}
-
 body:json {
   {
-    "nombre_usuario": "usuario",
-    "contrasenia": "usuarion"
+    "nombre_usuario": "admin123",
+    "contrasenia": "admin123"
   }
   
 }
@@ -25,4 +21,134 @@ body:json {
 settings {
   encodeUrl: true
   timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: http://192.168.1.59:3000/api/auth/login
+    method: POST
+    mode: json
+    headers: {
+      : 
+    }
+  
+    body:json: {
+      {
+        "nombre_usuario": "AshKetchum",
+        "contrasenia": "pikachu123"
+      }
+            
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 323
+      etag: W/"143-QKj8M+5gAHePsy4u87AoLL1cpxc"
+      date: Wed, 14 Jan 2026 01:28:11 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmVfdXN1YXJpbyI6IkFzaEtldGNodW0iLCJpYXQiOjE3NjgzNTQwOTEsImV4cCI6MTc2ODM2MTI5MX0.9cdxSDGC0sib5Y7yDWVMHkEJ_mlo6mxj2uCa2eKlLxc",
+          "message": "Login exitoso",
+          "data": {
+            "id_usuario": 1,
+            "nombre_usuario": "AshKetchum",
+            "email": "ash@kanto.com"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example-final
+  
+  request: {
+    url: http://192.168.1.59:3000/api/auth/login
+    method: POST
+    mode: json
+    headers: {
+      : 
+    }
+  
+    body:json: {
+      {
+        "nombre_usuario": "admin123",
+        "contrasenia": "admin123"
+      }
+        
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 322
+      etag: W/"142-IkiKU+QKfU+nZY9BhHIsuOh3KEA"
+      date: Thu, 15 Jan 2026 07:55:41 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJub21icmVfdXN1YXJpbyI6ImFkbWluMTIzIiwiaWF0IjoxNzY4NDYzNzQxLCJleHAiOjE3Njg0NzA5NDF9.fcaQebEZGI6lVUZ6r5OT-Cy_jxpOq3VbXDKZsZ6i048",
+          "message": "Login exitoso",
+          "data": {
+            "id_usuario": 3,
+            "nombre_usuario": "admin123",
+            "email": "admin@example.com"
+          }
+        }
+      '''
+    }
+  }
 }

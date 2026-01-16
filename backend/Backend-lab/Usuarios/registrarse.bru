@@ -12,11 +12,10 @@ post {
 
 body:json {
   {
-    "nombre_usuario": "user1",
-    "email": "usuario@1test.com",
-    "contrasenia": "Usuario1"
+    "nombre_usuario": "admin123",
+    "email": "admin@example.com",
+    "contrasenia": "admin123"
   }
-  
 }
 
 settings {
@@ -25,7 +24,7 @@ settings {
 }
 
 example {
-  name: example
+  name: example (1)
   
   request: {
     url: http://localhost:3000/api/auth/register
@@ -33,11 +32,10 @@ example {
     mode: json
     body:json: {
       {
-        "nombre_usuario": "user",
-        "email": "usuario@test.com",
-        "contrasenia": "Usuario1"
+        "nombre_usuario": "AshKetchum",
+        "email": "ash@kanto.com",
+        "contrasenia": "pikachu123"
       }
-        
     }
   }
   
@@ -56,9 +54,71 @@ example {
       x-xss-protection: 0
       access-control-allow-origin: *
       content-type: application/json; charset=utf-8
-      content-length: 252
-      etag: W/"fc-V2yc2mP3/Rat6X5S4wGQfH5t74M"
-      date: Sat, 03 Jan 2026 19:25:03 GMT
+      content-length: 255
+      etag: W/"ff-u5w/uLQ090WznJwpqVlA34X23OI"
+      date: Tue, 13 Jan 2026 22:48:37 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": "Usuario creado exitosamente",
+          "data": {
+            "id_usuario": 1,
+            "nombre_usuario": "AshKetchum",
+            "email": "ash@kanto.com",
+            "fecha_creacion": "2026-01-13T22:48:37.251Z",
+            "contrasenia": "$2b$10$61Q.HGs9tXFACYRVawM8/.Jkr2bSB0Ycc4FeaMXbtjNYVc3zp2BKe"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example (2)
+  
+  request: {
+    url: http://localhost:3000/api/auth/register
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "nombre_usuario": "CynthiaSinnoh",
+        "email": "cynthia@campeona.com",
+        "contrasenia": "garchompQueen"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 265
+      etag: W/"109-9TqeQxpAys3Wr5tkgzcCLFrYzEA"
+      date: Tue, 13 Jan 2026 22:49:15 GMT
       connection: keep-alive
       keep-alive: timeout=5
     }
@@ -76,10 +136,71 @@ example {
           "message": "Usuario creado exitosamente",
           "data": {
             "id_usuario": 2,
-            "nombre_usuario": "user",
-            "email": "usuario@test.com",
-            "fecha_creacion": "2026-01-03T19:25:03.771Z",
-            "contrasenia": "$2b$10$MNLtqxB0bdmEQAwE2dDLROBvxNFGecZ6/Sp/lstRHC1GOdRGytD5q"
+            "nombre_usuario": "CynthiaSinnoh",
+            "email": "cynthia@campeona.com",
+            "fecha_creacion": "2026-01-13T22:49:15.793Z",
+            "contrasenia": "$2b$10$I/wMSQ8BhwaGxrSTe5pVR.gnEhjbyUkuert40us4gNlySQKGvKQKy"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example-final
+  
+  request: {
+    url: http://localhost:3000/api/auth/register
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "nombre_usuario": "admin123",
+        "email": "admin@example.com",
+        "contrasenia": "admin123"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 184
+      etag: W/"b8-povyvepw0oCIEZ3mSCFss3+Pmj4"
+      date: Thu, 15 Jan 2026 07:52:49 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "message": "Usuario creado exitosamente",
+          "data": {
+            "id_usuario": 3,
+            "nombre_usuario": "admin123",
+            "email": "admin@example.com",
+            "fecha_creacion": "2026-01-15T07:52:49.100Z"
           }
         }
       '''

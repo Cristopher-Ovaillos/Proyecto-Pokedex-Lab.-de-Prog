@@ -47,15 +47,16 @@ export const PokemonDetailModal = ({ visible, onClose, pokemonId }) => {
                 const response = await api.get(ENDPOINTS.ENCICLOPEDIA.POKEMON_DETAIL(pokemonId));
                 setPokemon(response.data);
             } catch (err) {
-                setError("No se pudo cargar la información.");
+                setError("No se pudo cargar la info.");
             } finally {
                 setLoading(false);
             }
         };
         fetchPokemonDetail();
-    }, [pokemonId]);
+    }, [pokemonId]); //depende, de la id...es decir cambia segun el pokemon que seleccionemos lo cual activa esto
+    
 
-    const primaryType = pokemon?.tipos?.[0];
+    const primaryType = pokemon?.tipo_1; // usar el simbolo ? para no tener problema de null
     const backgroundColor = getTypeColor(primaryType);
 
     return (
@@ -80,7 +81,7 @@ export const PokemonDetailModal = ({ visible, onClose, pokemonId }) => {
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View className={styles.modal.header}>
                                 <Text className={styles.modal.pokemonName}>{pokemon.nombre}</Text>
-                                <Text className={styles.modal.pokemonId}>#{String(pokemon.id).padStart(3, '0')}</Text>
+                                <Text className={styles.modal.pokemonId}>#{String(pokemon.id_pokemon).padStart(3, '0')}</Text>
                             </View>
 
                             <View className={styles.modal.imageBg}>
@@ -88,8 +89,8 @@ export const PokemonDetailModal = ({ visible, onClose, pokemonId }) => {
                             </View>
 
                             <View className="flex-row justify-center my-4">
-                                {pokemon.tipos?.map(tipo => (
-                                    <View key={tipo} className={`${styles.card.typePill} mx-1`}>
+                                {[pokemon.tipo_1, pokemon.tipo_2].filter(Boolean).map((tipo,index) => (
+                                    <View key={index} className={`${styles.card.typePill} mx-1`}>
                                         <Text className={`${styles.drawer.text} capitalize`}>{tipo}</Text>
                                     </View>
                                 ))}

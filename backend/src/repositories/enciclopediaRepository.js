@@ -40,50 +40,53 @@ convecion nombres:
 
 class EnciclopediaRepository {
     
-    async findAll(limit, offset, type, search, min_hp, max_hp, sort, order) {
+    async buscarPokemons(filters) {
         return new Promise((resolve, reject) => {
-            let query = "SELECT * FROM pokemon WHERE 1=1";
+            let query = `
+                SELECT id_pokemon, nombre, tipo_1, tipo_2, hp_base, ataque_base, defensa_base, 
+                       ataque_especial_base, defensa_especial_base, velocidad_base 
+                FROM pokemon 
+                WHERE 1=1
+            `;
             let countQuery = "SELECT COUNT(*) as total FROM pokemon WHERE 1=1";
             const params = [];
             const countParams = [];
 
-            if (type) {
+            const addCondition = (clause, value) => {
+                query += ` AND ${clause}`;
+                countQuery += ` AND ${clause}`;
+                params.push(value);
+                countParams.push(value);
+            };
+
+            if (filters.type) {
                 query += " AND (tipo_1 = ? OR tipo_2 = ?)";
                 countQuery += " AND (tipo_1 = ? OR tipo_2 = ?)";
-                params.push(type, type);
-                countParams.push(type, type);
+                params.push(filters.type, filters.type);
+                countParams.push(filters.type, filters.type);
             }
             
-            if (search) {
-                query += " AND nombre LIKE ?";
-                countQuery += " AND nombre LIKE ?";
-                params.push(`%${search}%`);
-                countParams.push(`%${search}%`);
+            if (filters.search) {
+                addCondition("nombre LIKE ?", `${filters.search}%`);
             }
 
-            if (min_hp) {
-                query += " AND hp_base >= ?";
-                countQuery += " AND hp_base >= ?";
-                params.push(min_hp);
-                countParams.push(min_hp);
-            }
+            const stats = ['hp', 'ataque', 'defensa', 'ataque_especial', 'defensa_especial', 'velocidad'];
+            stats.forEach(stat => {
+                if (filters[`min_${stat}`]) {
+                    addCondition(`${stat}_base >= ?`, filters[`min_${stat}`]);
+                }
+                if (filters[`max_${stat}`]) {
+                    addCondition(`${stat}_base <= ?`, filters[`max_${stat}`]);
+                }
+            });
 
-            if (max_hp) {
-                query += " AND hp_base <= ?";
-                countQuery += " AND hp_base <= ?";
-                params.push(max_hp);
-                countParams.push(max_hp);
-            }
-
-            const validSortColumns = ['id_pokemon', 'nombre', 'hp_base', 'ataque_base', 'defensa_base', 'velocidad_base'];
-            const sortColumn = validSortColumns.includes(sort) ? sort : 'id_pokemon';
-            const sortOrder = order === 'desc' ? 'DESC' : 'ASC';
+            const validSortColumns = ['id_pokemon', 'nombre', 'hp_base', 'ataque_base', 'defensa_base', 'ataque_especial_base', 'defensa_especial_base', 'velocidad_base'];
+            const sortColumn = validSortColumns.includes(filters.sort) ? filters.sort : 'id_pokemon';
+            const sortOrder = filters.order === 'desc' ? 'DESC' : 'ASC';
             query += ` ORDER BY ${sortColumn} ${sortOrder}`;
 
             query += " LIMIT ? OFFSET ?";
-            params.push(limit, offset);
-
-            
+            params.push(filters.limit, filters.offset);
 
             db.get(countQuery, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
@@ -99,7 +102,7 @@ class EnciclopediaRepository {
         });
     }
 
-    async findPokemonById(id) {
+    async buscarPokemonPorId(id) {
         const sqlPokemon = "SELECT * FROM pokemon WHERE id_pokemon = ? LIMIT 1";
         const sqlHabilidades = `
             SELECT h.nombre, h.descripcion, ppth.habilidad_oculta 
@@ -119,9 +122,11 @@ class EnciclopediaRepository {
             });
 
             return {
-                id: row.id_pokemon,
+                id_pokemon: row.id_pokemon,
                 nombre: row.nombre,
-                tipos: [row.tipo_1, row.tipo_2].filter(t => t !== null && t !== undefined),
+                tipo_1: row.tipo_1,
+                tipo_2: row.tipo_2,
+              
                 estadisticas: {
                     hp_base: row.hp_base,
                     ataque_base: row.ataque_base,
@@ -137,25 +142,17 @@ class EnciclopediaRepository {
                 }))
             };
         } catch (error) {
-            console.error("Error en findPokemonById:", error);
+            console.error("Error en buscarPokemonPorId:", error);
             throw error;
         }
     }
 
-    async findMovesByPokemonId(id_pokemon, level, method, type, category, min_power, max_power) {
+    async buscarMovimientosDePokemon(id_pokemon, filters) {
         return new Promise((resolve, reject) => {
             let sql = `
                 SELECT 
-                    m.id_movimiento, 
-                    m.nombre, 
-                    m.tipo, 
-                    m.categoria, 
-                    m.poder, 
-                    m.pp, 
-                    m.precision, 
-                    m.descripcion,
-                    pam.nivel, 
-                    pam.metodo_aprendizaje 
+                    m.id_movimiento, m.nombre, m.tipo, m.categoria, m.poder, 
+                    m.pp, m.precision, m.descripcion, pam.nivel, pam.metodo_aprendizaje 
                 FROM movimiento AS m 
                 JOIN pokemon_aprende_movimiento AS pam ON m.id_movimiento = pam.id_movimiento 
                 WHERE pam.id_pokemon = ?
@@ -163,34 +160,29 @@ class EnciclopediaRepository {
             
             const params = [id_pokemon];
             
-            if (level) {
+            if (filters.level) {
                 sql += " AND pam.nivel <= ?";
-                params.push(level);
+                params.push(filters.level);
             }
-            
-            if (method) {
+            if (filters.method) {
                 sql += " AND pam.metodo_aprendizaje = ?";
-                params.push(method);
+                params.push(filters.method);
             }
-            
-            if (type) {
+            if (filters.type) {
                 sql += " AND m.tipo = ?";
-                params.push(type);
+                params.push(filters.type);
             }
-            
-            if (category) {
+            if (filters.category) {
                 sql += " AND m.categoria = ?";
-                params.push(category);
+                params.push(filters.category);
             }
-            
-            if (min_power) {
+            if (filters.min_power) {
                 sql += " AND m.poder >= ?";
-                params.push(min_power);
+                params.push(filters.min_power);
             }
-            
-            if (max_power) {
+            if (filters.max_power) {
                 sql += " AND m.poder <= ?";
-                params.push(max_power);
+                params.push(filters.max_power);
             }
             
             sql += " ORDER BY pam.nivel ASC, m.nombre ASC";
@@ -202,64 +194,30 @@ class EnciclopediaRepository {
         });
     }
 
-    async findAllMoves(type, category, min_power, max_power, min_accuracy, max_accuracy, search, limit, offset) {
+    async buscarMovimientos(filters) {
         return new Promise((resolve, reject) => {
             let sql = "SELECT * FROM movimiento WHERE 1=1";
             let countSql = "SELECT COUNT(*) as total FROM movimiento WHERE 1=1";
             const params = [];
             const countParams = [];
 
-            if (type) {
-                sql += " AND tipo= ?";
-                countSql += " AND tipo = ?";
-                params.push(type);
-                countParams.push(type);
-            }
-            
-            if (category) {
-                sql += " AND categoria = ?";
-                countSql += " AND categoria = ?";
-                params.push(category);
-                countParams.push(category);
-            }
-            
-            if (search) {
-                sql += " AND nombre LIKE ?";
-                countSql += " AND nombre LIKE ?";
-                params.push(`%${search}%`);
-                countParams.push(`%${search}%`);
-            }
-            
-            if (min_power) {
-                sql += " AND poder >= ?";
-                countSql += " AND poder >= ?";
-                params.push(min_power);
-                countParams.push(min_power);
-            }
-            
-            if (max_power) {
-                sql += " AND poder <= ?";
-                countSql += " AND poder <= ?";
-                params.push(max_power);
-                countParams.push(max_power);
-            }
-            
-            if (min_accuracy) {
-                sql += " AND precision >= ?";
-                countSql += " AND precision >= ?";
-                params.push(min_accuracy);
-                countParams.push(min_accuracy);
-            }
-            
-            if (max_accuracy) {
-                sql += " AND precision <= ?";
-                countSql += " AND precision <= ?";
-                params.push(max_accuracy);
-                countParams.push(max_accuracy);
-            }
+            const addCondition = (clause, value) => {
+                sql += ` AND ${clause}`;
+                countSql += ` AND ${clause}`;
+                params.push(value);
+                countParams.push(value);
+            };
+
+            if (filters.type) addCondition("tipo = ?", filters.type);
+            if (filters.category) addCondition("categoria = ?", filters.category);
+            if (filters.search) addCondition("nombre LIKE ?", `${filters.search}%`);
+            if (filters.min_power) addCondition("poder >= ?", filters.min_power);
+            if (filters.max_power) addCondition("poder <= ?", filters.max_power);
+            if (filters.min_accuracy) addCondition("precision >= ?", filters.min_accuracy);
+            if (filters.max_accuracy) addCondition("precision <= ?", filters.max_accuracy);
 
             sql += " LIMIT ? OFFSET ?";
-            params.push(limit, offset);
+            params.push(filters.limit, filters.offset);
 
             db.get(countSql, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
@@ -267,24 +225,16 @@ class EnciclopediaRepository {
                 db.all(sql, params, (err, rows) => {
                     if (err) return reject(err);
                     
-                    const total = countRow.total;
-                    const page = Math.floor(offset / limit) + 1;
-                    
                     resolve({
                         data: rows,
-                        pagination: {
-                            total: total,
-                            page: page,
-                            limit: limit,
-                            totalPages: Math.ceil(total / limit)
-                        }
+                        total: countRow.total,
                     });
                 });
             });
         });
     }
 
-    async findAllNatures() {
+    async buscarNaturalezas() {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM naturaleza ORDER BY id_naturaleza";
             db.all(sql, [], (err, rows) => {
@@ -294,22 +244,22 @@ class EnciclopediaRepository {
         });
     }
 
-    async findAllAbilities(search, limit, offset) {
+    async buscarHabilidades(filters) {
         return new Promise((resolve, reject) => {
             let sql = "SELECT * FROM habilidades WHERE 1=1";
             let countSql = "SELECT COUNT(*) as total FROM habilidades WHERE 1=1";
             const params = [];
             const countParams = [];
 
-            if (search) {
+            if (filters.search) {
                 sql += " AND nombre LIKE ?";
                 countSql += " AND nombre LIKE ?";
-                params.push(`%${search}%`);
-                countParams.push(`%${search}%`);
+                params.push(`%${filters.search}%`);
+                countParams.push(`%${filters.search}%`);
             }
 
             sql += " LIMIT ? OFFSET ?";
-            params.push(limit, offset);
+            params.push(filters.limit, filters.offset);
 
             db.get(countSql, countParams, (errCount, countRow) => {
                 if (errCount) return reject(errCount);
@@ -317,17 +267,9 @@ class EnciclopediaRepository {
                 db.all(sql, params, (err, rows) => {
                     if (err) return reject(err);
                     
-                    const total = countRow.total;
-                    const page = Math.floor(offset / limit) + 1;
-                    
                     resolve({
                         data: rows,
-                        pagination: {
-                            total: total,
-                            page: page,
-                            limit: limit,
-                            totalPages: Math.ceil(total / limit)
-                        }
+                        total: countRow.total
                     });
                 });
             });

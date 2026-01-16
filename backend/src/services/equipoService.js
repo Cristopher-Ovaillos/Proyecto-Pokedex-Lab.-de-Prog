@@ -1,230 +1,191 @@
-const equiposRepository = require('../repositories/equipoRepository');
+const equipoRepository = require('../repositories/equipoRepository');
 
-class EquiposService {
+function validar(condicion, mensaje) {
+    if (condicion) {
+        throw new Error(`VALIDATION_ERROR: ${mensaje}`);
+    }
+}
 
-    // lista equipos de un usuario especifico
-    async getEquiposByUsuario(idUsuarioUrl, usuarioLogueadoId) {
+async function verificarPermiso(equipoId, usuarioLogueadoId) {
+    const equipo = await equipoRepository.buscarPorId(equipoId);
+    validar(!equipo, "NOT_FOUND_ERROR: Equipo no encontrado");
+    validar(equipo.id_usuario !== usuarioLogueadoId, "FORBIDDEN_ERROR: No tienes permiso sobre este equipo");
+    return equipo;
+}
+
+async function verificarPermisoPokemon(equipoId, pokemonEquipoId, usuarioLogueadoId) {
+    const equipo = await verificarPermiso(equipoId, usuarioLogueadoId);
+    const pokemon = await equipoRepository.buscarPokemonEquipoPorId(pokemonEquipoId);
+    validar(!pokemon, "NOT_FOUND_ERROR: Pokémon no encontrado en el equipo");
+    validar(pokemon.id_equipo !== equipo.id_equipo, "FORBIDDEN_ERROR: El pokémon no pertenece al equipo especificado");
+    return { equipo, pokemon };
+}
+
+
+class EquipoService {
+
+    async listarPorUsuario(idUsuario, usuarioLogueadoId) {
         try {
-            // validar ids
-            const idUsuario = parseInt(idUsuarioUrl);
-            if (isNaN(idUsuario) || idUsuario < 1) {
-                throw new Error("VALIDATION_ERROR: id de usuario no valido");
-            }
+            const parsedId = parseInt(idUsuario);
+            validar(isNaN(parsedId) || parsedId < 1, "ID de usuario no válido");
+            validar(parsedId !== usuarioLogueadoId, "No puedes ver los equipos de otro usuario");
 
-            // cuando se implemente autenticacion, descomentar esto
-            // verificar que el usuario solo pueda ver sus propios equipos
-            // if (idUsuario !== usuarioLogueadoId) {
-            //     throw new Error("FORBIDDEN_ERROR: no puedes ver los equipos de otro usuario");
-            // }
-
-            const equipos = await equiposRepository.findEquiposByUsuarioId(idUsuario);
-
+            const equipos = await equipoRepository.buscarPorIdUsuario(parsedId);
             return {
-                success: true,
                 data: equipos,
-                meta: {
-                    count: equipos.length,
-                    usuario_id: idUsuario
-                }
+                meta: { count: equipos.length, usuario_id: parsedId }
             };
-
         } catch (error) {
-            console.error(`[EquiposService Error]: ${error.message}`);
+            console.error(`[EquipoService Error]: ${error.message}`);
             throw error;
         }
     }
 
-    // crea un nuevo equipo (solo cabecera)
-    async crearEquipo(equipoData) {
+    async crear(equipoData, usuarioLogueadoId) {
         try {
-            // validaciones basicas
-            if (!equipoData.nombre || equipoData.nombre.trim() === '') {
-                throw new Error("VALIDATION_ERROR: el nombre del equipo es requerido");
-            }
+            const { nombre, id_usuario } = equipoData;
+            validar(!nombre || nombre.trim() === '', "El nombre del equipo es requerido");
+            validar(!id_usuario, "ID de usuario es requerido");
+            
+            const parsedIdUsuario = parseInt(id_usuario);
+            validar(isNaN(parsedIdUsuario) || parsedIdUsuario < 1, "ID de usuario no válido");
+            validar(parsedIdUsuario !== usuarioLogueadoId, "No puedes crear equipos para otro usuario");
 
-            if (!equipoData.id_usuario) {
-                throw new Error("VALIDATION_ERROR: id de usuario requerido");
-            }
+            const usuarioExiste = await equipoRepository.verificarExistenciaUsuario(parsedIdUsuario);
+            validar(!usuarioExiste, "NOT_FOUND_ERROR: Usuario no encontrado");
 
-            const nombre = equipoData.nombre.trim();
-            const idUsuario = parseInt(equipoData.id_usuario);
-
-            if (isNaN(idUsuario) || idUsuario < 1) {
-                throw new Error("VALIDATION_ERROR: id de usuario no valido");
-            }
-
-            // verificar que el usuario existe (opcional)
-            const usuarioExiste = await equiposRepository.verificarUsuarioExiste(idUsuario);
-            if (!usuarioExiste) {
-                throw new Error("NOT_FOUND_ERROR: usuario no encontrado");
-            }
-
-            // crear equipo
-            const equipoId = await equiposRepository.createEquipo({
-                nombre: nombre,
-                id_usuario: idUsuario
-            });
-
+            const equipoId = await equipoRepository.crear({ nombre: nombre.trim(), id_usuario: parsedIdUsuario });
             return {
-                success: true,
-                data: {
-                    id_equipo: equipoId,
-                    nombre: nombre,
-                    id_usuario: idUsuario,
-                    mensaje: "equipo creado correctamente"
-                }
+                data: { id_equipo: equipoId, nombre: nombre.trim(), id_usuario: parsedIdUsuario }
             };
-
         } catch (error) {
-            console.error(`[EquiposService Error]: ${error.message}`);
+            console.error(`[EquipoService Error]: ${error.message}`);
             throw error;
         }
     }
 
-    // obtiene equipo con todos sus detalles
-    async getEquipoById(equipoId, usuarioLogueadoId) {
+    async obtenerPorId(equipoId, usuarioLogueadoId) {
         try {
             const id = parseInt(equipoId);
-            if (isNaN(id) || id < 1) {
-                throw new Error("VALIDATION_ERROR: id de equipo no valido");
-            }
+            validar(isNaN(id) || id < 1, "ID de equipo no válido");
 
-            // obtener cabecera del equipo
-            const equipo = await equiposRepository.findEquipoById(id);
-            if (!equipo) {
-                throw new Error("NOT_FOUND_ERROR: equipo no encontrado");
-            }
-
-            // cuando se mplementes autenticacion, descomentar
-            // verificar que el equipo pertenece al usuario logueado
-            // if (equipo.id_usuario !== usuarioLogueadoId) {
-            //     throw new Error("FORBIDDEN_ERROR: no tienes permiso para ver este equipo");
-            // }
-
-            // obtener pokemons del equipo con sus detalles
-            const pokemons = await equiposRepository.findPokemonsByEquipoId(id);
+            const equipo = await verificarPermiso(id, usuarioLogueadoId);
+            const pokemons = await equipoRepository.buscarPokemonsPorId(id);
 
             return {
-                success: true,
-                data: {
-                    equipo: equipo,
-                    pokemons: pokemons,
-                    total_pokemons: pokemons.length
-                }
+                data: { equipo, pokemons, total_pokemons: pokemons.length }
             };
-
         } catch (error) {
-            console.error(`[EquiposService Error]: ${error.message}`);
+            console.error(`[EquipoService Error]: ${error.message}`);
             throw error;
         }
     }
 
-    // actualiza equipo (nombre y/o integrantes)
-    async actualizarEquipo(equipoId, datosActualizacion, usuarioLogueadoId) {
+    async actualizar(equipoId, datos, usuarioLogueadoId) {
         try {
             const id = parseInt(equipoId);
-            if (isNaN(id) || id < 1) {
-                throw new Error("VALIDATION_ERROR: id de equipo no valido");
-            }
+            validar(isNaN(id) || id < 1, "ID de equipo no válido");
+            await verificarPermiso(id, usuarioLogueadoId);
 
-            // verificar que el equipo existe
-            const equipo = await equiposRepository.findEquipoById(id);
-            if (!equipo) {
-                throw new Error("NOT_FOUND_ERROR: equipo no encontrado");
-            }
+            const { nombre, integrantes } = datos;
+            validar(!nombre && !integrantes, "No hay datos para actualizar");
 
-            // cuando implementes autenticacion:
-            // if (equipo.id_usuario !== usuarioLogueadoId) {
-            //     throw new Error("FORBIDDEN_ERROR: no tienes permiso para editar este equipo");
-            // }
-
-            let cambios = {};
-
-            // si viene nombre, actualizarlo
-            if (datosActualizacion.nombre) {
-                const nombre = datosActualizacion.nombre.trim();
-                if (nombre === '') {
-                    throw new Error("VALIDATION_ERROR: el nombre no puede estar vacio");
+            if (integrantes && Array.isArray(integrantes)) {
+                for (const p of integrantes) {
+                    validar(!p.id_pokemon || !p.naturaleza_id || !p.habilidad_id, "Falta información requerida en uno de los integrantes");
+                    const pokemonExiste = await equipoRepository.verificarExistenciaPokemon(p.id_pokemon);
+                    validar(!pokemonExiste, `El Pokémon con ID ${p.id_pokemon} no existe`);
                 }
-                cambios.nombre = nombre;
+                const resultado = await equipoRepository.actualizarCompleto(id, nombre, integrantes);
+                return { data: { ...resultado, mensaje: "Equipo actualizado completamente" } };
             }
-
-            // si viene array de integrantes, reemplazar todo el equipo
-            if (datosActualizacion.integrantes && Array.isArray(datosActualizacion.integrantes)) {
-                // validar cada integrante
-                for (let i = 0; i < datosActualizacion.integrantes.length; i++) {
-                    const pokemon = datosActualizacion.integrantes[i];
-                    
-                    // validaciones basicas
-                    if (!pokemon.id_pokemon || !pokemon.naturaleza_id || !pokemon.habilidad_id) {
-                        throw new Error(`VALIDATION_ERROR: integrante ${i+1} falta informacion requerida`);
-                    }
-
-                    // validar que el pokemon existe
-                    const pokemonExiste = await equiposRepository.verificarPokemonExiste(pokemon.id_pokemon);
-                    if (!pokemonExiste) {
-                        throw new Error(`VALIDATION_ERROR: pokemon con id ${pokemon.id_pokemon} no existe`);
-                    }
-                }
-
-                // actualizar equipo (nombre si viene) y luego reemplazar pokemons
-                const resultado = await equiposRepository.updateEquipoCompleto(id, cambios, datosActualizacion.integrantes);
-                return {
-                    success: true,
-                    data: resultado
-                };
-            } else if (cambios.nombre) {
-                // solo actualizar nombre
-                const resultado = await equiposRepository.updateEquipo(id, cambios);
-                return {
-                    success: true,
-                    data: resultado
-                };
-            } else {
-                throw new Error("VALIDATION_ERROR: no hay datos para actualizar");
+            
+            if (nombre) {
+                validar(nombre.trim() === '', "El nombre no puede estar vacío");
+                await equipoRepository.actualizarNombre(id, nombre.trim());
+                return { data: { id_equipo: id, nombre: nombre.trim(), mensaje: "Nombre del equipo actualizado" } };
             }
-
         } catch (error) {
-            console.error(`[EquiposService Error]: ${error.message}`);
+            console.error(`[EquipoService Error]: ${error.message}`);
             throw error;
         }
     }
 
-    // elimina equipo y todas sus relaciones
-    async eliminarEquipo(equipoId, usuarioLogueadoId) {
+    async eliminar(equipoId, usuarioLogueadoId) {
         try {
             const id = parseInt(equipoId);
-            if (isNaN(id) || id < 1) {
-                throw new Error("VALIDATION_ERROR: id de equipo no valido");
-            }
+            validar(isNaN(id) || id < 1, "ID de equipo no válido");
+            await verificarPermiso(id, usuarioLogueadoId);
 
-            // verificar que el equipo existe
-            const equipo = await equiposRepository.findEquipoById(id);
-            if (!equipo) {
-                throw new Error("NOT_FOUND_ERROR: equipo no encontrado");
-            }
+            await equipoRepository.eliminar(id);
+            return { data: { mensaje: "Equipo eliminado correctamente", id_equipo: id } };
+        } catch (error) {
+            console.error(`[EquipoService Error]: ${error.message}`);
+            throw error;
+        }
+    }
 
-            // cuando se implemente autenticacion.
-            // if (equipo.id_usuario !== usuarioLogueadoId) {
-            //     throw new Error("FORBIDDEN_ERROR: no tienes permiso para eliminar este equipo");
-            // }
+    async actualizarPokemonDeEquipo(equipoId, pokemonEquipoId, datos, usuarioLogueadoId) {
+        try {
+            const idEquipo = parseInt(equipoId);
+            const idPokemonEquipo = parseInt(pokemonEquipoId);
+            validar(isNaN(idEquipo) || idEquipo < 1, "ID de equipo no válido");
+            validar(isNaN(idPokemonEquipo) || idPokemonEquipo < 1, "ID de Pokémon de equipo no válido");
 
-            // eliminar equipo (cascada eliminara los pokemons del equipo)
-            await equiposRepository.deleteEquipo(id);
+            await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
+            
+            const resultado = await equipoRepository.actualizarPokemon(idPokemonEquipo, datos);
+            return { data: { ...resultado, mensaje: "Pokémon del equipo actualizado" } };
+        } catch (error) {
+            console.error(`[EquipoService Error]: ${error.message}`);
+            throw error;
+        }
+    }
 
-            return {
-                success: true,
-                data: {
-                    mensaje: "equipo eliminado correctamente",
-                    equipo_id: id
-                }
-            };
+    async agregarMovimientoAEquipoPokemon(equipoId, pokemonEquipoId, idMovimiento, ranura, usuarioLogueadoId) {
+        try {
+            const idEquipo = parseInt(equipoId);
+            const idPokemonEquipo = parseInt(pokemonEquipoId);
+            const idMov = parseInt(idMovimiento);
+            const numRanura = parseInt(ranura);
+
+            validar(isNaN(idEquipo) || idEquipo < 1, "ID de equipo no válido");
+            validar(isNaN(idPokemonEquipo) || idPokemonEquipo < 1, "ID de Pokémon de equipo no válido");
+            validar(isNaN(idMov) || idMov < 1, "ID de movimiento no válido");
+            validar(isNaN(numRanura) || numRanura < 1 || numRanura > 4, "La ranura del movimiento debe ser entre 1 y 4");
+
+            await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
+
+            // TODO: Validar que el movimiento existe y que el pokémon puede aprenderlo
+            
+            const resultado = await equipoRepository.agregarMovimiento(idPokemonEquipo, idMov, numRanura);
+            return { data: { ...resultado, mensaje: `Movimiento en ranura ${numRanura} actualizado.` } };
+        } catch (error) {
+            console.error(`[EquipoService Error]: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async eliminarMovimientoDeEquipoPokemon(equipoId, pokemonEquipoId, ranura, usuarioLogueadoId) {
+        try {
+            const idEquipo = parseInt(equipoId);
+            const idPokemonEquipo = parseInt(pokemonEquipoId);
+            const numRanura = parseInt(ranura);
+
+            validar(isNaN(idEquipo) || idEquipo < 1, "ID de equipo no válido");
+            validar(isNaN(idPokemonEquipo) || idPokemonEquipo < 1, "ID de Pokémon de equipo no válido");
+            validar(isNaN(numRanura) || numRanura < 1 || numRanura > 4, "La ranura del movimiento debe ser entre 1 y 4");
+
+            await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
+
+            const resultado = await equipoRepository.eliminarMovimiento(idPokemonEquipo, numRanura);
+            return { data: { ...resultado, mensaje: `Movimiento en ranura ${numRanura} eliminado.` } };
 
         } catch (error) {
-            console.error(`[EquiposService Error]: ${error.message}`);
+            console.error(`[EquipoService Error]: ${error.message}`);
             throw error;
         }
     }
 }
 
-module.exports = new EquiposService();
+module.exports = new EquipoService();

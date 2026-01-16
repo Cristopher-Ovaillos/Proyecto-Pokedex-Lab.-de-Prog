@@ -1,12 +1,17 @@
 import { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList, TextInput, ActivityIndicator } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { debounce } from 'lodash';
+
 import usePokedex from '../../../hooks/usePokedex';
 import { PokemonCard } from '../components/PokemonCard';
 import { PokemonDetailModal } from '../components/PokemonDetailModal';
 import styles from '../../../constants/styles';
-import { debounce } from 'lodash';
 
 export const PokedexScreen = () => {
+    const navigation = useNavigation();
+    const route = useRoute();
+    
     const { pokemons, loading, error, searchPokemons, fetchNextPage, hasMore } = usePokedex();
     const [searchTerm, setSearchTerm] = useState('');
     
@@ -19,7 +24,7 @@ export const PokedexScreen = () => {
         searchPokemons();
     }, []);
     
-    // Búsqueda con "debounce" para no llamar a la API en cada letra que escribes
+    // Búsqueda con "debounce"
     const debouncedSearch = useCallback(debounce((term) => {
         searchPokemons({ search: term });
     }, 500), [searchPokemons]);
@@ -28,10 +33,21 @@ export const PokedexScreen = () => {
         debouncedSearch(searchTerm);
     }, [searchTerm, debouncedSearch]);
 
-    // Abre el modal con el ID del pokémon seleccionado
-    const handlePressCard = (pokemonId) => {
-        setSelectedPokemonId(pokemonId);
-        setModalVisible(true);
+    // Maneja el clic en una carta
+    const handlePressCard = (pokemon) => {
+        if (route.params?.isSelecting) {
+            // Si venimos de "Crear Equipo", volvemos con el pokemon seleccionado
+            // IMPORTANTE: Pasamos el objeto pokemon completo
+            navigation.navigate('Crear Equipo', {
+                selectedPokemon: pokemon,
+                slotIndex: route.params.slotIndex
+            });
+        } else {
+            // Comportamiento normal: ver detalles
+            // Aquí obtenemos el ID del objeto pokemon
+            setSelectedPokemonId(pokemon.id_pokemon);
+            setModalVisible(true);
+        }
     };
 
     const handleCloseModal = () => {
@@ -40,7 +56,6 @@ export const PokedexScreen = () => {
     }
 
     const renderFooter = () => {
-        // Muestra el spinner solo si está cargando más páginas (no en la búsqueda inicial)
         if (loading && pokemons.length > 0) {
             return <ActivityIndicator size="large" style={{ marginVertical: 20 }} color="#3B82F6"/>;
         }
@@ -70,7 +85,8 @@ export const PokedexScreen = () => {
                     renderItem={({ item }) => (
                         <PokemonCard 
                             pokemon={item} 
-                            onPress={() => handlePressCard(item.id_pokemon)}
+                            // IMPORTANTE: Pasamos 'item' (el objeto pokemon completo)
+                            onPress={() => handlePressCard(item)}
                         />
                     )}
                     keyExtractor={(item) => item.id_pokemon.toString()}

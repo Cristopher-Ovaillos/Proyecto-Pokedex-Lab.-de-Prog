@@ -5,14 +5,14 @@ export const ENV = {
 };
 
 export const ENDPOINTS = {
-  // --- USUARIO / AUTH ---
+  //USUARIO
   AUTH: {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
-    PROTECTED: '/auth/protected', // Requiere Token
+    PROTECTED: '/auth/me', // Requiere Token
   },
 
-  // --- ENCICLOPEDIA ---
+  //ENCICLOPEDIA
   ENCICLOPEDIA: {
     POKEMONS: '/enciclopedia/pokemon', // Sirve para lista, búsqueda y filtros
     POKEMON_DETAIL: (id) => `/enciclopedia/pokemon/${id}`,
@@ -22,10 +22,21 @@ export const ENDPOINTS = {
     HABILIDADES: '/enciclopedia/habilidades',
   },
 
-  // --- EQUIPOS ---
+  // EQUIPOS
+
   EQUIPOS: {
     POR_USUARIO: (id_usuario) => `/usuarios/${id_usuario}/equipos`,
-    BASE: '/equipos', // Para POST (crear)
-    DETALLE: (id) => `/equipos/${id}`, // Para GET, PUT y DELETE
-  },
+    BASE: '/equipos', // POST para crear
+    DETALLE: (id) => `/equipos/${id}`, // GET para obtener uno
+    ACTUALIZAR_EQUIPO: (id_team) => `/equipos/${id_team}`, // PUT completo
+    ELIMINAR_EQUIPO: (id_team) => `/equipos/${id_team}`,
+    // pokemon dentro del equipo
+    AGREGAR_POKEMON: (id_team) => `/equipos/${id_team}/pokemon`,
+    POKEMON_INDIVIDUAL: (id_team, pokemon_equipo_id) => 
+      `/equipos/${id_team}/pokemon/${pokemon_equipo_id}`,
+    AGREGAR_MOVIMIENTO: (id_team, pokemon_equipo_id) => 
+      `/equipos/${id_team}/pokemon/${pokemon_equipo_id}/movimientos`,
+    ELIMINAR_MOVIMIENTO: (id_team, pokemon_equipo_id, ranura) => 
+      `/equipos/${id_team}/pokemon/${pokemon_equipo_id}/movimientos/${ranura}`,
+  }
 };

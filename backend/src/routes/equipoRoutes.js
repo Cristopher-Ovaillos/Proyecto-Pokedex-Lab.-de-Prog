@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const equiposController = require('../controllers/equiposController');
+const equipoController = require('../controllers/equipoController');
+const auth = require('../shared/authMiddleware');
 
-// sin middleware por ahora - pero aqui iria la autenticacion
-// ejemplo: router.use(authMiddleware);
+router.use(auth);
 
-router.get('/usuarios/:id_usuario/equipos', equiposController.listarEquiposUsuario);
-router.post('/equipos', equiposController.crearEquipo);
-router.get('/equipos/:id', equiposController.obtenerEquipo);
-router.put('/equipos/:id', equiposController.actualizarEquipo);
-router.delete('/equipos/:id', equiposController.eliminarEquipo);
+router.get('/usuarios/:id_usuario/equipos', equipoController.listarDeUsuario);
+router.post('/equipos', equipoController.crear);
+router.get('/equipos/:id', equipoController.obtenerPorId);
+router.put('/equipos/:id', equipoController.actualizar);
+router.delete('/equipos/:id', equipoController.eliminar);
+
+// Rutas para modificaciones granulares
+router.patch('/equipos/:id/pokemon/:pokemon_equipo_id', equipoController.actualizarPokemonDeEquipo);
+router.post('/equipos/:id/pokemon/:pokemon_equipo_id/movimientos', equipoController.agregarMovimientoAEquipoPokemon);
+router.delete('/equipos/:id/pokemon/:pokemon_equipo_id/movimientos/:ranura', equipoController.eliminarMovimientoDeEquipoPokemon);
+
 
 module.exports = router;

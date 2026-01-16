@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "Backend-lab",
+  "name": "Pokedex-lab",
   "type": "collection",
   "ignore": [
     "node_modules",
