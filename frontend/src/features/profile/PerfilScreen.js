@@ -1,16 +1,45 @@
 import { useState } from "react";
-import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
-const styles = require("../../constants/styles");
-import useLogin from "../../hooks/useLogin";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import OptionPerfil from "./OptionPerfil";
+import EditUserModal from "./EditUserModal";
+import useLogout from "../../hooks/useLogout";
+import useProfileScreen from "../../hooks/useProfileScreen";
+
+const styles = require("../../constants/styles");
 
 export const PerfilScreen = () => {
-  const { login, loading, error } = useLogin();
+  const logout = useLogout();
 
-  const [nombre_usuario, setNombre_usuario] = useState('user1');
-  const [email, setEmail] = useState('user1@gmail.com');
-  const [contrasenia, setContrasenia] = useState('user1234');
+  const {
+    nombre_usuario,
+    email,
+    actualizarDato,
+    loading,
+    error,
+    clearError
+  } = useProfileScreen();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [campoEditar, setCampoEditar] = useState(null);
+
   const foto = "https://pngimg.com/uploads/pokemon/pokemon_PNG152.png";
+
+  const abrirModal = (tipo) => {
+    setCampoEditar(tipo);
+    setModalVisible(true);
+  };
+
+  const cerrarModal = () => {
+    clearError();  
+    setModalVisible(false);
+    setCampoEditar(null);
+  };
 
   return (
     <SafeAreaProvider>
@@ -30,14 +59,55 @@ export const PerfilScreen = () => {
         </View>
 
         <View className={styles.perfil.opciones}>
-            <TextInput className={styles.register.input} placeholder="Nombre de usuario" value={nombre_usuario} onChangeText={setNombre_usuario} autoCapitalize="none" />
-            <TextInput className={styles.register.input} placeholder="Email" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
-            <TextInput className={styles.register.input} placeholder="contrasenia" value={contrasenia} onChangeText={setContrasenia} secureTextEntry />
+          <Text className="font-bold text-3xl">{nombre_usuario}</Text>
+          <Text>{email}</Text>
 
+          <View className={styles.perfil.vistaOpciones}>
+            <OptionPerfil
+              value="Cambiar nombre"
+              nameIcon="user"
+              onEdit={() => abrirModal("username")}
+            />
+
+            <OptionPerfil
+              value="Cambiar email"
+              nameIcon="envelope"
+              onEdit={() => abrirModal("email")}
+            />
+
+            <OptionPerfil
+              value="Cambiar contraseña"
+              nameIcon="shield"
+              onEdit={() => abrirModal("password")}
+            />
+
+            <OptionPerfil
+              value="Cerrar sesión"
+              nameIcon="sign-out"
+              onEdit={logout}
+            />
+          </View>
         </View>
-      </View>
 
-     
+        <EditUserModal
+          visible={modalVisible}
+          tipo={campoEditar}
+          valorActual={
+            campoEditar === "username"
+              ? nombre_usuario
+              : campoEditar === "email"
+              ? email
+              : ""
+          }
+          loading={loading}
+          error={error}
+          onClose={cerrarModal}
+          onConfirm={async (valor) => {
+            await actualizarDato(campoEditar, valor);
+            cerrarModal();
+          }}
+        />
+      </View>
     </SafeAreaProvider>
   );
 };

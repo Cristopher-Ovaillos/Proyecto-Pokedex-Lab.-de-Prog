@@ -6,7 +6,9 @@ export default function useLogout() {
     
     const logout = async () => {
         try {
-            await AsyncStorage.removeItem("token");
+            await AsyncStorage.multiRemove(["token", "nombre_usuario", "email"]);
+
+            //  await AsyncStorage.multiRemove(["token", "nombre_usuario", "email", "contrasenia"]);
             
             // Si estamos dentro de una pantalla del Drawer, necesitamos getParent() para ir al Stack.
             // Pero si estamos en el contenedor MyDrawer, navigation ya es el Stack.

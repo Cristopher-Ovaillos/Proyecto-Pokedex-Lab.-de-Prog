@@ -30,8 +30,12 @@ export default function useLogin() {
                     }
             }
             */
-
+            // console.log('useLogin data:', data);
             await AsyncStorage.setItem('token', data.token);
+            await AsyncStorage.setItem('nombre_usuario', data.data.nombre_usuario);
+            await AsyncStorage.setItem('email', data.data.email);
+            // await AsyncStorage.setItem('contrasenia', contrasenia);   /* no se si va este */
+
             return data;
 
         } catch (err) {

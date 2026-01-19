@@ -1,6 +1,6 @@
 // Configuracion centralizada para variables de entorno y URLs
 export const ENV = {
-  API_URL: 'http://192.168.1.59:3000/api', 
+  API_URL: 'IP:3000/api', 
   TIMEOUT: 15000,
 };
 
@@ -10,6 +10,13 @@ export const ENDPOINTS = {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
     PROTECTED: '/auth/protected', // Requiere Token
+  },
+
+    // --- USUARIO / PERFIL ---
+  USUARIOS: {
+    UPDATE_USERNAME: '/auth/username',
+    UPDATE_EMAIL: '/auth/email',
+    UPDATE_PASSWORD: '/auth/password',
   },
 
   // --- ENCICLOPEDIA ---

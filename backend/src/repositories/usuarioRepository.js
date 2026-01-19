@@ -1,4 +1,4 @@
-const db = require('../shared/db');
+const db = require("../shared/db");
 //sqlite https://github.com/TryGhost/node-sqlite3/wiki/API, debependiendo del motor cambia, en este caso es db.accion
 
 /*
@@ -33,57 +33,97 @@ convecion nombres:
 */
 
 class UsuarioRepository {
+  //crear user
+  async create({ nombre_usuario, contrasenia, email }) {
+    //crear promesa (uso de async)
+    return new Promise((resolve, reject) => {
+      const fecha_creacion = new Date().toISOString();
+      // atributos rellenables con el simbolo?
+      const sql =
+        "INSERT INTO usuarios(nombre_usuario, contrasenia, fecha_creacion, email) VALUES (?,?,?,?)";
 
-    //crear user
-    async create({ nombre_usuario, contrasenia, email }) {
-        //crear promesa (uso de async) 
-        return new Promise((resolve, reject) => {
-            const fecha_creacion = new Date().toISOString();
-            // atributos rellenables con el simbolo?
-            const sql = "INSERT INTO usuarios(nombre_usuario, contrasenia, fecha_creacion, email) VALUES (?,?,?,?)"
+      db.run(
+        sql,
+        [nombre_usuario, contrasenia, fecha_creacion, email],
+        function (err) {
+          //si falla
+          if (err) return reject(err);
+          //si no falla resolve({devolver}) esto devolveremos como promesa (resolve)
+          resolve({
+            id_usuario: this.lastID,
+            nombre_usuario,
+            contrasenia,
+            fecha_creacion,
+            email,
+          });
+        }
+      );
+    });
+  }
 
-            db.run(sql, [nombre_usuario, contrasenia, fecha_creacion, email], function (err) {
-                //si falla
-                if (err) return reject(err);
-                //si no falla resolve({devolver}) esto devolveremos como promesa (resolve)
-                resolve({ id_usuario: this.lastID, nombre_usuario, contrasenia, fecha_creacion, email });
-            });
-        });
-    }
+  //loguearse
+  async findByUsername(nombre_usuario) {
+    // vamos a devolver la contrania aca
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
 
-    //loguearse
-    async findByUsername(nombre_usuario) {
-        // vamos a devolver la contrania aca
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?"
+      db.get(sql, [nombre_usuario], function (err, tupla) {
+        if (err) return reject(err);
+        resolve(tupla);
+      });
+    });
+  }
 
-            db.get(sql, [nombre_usuario], function (err, tupla) {
-                if (err) return reject(err);
-                resolve(tupla);
-            })
-        })
-    }
+  async findById(id_usuario) {
+    return new Promise((resolve, reject) => {
+      const sql =
+        "SELECT id_usuario, nombre_usuario, email, fecha_creacion FROM usuarios WHERE id_usuario = ?";
+      this.db.get(sql, [id_usuario], (err, row) => {
+        if (err) return reject(err);
+        resolve(row);
+      });
+    });
+  }
 
-    async findById(id_usuario) {
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT id_usuario, nombre_usuario, email, fecha_creacion FROM usuarios WHERE id_usuario = ?";
-            this.db.get(sql, [id_usuario], (err, row) => {
-                if (err) return reject(err);
-                resolve(row);
-            });
-        });
-    }
+  async findByEmail(email) {
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT * FROM usuarios WHERE email = ?";
+      db.get(sql, [email], function (err, tupla) {
+        if (err) return reject(err);
+        resolve(tupla);
+      });
+    });
+  }
 
-    async findByEmail(email) {
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM usuarios WHERE email = ?";
-            db.get(sql, [email], function (err, tupla) {
-                if (err) return reject(err);
-                resolve(tupla);
-            });
-        });
-    }
+  async updateUsername(id_usuario, nombre_usuario) {
+    return new Promise((resolve, reject) => {
+      const sql = "UPDATE usuarios SET nombre_usuario = ? WHERE id_usuario = ?";
+      db.run(sql, [nombre_usuario, id_usuario], function (err) {
+        if (err) return reject(err);
+        resolve(this.changes);
+      });
+    });
+  }
 
+  async updateEmail(id_usuario, email) {
+    return new Promise((resolve, reject) => {
+      const sql = "UPDATE usuarios SET email = ? WHERE id_usuario = ?";
+      db.run(sql, [email, id_usuario], function (err) {
+        if (err) return reject(err);
+        resolve(this.changes);
+      });
+    });
+  }
+
+  async updatePassword(id_usuario, contraseniaHash) {
+    return new Promise((resolve, reject) => {
+      const sql = "UPDATE usuarios SET contrasenia = ? WHERE id_usuario = ?";
+      db.run(sql, [contraseniaHash, id_usuario], function (err) {
+        if (err) return reject(err);
+        resolve(this.changes);
+      });
+    });
+  }
 }
 
 module.exports = new UsuarioRepository();

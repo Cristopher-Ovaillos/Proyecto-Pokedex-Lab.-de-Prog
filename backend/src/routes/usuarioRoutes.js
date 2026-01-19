@@ -28,6 +28,15 @@ router.get('/protected', auth, (req, res) => usuarioController.me(req, res)); //
 //para cerrar sesion, en el cliente se borra el token guardado localmente. No es necesario un endpoint en el servidor para logout en JWT
 // porque el servidor no mantiene estado de sesion. El token simplemente expira despues de un tiempo definido.
 
+//updates de perfil: solo se puede modificar teniendo el token, por lo tanto es neceario el auth
+router.put('/username', auth, (req, res) => usuarioController.updateUsername(req, res));
+
+router.put('/email', auth, (req, res) => usuarioController.updateEmail(req, res));
+
+router.put('/password', auth, (req, res) => usuarioController.updatePassword(req, res));
+
+
+
 module.exports = router;
 
 //bruno api
