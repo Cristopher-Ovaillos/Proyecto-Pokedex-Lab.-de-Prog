@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+
 import OptionPerfil from "./OptionPerfil";
 import EditUserModal from "./EditUserModal";
 import useLogout from "../../hooks/useLogout";
@@ -42,7 +42,7 @@ export const PerfilScreen = () => {
   };
 
   return (
-    <SafeAreaProvider>
+    <View>
       <View className={styles.perfil.container}>
         <View className={styles.perfil.containerOpciones}>
           <View className={styles.perfil.iconPerfil1}>
@@ -108,6 +108,6 @@ export const PerfilScreen = () => {
           }}
         />
       </View>
-    </SafeAreaProvider>
+    </View>
   );
 };

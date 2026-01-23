@@ -25,6 +25,7 @@ class EnciclopediaController {
   }, getHttpStatus);
 
   getPokemonMoves = handleRequest(async (req, res) => {
+    console.log("Llegue al controller");
     const id = req.params.id;
     const level = req.query.level;
     const method = req.query.method;
@@ -33,6 +34,7 @@ class EnciclopediaController {
     const min_power = req.query.min_power;
     const max_power = req.query.max_power;
     const result = await enciclopediaService.getPokemonMoves(id, level, method, type, category, min_power, max_power);
+    console.log("controler result: ",result);
     res.status(200).json(result);
   }, getHttpStatus);
 

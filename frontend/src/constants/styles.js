@@ -1,3 +1,5 @@
+const { MovementCard } = require("../features/moves/components/MovementCard");
+
 const styles = {
   login: {
     container: "flex-1 bg-background  p-4 justify-center items-center",
@@ -68,6 +70,8 @@ const styles = {
     name: "text-white text-lg font-bold capitalize font-pixel text-center",
     typePill: "px-3 py-1 bg-white/30 rounded-full mr-1",
   },
+
+
 
   drawer: {
     logoutBtn: "bg-error mr-4 px-3 py-1 rounded-md shadow-sm",
@@ -143,6 +147,16 @@ const styles = {
   app: {
     container: "flex-1 bg-background font-pixel",
     title: "text-primary text-3xl font-pixel text-center my-4",
+  },
+
+
+  movementCard: {
+    container: "bg-white/10 border border-white/20 rounded-xl p-3 shadow-md flex-row gap-2 ",
+  },
+
+  movementLayout: {
+    container: "",
+    
   },
 
   team: {
