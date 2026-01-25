@@ -151,11 +151,17 @@ const styles = {
 
 
   movementCard: {
-    container: "bg-white/10 border border-white/20 rounded-xl p-3 shadow-md flex-row gap-2 ",
+    containerCard: "items-center rounded-xl overflow-hidden shadow-md flex-row gap-2 my-2 bg-gray-300",
+    containerId: "bg-neutral-950 self-stretch w-10  justify-center items-center py-4",
+    id: "bold text-lg text-neutral-200",
+    iconCategory: "w-10 h-10 mr-2",
+    name: "m-2 capitalize flex-[4] font-bold text-lg ",
+    type: "flex-[2] capitalize text-center text-white font-pixel font-bold px-1 py-1 mr-2 rounded-lg",
+    containerInfo: "flex-1 flex-row items-center justify-between gap-2 h-full ",
   },
 
   movementLayout: {
-    container: "",
+    container: "flex-row justify-between ",
     
   },
 
