@@ -1,4 +1,3 @@
-const { MovementCard } = require("../features/moves/components/MovementCard");
 
 const styles = {
   login: {
@@ -152,7 +151,7 @@ const styles = {
 
   movementCard: {
     containerCard: "items-center rounded-xl overflow-hidden shadow-md flex-row gap-2 my-2 bg-gray-300",
-    containerId: "bg-neutral-950 self-stretch w-10  justify-center items-center py-4",
+    containerId: "bg-neutral-800 self-stretch w-10  justify-center items-center py-4",
     id: "bold text-lg text-neutral-200",
     iconCategory: "w-10 h-10 mr-2",
     name: "m-2 capitalize flex-[4] font-bold text-lg ",
