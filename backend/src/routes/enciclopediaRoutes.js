@@ -6,6 +6,8 @@ router.get('/pokemon', enciclopediaController.listPokemon);
 router.get('/pokemon/:id', enciclopediaController.getPokemonById);
 router.get('/pokemon/:id/movimientos', enciclopediaController.getPokemonMoves);
 router.get('/movimientos', enciclopediaController.listMoves);
+router.get('/movimientos/:id', enciclopediaController.getMoveById);
+router.get('/movimientos/:id/pokemon', enciclopediaController.getPokemonsByMoveId);
 router.get('/naturalezas', enciclopediaController.listNatures);
 router.get('/habilidades', enciclopediaController.listAbilities);
 

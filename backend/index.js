@@ -61,6 +61,7 @@ app.listen(PORT, () => {
     console.log(" GET  http://localhost:3000/api/enciclopedia/pokemon/25/movimientos?level=50&type=electric");
     console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos");
     console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos?type=fire&category=special&poder=90");
+    console.log(" GET  http://localhost:3000/api/enciclopedia/movimientos/1/pokemon");
     console.log(" GET  http://localhost:3000/api/enciclopedia/naturalezas");
     console.log(" GET  http://localhost:3000/api/enciclopedia/habilidades");
     console.log(" GET  http://localhost:3000/api/enciclopedia/habilidades?search=fire");

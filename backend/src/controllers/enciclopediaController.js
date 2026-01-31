@@ -52,6 +52,26 @@ class EnciclopediaController {
     res.status(200).json(result);
   }, getHttpStatus);
 
+  getMoveById = handleRequest(async (req, res) => {
+  const id = req.params.id;
+  const result = await enciclopediaService.getMoveById(id);
+  res.status(200).json(result);
+}, getHttpStatus);
+
+getPokemonsByMoveId = handleRequest(async (req, res) => {
+  const id = req.params.id;
+  const limit = req.query.limit;
+  const page = req.query.page;
+
+  const result = await enciclopediaService.getPokemonsByMoveId(
+    id,
+    limit,
+    page
+  );
+
+  res.status(200).json(result);
+}, getHttpStatus);
+
   listNatures = handleRequest(async (req, res) => {
     const result = await enciclopediaService.getNaturesList();
     res.status(200).json(result);

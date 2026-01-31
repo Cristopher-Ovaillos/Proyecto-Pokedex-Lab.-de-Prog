@@ -77,6 +77,31 @@ const styles = {
     text: "text-white font-pixel text-sm",
   },
 
+  modalMovement: {
+    overlay: "flex-1 bg-black/70 items-center justify-center",
+    container: "w-11/12 h-5/6 bg-emerald-400 rounded-2xl shadow-lg px-2 py-1",
+    header: "flex-row justify-between items-center py-2",
+    cerrarBotton: "absolute top-0 right-0 bg-black/15 rounded-full w-8 h-8 justify-center items-center z-10 m-5",
+    closeButtonText: "text-white font-bold text-sm ",
+    texto: "capitalize text-lg font-bold text-white",
+    titulo: "text-3xl font-bold",
+    infoBasica: "my-3 bg-emerald-200/60 p-4 rounded-xl gap-2",
+    infoBasicaText: "text-white text-2xl font-bold border-b border-white py-1 ",
+    typeContainer: "flex-row gap-3 justify-start my-2 ",
+    type: " capitalize text-center text-white font-bold px-1 py-1 rounded-lg",
+    categoryContainer: "flex-row gap-4 justify-start mt-2",
+    iconCategory: "w-8 h-8 ",
+    statRow: "flex-row items-center mb-2",
+    statLabel: "w-2/5 text-white  text-lg  font-bold capitalize",
+    statValue: "w-1/6 text-white text-lg font-bold text-base",
+    statBarContainer: "flex-1 h-3 bg-black/30 rounded-full",
+    statBar: "h-full rounded-full border border-white/50",
+    descripcion: "italic text-md my-2",
+    cardPoke: "p-4 border border-black mb-1 flex-row gap-3 bg-emerald-200/60 rounded-lg justify-start items-center",
+    imagePokemonContainer: "w-15 h-15 items-center justify-center bg-white rounded-lg p-2 border border-black",
+    infoPoke: "flex-col flex-1 items-center"
+  },
+
   modal: {
     overlay: "flex-1 justify-center items-center bg-black/70",
     container: "w-11/12 h-5/6 rounded-2xl shadow-lg p-5",
@@ -101,6 +126,7 @@ const styles = {
     statValue: "w-1/6 text-white font-pixel font-bold text-base",
     statBarContainer: "flex-1 h-3 bg-black/30 rounded-full",
     statBar: "h-full rounded-full border border-white/50",
+
 
     abilityContainer: "mb-3",
     abilityName: "text-white font-pixel text-base capitalize mb-1",
@@ -157,6 +183,7 @@ const styles = {
     name: "m-2 capitalize flex-[4] font-bold text-lg ",
     type: "flex-[2] capitalize text-center text-white font-pixel font-bold px-1 py-1 mr-2 rounded-lg",
     containerInfo: "flex-1 flex-row items-center justify-between gap-2 h-full ",
+    
   },
 
   movementLayout: {

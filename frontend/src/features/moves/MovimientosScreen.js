@@ -10,31 +10,38 @@ import styles from "../../constants/styles";
 import { MovementCard } from "./components/MovementCard";
 import { debounce } from "lodash";
 import useMovements from "../../hooks/useMovements";
+import { MovementModal } from "./components/MovementModal";
 
 export const MovimientosScreen = () => {
-  const {
-    movements,
-    loading,
-    error,
-    searchMovements,
-    fetchNextPage,
-    hasMore,
-  } = useMovements();
+  const { movements, loading, error, searchMovements, fetchNextPage, hasMore } =
+    useMovements();
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  // State para el modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMovement, setSelectedMovement] = useState(null);
+
   
+  const handlePressCard = (mov) => {
+    setSelectedMovement(mov);
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    setSelectedMovement(null);
+  };
+
   const debouncedSearchRef = useRef(
     debounce((term) => {
       searchMovements({ search: term });
-    }, 500)
+    }, 500),
   );
 
-  
   useEffect(() => {
     debouncedSearchRef.current(searchTerm);
   }, [searchTerm]);
-
 
   useEffect(() => {
     return () => {
@@ -54,8 +61,6 @@ export const MovimientosScreen = () => {
     }
     return null;
   };
-
-  
 
   return (
     <View className={styles.layout.screen}>
@@ -95,7 +100,10 @@ export const MovimientosScreen = () => {
           data={movements}
           keyExtractor={(item) => item.id_movimiento.toString()}
           renderItem={({ item }) => (
-            <MovementCard movimiento={item} onPress={() => {}} />
+            <MovementCard
+              movimiento={item}
+              onPress={() => handlePressCard(item)}
+            />
           )}
           contentContainerStyle={{ paddingHorizontal: 5 }}
           onEndReached={() => {
@@ -118,6 +126,14 @@ export const MovimientosScreen = () => {
               </Text>
             )
           }
+        />
+      )}
+
+      {selectedMovement && (
+        <MovementModal
+          visible={modalVisible}
+          onClose={handleCloseModal}
+          movimiento={selectedMovement}
         />
       )}
     </View>
