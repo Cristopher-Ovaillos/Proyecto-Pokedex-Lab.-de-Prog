@@ -1,0 +1,77 @@
+meta {
+  name: me
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/api/auth/me
+  body: none
+  auth: inherit
+}
+
+headers {
+  authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmVfdXN1YXJpbyI6IkFzaEtldGNodW0iLCJpYXQiOjE3NjgzNTQwOTEsImV4cCI6MTc2ODM2MTI5MX0.9cdxSDGC0sib5Y7yDWVMHkEJ_mlo6mxj2uCa2eKlLxc
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: http://localhost:3000/api/auth/me
+    method: GET
+    mode: none
+    headers: {
+      authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmVfdXN1YXJpbyI6IkFzaEtldGNodW0iLCJpYXQiOjE3NjgzNTQwOTEsImV4cCI6MTc2ODM2MTI5MX0.9cdxSDGC0sib5Y7yDWVMHkEJ_mlo6mxj2uCa2eKlLxc
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 163
+      etag: W/"a3-TTWh9mPELvZG082rD6nzFg5GswU"
+      date: Wed, 14 Jan 2026 01:29:30 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": {
+            "id_usuario": 1,
+            "nombre_usuario": "AshKetchum",
+            "iat": 1768354091,
+            "exp": 1768361291
+          },
+          "message": "Datos del usuario recuperados exitosamente"
+        }
+      '''
+    }
+  }
+}

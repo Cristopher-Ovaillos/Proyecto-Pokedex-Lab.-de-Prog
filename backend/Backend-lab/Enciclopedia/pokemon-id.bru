@@ -1,0 +1,145 @@
+meta {
+  name: pokemon/id
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJub21icmVfdXN1YXJpbyI6ImFkbWluMTIzIiwiaWF0IjoxNzY4NDYzNzQxLCJleHAiOjE3Njg0NzA5NDF9.fcaQebEZGI6lVUZ6r5OT-Cy_jxpOq3VbXDKZsZ6i048
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example -sin token
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 43
+      etag: W/"2b-e6N82qwFm9vQGKtjWrku85txy9E"
+      date: Thu, 15 Jan 2026 08:24:25 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": false,
+          "error": "Token requerido"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example - con auth (header)
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1
+    method: GET
+    mode: none
+    headers: {
+      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJub21icmVfdXN1YXJpbyI6ImFkbWluMTIzIiwiaWF0IjoxNzY4NDYzNzQxLCJleHAiOjE3Njg0NzA5NDF9.fcaQebEZGI6lVUZ6r5OT-Cy_jxpOq3VbXDKZsZ6i048
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 636
+      etag: W/"27c-FOP1XguykGp0azH4/hX0qGnHMps"
+      date: Thu, 15 Jan 2026 08:25:49 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": {
+            "id_pokemon": 1,
+            "nombre": "bulbasaur",
+            "tipo_1": "grass",
+            "tipo_2": "poison",
+            "estadisticas": {
+              "hp_base": 45,
+              "ataque_base": 49,
+              "ataque_especial_base": 65,
+              "defensa_base": 49,
+              "defensa_especial_base": 65,
+              "velocidad_base": 45
+            },
+            "habilidades": [
+              {
+                "nombre": "overgrow",
+                "descripcion": "When this Pokémon has 1/3 or less of its HP remaining, its grass-type moves inflict 1.5× as much regular damage.",
+                "oculta": false
+              },
+              {
+                "nombre": "chlorophyll",
+                "descripcion": "This Pokémon's Speed is doubled during strong sunlight.\n\nThis bonus does not count as a stat modifier.",
+                "oculta": true
+              }
+            ],
+            "imagenUrl": "http://192.168.1.59:3000/pokemon/1.png"
+          }
+        }
+      '''
+    }
+  }
+}

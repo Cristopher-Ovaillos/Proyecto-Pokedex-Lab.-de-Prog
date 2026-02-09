@@ -1,0 +1,1942 @@
+meta {
+  name: pokemon
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: sin query
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 5005
+      etag: W/"138d-QgGcCorgP5173eyJxmVVqIt/y7U"
+      date: Wed, 14 Jan 2026 01:31:23 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 1,
+              "nombre": "bulbasaur",
+              "tipo_1": "grass",
+              "tipo_2": "poison",
+              "hp_base": 45,
+              "ataque_base": 49,
+              "defensa_base": 49,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 65,
+              "velocidad_base": 45,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/1.png"
+            },
+            {
+              "id_pokemon": 2,
+              "nombre": "ivysaur",
+              "tipo_1": "grass",
+              "tipo_2": "poison",
+              "hp_base": 60,
+              "ataque_base": 62,
+              "defensa_base": 63,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 80,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/2.png"
+            },
+            {
+              "id_pokemon": 3,
+              "nombre": "venusaur",
+              "tipo_1": "grass",
+              "tipo_2": "poison",
+              "hp_base": 80,
+              "ataque_base": 82,
+              "defensa_base": 83,
+              "ataque_especial_base": 100,
+              "defensa_especial_base": 100,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/3.png"
+            },
+            {
+              "id_pokemon": 4,
+              "nombre": "charmander",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 39,
+              "ataque_base": 52,
+              "defensa_base": 43,
+              "ataque_especial_base": 60,
+              "defensa_especial_base": 50,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/4.png"
+            },
+            {
+              "id_pokemon": 5,
+              "nombre": "charmeleon",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 58,
+              "ataque_base": 64,
+              "defensa_base": 58,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 65,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/5.png"
+            },
+            {
+              "id_pokemon": 6,
+              "nombre": "charizard",
+              "tipo_1": "fire",
+              "tipo_2": "flying",
+              "hp_base": 78,
+              "ataque_base": 84,
+              "defensa_base": 78,
+              "ataque_especial_base": 109,
+              "defensa_especial_base": 85,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/6.png"
+            },
+            {
+              "id_pokemon": 7,
+              "nombre": "squirtle",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 44,
+              "ataque_base": 48,
+              "defensa_base": 65,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 64,
+              "velocidad_base": 43,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/7.png"
+            },
+            {
+              "id_pokemon": 8,
+              "nombre": "wartortle",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 59,
+              "ataque_base": 63,
+              "defensa_base": 80,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 80,
+              "velocidad_base": 58,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/8.png"
+            },
+            {
+              "id_pokemon": 9,
+              "nombre": "blastoise",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 79,
+              "ataque_base": 83,
+              "defensa_base": 100,
+              "ataque_especial_base": 85,
+              "defensa_especial_base": 105,
+              "velocidad_base": 78,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/9.png"
+            },
+            {
+              "id_pokemon": 10,
+              "nombre": "caterpie",
+              "tipo_1": "bug",
+              "tipo_2": null,
+              "hp_base": 45,
+              "ataque_base": 30,
+              "defensa_base": 35,
+              "ataque_especial_base": 20,
+              "defensa_especial_base": 20,
+              "velocidad_base": 45,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/10.png"
+            },
+            {
+              "id_pokemon": 11,
+              "nombre": "metapod",
+              "tipo_1": "bug",
+              "tipo_2": null,
+              "hp_base": 50,
+              "ataque_base": 20,
+              "defensa_base": 55,
+              "ataque_especial_base": 25,
+              "defensa_especial_base": 25,
+              "velocidad_base": 30,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/11.png"
+            },
+            {
+              "id_pokemon": 12,
+              "nombre": "butterfree",
+              "tipo_1": "bug",
+              "tipo_2": "flying",
+              "hp_base": 60,
+              "ataque_base": 45,
+              "defensa_base": 50,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 80,
+              "velocidad_base": 70,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/12.png"
+            },
+            {
+              "id_pokemon": 13,
+              "nombre": "weedle",
+              "tipo_1": "bug",
+              "tipo_2": "poison",
+              "hp_base": 40,
+              "ataque_base": 35,
+              "defensa_base": 30,
+              "ataque_especial_base": 20,
+              "defensa_especial_base": 20,
+              "velocidad_base": 50,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/13.png"
+            },
+            {
+              "id_pokemon": 14,
+              "nombre": "kakuna",
+              "tipo_1": "bug",
+              "tipo_2": "poison",
+              "hp_base": 45,
+              "ataque_base": 25,
+              "defensa_base": 50,
+              "ataque_especial_base": 25,
+              "defensa_especial_base": 25,
+              "velocidad_base": 35,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/14.png"
+            },
+            {
+              "id_pokemon": 15,
+              "nombre": "beedrill",
+              "tipo_1": "bug",
+              "tipo_2": "poison",
+              "hp_base": 65,
+              "ataque_base": 90,
+              "defensa_base": 40,
+              "ataque_especial_base": 45,
+              "defensa_especial_base": 80,
+              "velocidad_base": 75,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/15.png"
+            },
+            {
+              "id_pokemon": 16,
+              "nombre": "pidgey",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 40,
+              "ataque_base": 45,
+              "defensa_base": 40,
+              "ataque_especial_base": 35,
+              "defensa_especial_base": 35,
+              "velocidad_base": 56,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/16.png"
+            },
+            {
+              "id_pokemon": 17,
+              "nombre": "pidgeotto",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 63,
+              "ataque_base": 60,
+              "defensa_base": 55,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 50,
+              "velocidad_base": 71,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/17.png"
+            },
+            {
+              "id_pokemon": 18,
+              "nombre": "pidgeot",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 83,
+              "ataque_base": 80,
+              "defensa_base": 75,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 70,
+              "velocidad_base": 101,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/18.png"
+            },
+            {
+              "id_pokemon": 19,
+              "nombre": "rattata",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 30,
+              "ataque_base": 56,
+              "defensa_base": 35,
+              "ataque_especial_base": 25,
+              "defensa_especial_base": 35,
+              "velocidad_base": 72,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/19.png"
+            },
+            {
+              "id_pokemon": 20,
+              "nombre": "raticate",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 55,
+              "ataque_base": 81,
+              "defensa_base": 60,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 70,
+              "velocidad_base": 97,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/20.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 649,
+              "page": 1,
+              "limit": 20,
+              "totalPages": 33
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query type
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon?type=fire
+    method: GET
+    mode: none
+    params:query: {
+      type: fire
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 5002
+      etag: W/"138a-szdUH87FjldIpmthG77xBoUYl80"
+      date: Wed, 14 Jan 2026 01:32:42 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 4,
+              "nombre": "charmander",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 39,
+              "ataque_base": 52,
+              "defensa_base": 43,
+              "ataque_especial_base": 60,
+              "defensa_especial_base": 50,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/4.png"
+            },
+            {
+              "id_pokemon": 5,
+              "nombre": "charmeleon",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 58,
+              "ataque_base": 64,
+              "defensa_base": 58,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 65,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/5.png"
+            },
+            {
+              "id_pokemon": 6,
+              "nombre": "charizard",
+              "tipo_1": "fire",
+              "tipo_2": "flying",
+              "hp_base": 78,
+              "ataque_base": 84,
+              "defensa_base": 78,
+              "ataque_especial_base": 109,
+              "defensa_especial_base": 85,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/6.png"
+            },
+            {
+              "id_pokemon": 37,
+              "nombre": "vulpix",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 38,
+              "ataque_base": 41,
+              "defensa_base": 40,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 65,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/37.png"
+            },
+            {
+              "id_pokemon": 38,
+              "nombre": "ninetales",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 73,
+              "ataque_base": 76,
+              "defensa_base": 75,
+              "ataque_especial_base": 81,
+              "defensa_especial_base": 100,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/38.png"
+            },
+            {
+              "id_pokemon": 58,
+              "nombre": "growlithe",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 55,
+              "ataque_base": 70,
+              "defensa_base": 45,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 50,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/58.png"
+            },
+            {
+              "id_pokemon": 59,
+              "nombre": "arcanine",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 90,
+              "ataque_base": 110,
+              "defensa_base": 80,
+              "ataque_especial_base": 100,
+              "defensa_especial_base": 80,
+              "velocidad_base": 95,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/59.png"
+            },
+            {
+              "id_pokemon": 77,
+              "nombre": "ponyta",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 50,
+              "ataque_base": 85,
+              "defensa_base": 55,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 65,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/77.png"
+            },
+            {
+              "id_pokemon": 78,
+              "nombre": "rapidash",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 65,
+              "ataque_base": 100,
+              "defensa_base": 70,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 80,
+              "velocidad_base": 105,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/78.png"
+            },
+            {
+              "id_pokemon": 126,
+              "nombre": "magmar",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 65,
+              "ataque_base": 95,
+              "defensa_base": 57,
+              "ataque_especial_base": 100,
+              "defensa_especial_base": 85,
+              "velocidad_base": 93,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/126.png"
+            },
+            {
+              "id_pokemon": 136,
+              "nombre": "flareon",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 65,
+              "ataque_base": 130,
+              "defensa_base": 60,
+              "ataque_especial_base": 95,
+              "defensa_especial_base": 110,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/136.png"
+            },
+            {
+              "id_pokemon": 146,
+              "nombre": "moltres",
+              "tipo_1": "fire",
+              "tipo_2": "flying",
+              "hp_base": 90,
+              "ataque_base": 100,
+              "defensa_base": 90,
+              "ataque_especial_base": 125,
+              "defensa_especial_base": 85,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/146.png"
+            },
+            {
+              "id_pokemon": 155,
+              "nombre": "cyndaquil",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 39,
+              "ataque_base": 52,
+              "defensa_base": 43,
+              "ataque_especial_base": 60,
+              "defensa_especial_base": 50,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/155.png"
+            },
+            {
+              "id_pokemon": 156,
+              "nombre": "quilava",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 58,
+              "ataque_base": 64,
+              "defensa_base": 58,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 65,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/156.png"
+            },
+            {
+              "id_pokemon": 157,
+              "nombre": "typhlosion",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 78,
+              "ataque_base": 84,
+              "defensa_base": 78,
+              "ataque_especial_base": 109,
+              "defensa_especial_base": 85,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/157.png"
+            },
+            {
+              "id_pokemon": 218,
+              "nombre": "slugma",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 40,
+              "ataque_base": 40,
+              "defensa_base": 40,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 40,
+              "velocidad_base": 20,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/218.png"
+            },
+            {
+              "id_pokemon": 219,
+              "nombre": "magcargo",
+              "tipo_1": "fire",
+              "tipo_2": "rock",
+              "hp_base": 60,
+              "ataque_base": 50,
+              "defensa_base": 120,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 80,
+              "velocidad_base": 30,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/219.png"
+            },
+            {
+              "id_pokemon": 228,
+              "nombre": "houndour",
+              "tipo_1": "dark",
+              "tipo_2": "fire",
+              "hp_base": 45,
+              "ataque_base": 60,
+              "defensa_base": 30,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 50,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/228.png"
+            },
+            {
+              "id_pokemon": 229,
+              "nombre": "houndoom",
+              "tipo_1": "dark",
+              "tipo_2": "fire",
+              "hp_base": 75,
+              "ataque_base": 90,
+              "defensa_base": 50,
+              "ataque_especial_base": 110,
+              "defensa_especial_base": 80,
+              "velocidad_base": 95,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/229.png"
+            },
+            {
+              "id_pokemon": 240,
+              "nombre": "magby",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 45,
+              "ataque_base": 75,
+              "defensa_base": 37,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 55,
+              "velocidad_base": 83,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/240.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 48,
+              "page": 1,
+              "limit": 20,
+              "totalPages": 3
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query search
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon?search=pi
+    method: GET
+    mode: none
+    params:query: {
+      search: pi
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 2817
+      etag: W/"b01-YDEkQHZnFaitTbw72w0K++TWRM8"
+      date: Wed, 14 Jan 2026 01:36:00 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 16,
+              "nombre": "pidgey",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 40,
+              "ataque_base": 45,
+              "defensa_base": 40,
+              "ataque_especial_base": 35,
+              "defensa_especial_base": 35,
+              "velocidad_base": 56,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/16.png"
+            },
+            {
+              "id_pokemon": 17,
+              "nombre": "pidgeotto",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 63,
+              "ataque_base": 60,
+              "defensa_base": 55,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 50,
+              "velocidad_base": 71,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/17.png"
+            },
+            {
+              "id_pokemon": 18,
+              "nombre": "pidgeot",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 83,
+              "ataque_base": 80,
+              "defensa_base": 75,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 70,
+              "velocidad_base": 101,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/18.png"
+            },
+            {
+              "id_pokemon": 25,
+              "nombre": "pikachu",
+              "tipo_1": "electric",
+              "tipo_2": null,
+              "hp_base": 35,
+              "ataque_base": 55,
+              "defensa_base": 40,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 50,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/25.png"
+            },
+            {
+              "id_pokemon": 127,
+              "nombre": "pinsir",
+              "tipo_1": "bug",
+              "tipo_2": null,
+              "hp_base": 65,
+              "ataque_base": 125,
+              "defensa_base": 100,
+              "ataque_especial_base": 55,
+              "defensa_especial_base": 70,
+              "velocidad_base": 85,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/127.png"
+            },
+            {
+              "id_pokemon": 172,
+              "nombre": "pichu",
+              "tipo_1": "electric",
+              "tipo_2": null,
+              "hp_base": 20,
+              "ataque_base": 40,
+              "defensa_base": 15,
+              "ataque_especial_base": 35,
+              "defensa_especial_base": 35,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/172.png"
+            },
+            {
+              "id_pokemon": 204,
+              "nombre": "pineco",
+              "tipo_1": "bug",
+              "tipo_2": null,
+              "hp_base": 50,
+              "ataque_base": 65,
+              "defensa_base": 90,
+              "ataque_especial_base": 35,
+              "defensa_especial_base": 35,
+              "velocidad_base": 15,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/204.png"
+            },
+            {
+              "id_pokemon": 221,
+              "nombre": "piloswine",
+              "tipo_1": "ice",
+              "tipo_2": "ground",
+              "hp_base": 100,
+              "ataque_base": 100,
+              "defensa_base": 80,
+              "ataque_especial_base": 60,
+              "defensa_especial_base": 60,
+              "velocidad_base": 50,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/221.png"
+            },
+            {
+              "id_pokemon": 393,
+              "nombre": "piplup",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 53,
+              "ataque_base": 51,
+              "defensa_base": 53,
+              "ataque_especial_base": 61,
+              "defensa_especial_base": 56,
+              "velocidad_base": 40,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/393.png"
+            },
+            {
+              "id_pokemon": 499,
+              "nombre": "pignite",
+              "tipo_1": "fire",
+              "tipo_2": "fighting",
+              "hp_base": 90,
+              "ataque_base": 93,
+              "defensa_base": 55,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 55,
+              "velocidad_base": 55,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/499.png"
+            },
+            {
+              "id_pokemon": 519,
+              "nombre": "pidove",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 50,
+              "ataque_base": 55,
+              "defensa_base": 50,
+              "ataque_especial_base": 36,
+              "defensa_especial_base": 30,
+              "velocidad_base": 43,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/519.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 11,
+              "page": 1,
+              "limit": 20,
+              "totalPages": 1
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query limit
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon?limit=5
+    method: GET
+    mode: none
+    params:query: {
+      limit: 5
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 1327
+      etag: W/"52f-q+P1HdvGz/J/LBqS4o2PMYjTYSs"
+      date: Wed, 14 Jan 2026 01:36:32 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 1,
+              "nombre": "bulbasaur",
+              "tipo_1": "grass",
+              "tipo_2": "poison",
+              "hp_base": 45,
+              "ataque_base": 49,
+              "defensa_base": 49,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 65,
+              "velocidad_base": 45,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/1.png"
+            },
+            {
+              "id_pokemon": 2,
+              "nombre": "ivysaur",
+              "tipo_1": "grass",
+              "tipo_2": "poison",
+              "hp_base": 60,
+              "ataque_base": 62,
+              "defensa_base": 63,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 80,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/2.png"
+            },
+            {
+              "id_pokemon": 3,
+              "nombre": "venusaur",
+              "tipo_1": "grass",
+              "tipo_2": "poison",
+              "hp_base": 80,
+              "ataque_base": 82,
+              "defensa_base": 83,
+              "ataque_especial_base": 100,
+              "defensa_especial_base": 100,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/3.png"
+            },
+            {
+              "id_pokemon": 4,
+              "nombre": "charmander",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 39,
+              "ataque_base": 52,
+              "defensa_base": 43,
+              "ataque_especial_base": 60,
+              "defensa_especial_base": 50,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/4.png"
+            },
+            {
+              "id_pokemon": 5,
+              "nombre": "charmeleon",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 58,
+              "ataque_base": 64,
+              "defensa_base": 58,
+              "ataque_especial_base": 80,
+              "defensa_especial_base": 65,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/5.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 649,
+              "page": 1,
+              "limit": 5,
+              "totalPages": 130
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query page (por defecto el limit es 20, combinas limit y page)
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon?page=2
+    method: GET
+    mode: none
+    params:query: {
+      page: 2
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 5026
+      etag: W/"13a2-412xnqvUM4Yd1KcucsvsfjAhCA0"
+      date: Wed, 14 Jan 2026 01:37:02 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 21,
+              "nombre": "spearow",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 40,
+              "ataque_base": 60,
+              "defensa_base": 30,
+              "ataque_especial_base": 31,
+              "defensa_especial_base": 31,
+              "velocidad_base": 70,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/21.png"
+            },
+            {
+              "id_pokemon": 22,
+              "nombre": "fearow",
+              "tipo_1": "normal",
+              "tipo_2": "flying",
+              "hp_base": 65,
+              "ataque_base": 90,
+              "defensa_base": 65,
+              "ataque_especial_base": 61,
+              "defensa_especial_base": 61,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/22.png"
+            },
+            {
+              "id_pokemon": 23,
+              "nombre": "ekans",
+              "tipo_1": "poison",
+              "tipo_2": null,
+              "hp_base": 35,
+              "ataque_base": 60,
+              "defensa_base": 44,
+              "ataque_especial_base": 40,
+              "defensa_especial_base": 54,
+              "velocidad_base": 55,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/23.png"
+            },
+            {
+              "id_pokemon": 24,
+              "nombre": "arbok",
+              "tipo_1": "poison",
+              "tipo_2": null,
+              "hp_base": 60,
+              "ataque_base": 95,
+              "defensa_base": 69,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 79,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/24.png"
+            },
+            {
+              "id_pokemon": 25,
+              "nombre": "pikachu",
+              "tipo_1": "electric",
+              "tipo_2": null,
+              "hp_base": 35,
+              "ataque_base": 55,
+              "defensa_base": 40,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 50,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/25.png"
+            },
+            {
+              "id_pokemon": 26,
+              "nombre": "raichu",
+              "tipo_1": "electric",
+              "tipo_2": null,
+              "hp_base": 60,
+              "ataque_base": 90,
+              "defensa_base": 55,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 80,
+              "velocidad_base": 110,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/26.png"
+            },
+            {
+              "id_pokemon": 27,
+              "nombre": "sandshrew",
+              "tipo_1": "ground",
+              "tipo_2": null,
+              "hp_base": 50,
+              "ataque_base": 75,
+              "defensa_base": 85,
+              "ataque_especial_base": 20,
+              "defensa_especial_base": 30,
+              "velocidad_base": 40,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/27.png"
+            },
+            {
+              "id_pokemon": 28,
+              "nombre": "sandslash",
+              "tipo_1": "ground",
+              "tipo_2": null,
+              "hp_base": 75,
+              "ataque_base": 100,
+              "defensa_base": 110,
+              "ataque_especial_base": 45,
+              "defensa_especial_base": 55,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/28.png"
+            },
+            {
+              "id_pokemon": 29,
+              "nombre": "nidoran-f",
+              "tipo_1": "poison",
+              "tipo_2": null,
+              "hp_base": 55,
+              "ataque_base": 47,
+              "defensa_base": 52,
+              "ataque_especial_base": 40,
+              "defensa_especial_base": 40,
+              "velocidad_base": 41,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/29.png"
+            },
+            {
+              "id_pokemon": 30,
+              "nombre": "nidorina",
+              "tipo_1": "poison",
+              "tipo_2": null,
+              "hp_base": 70,
+              "ataque_base": 62,
+              "defensa_base": 67,
+              "ataque_especial_base": 55,
+              "defensa_especial_base": 55,
+              "velocidad_base": 56,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/30.png"
+            },
+            {
+              "id_pokemon": 31,
+              "nombre": "nidoqueen",
+              "tipo_1": "poison",
+              "tipo_2": "ground",
+              "hp_base": 90,
+              "ataque_base": 92,
+              "defensa_base": 87,
+              "ataque_especial_base": 75,
+              "defensa_especial_base": 85,
+              "velocidad_base": 76,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/31.png"
+            },
+            {
+              "id_pokemon": 32,
+              "nombre": "nidoran-m",
+              "tipo_1": "poison",
+              "tipo_2": null,
+              "hp_base": 46,
+              "ataque_base": 57,
+              "defensa_base": 40,
+              "ataque_especial_base": 40,
+              "defensa_especial_base": 40,
+              "velocidad_base": 50,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/32.png"
+            },
+            {
+              "id_pokemon": 33,
+              "nombre": "nidorino",
+              "tipo_1": "poison",
+              "tipo_2": null,
+              "hp_base": 61,
+              "ataque_base": 72,
+              "defensa_base": 57,
+              "ataque_especial_base": 55,
+              "defensa_especial_base": 55,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/33.png"
+            },
+            {
+              "id_pokemon": 34,
+              "nombre": "nidoking",
+              "tipo_1": "poison",
+              "tipo_2": "ground",
+              "hp_base": 81,
+              "ataque_base": 102,
+              "defensa_base": 77,
+              "ataque_especial_base": 85,
+              "defensa_especial_base": 75,
+              "velocidad_base": 85,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/34.png"
+            },
+            {
+              "id_pokemon": 35,
+              "nombre": "clefairy",
+              "tipo_1": "fairy",
+              "tipo_2": null,
+              "hp_base": 70,
+              "ataque_base": 45,
+              "defensa_base": 48,
+              "ataque_especial_base": 60,
+              "defensa_especial_base": 65,
+              "velocidad_base": 35,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/35.png"
+            },
+            {
+              "id_pokemon": 36,
+              "nombre": "clefable",
+              "tipo_1": "fairy",
+              "tipo_2": null,
+              "hp_base": 95,
+              "ataque_base": 70,
+              "defensa_base": 73,
+              "ataque_especial_base": 95,
+              "defensa_especial_base": 90,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/36.png"
+            },
+            {
+              "id_pokemon": 37,
+              "nombre": "vulpix",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 38,
+              "ataque_base": 41,
+              "defensa_base": 40,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 65,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/37.png"
+            },
+            {
+              "id_pokemon": 38,
+              "nombre": "ninetales",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 73,
+              "ataque_base": 76,
+              "defensa_base": 75,
+              "ataque_especial_base": 81,
+              "defensa_especial_base": 100,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/38.png"
+            },
+            {
+              "id_pokemon": 39,
+              "nombre": "jigglypuff",
+              "tipo_1": "normal",
+              "tipo_2": "fairy",
+              "hp_base": 115,
+              "ataque_base": 45,
+              "defensa_base": 20,
+              "ataque_especial_base": 45,
+              "defensa_especial_base": 25,
+              "velocidad_base": 20,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/39.png"
+            },
+            {
+              "id_pokemon": 40,
+              "nombre": "wigglytuff",
+              "tipo_1": "normal",
+              "tipo_2": "fairy",
+              "hp_base": 140,
+              "ataque_base": 70,
+              "defensa_base": 45,
+              "ataque_especial_base": 85,
+              "defensa_especial_base": 50,
+              "velocidad_base": 45,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/40.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 649,
+              "page": 2,
+              "limit": 20,
+              "totalPages": 33
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query order
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon?order=desc
+    method: GET
+    mode: none
+    params:query: {
+      order: desc
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 5171
+      etag: W/"1433-HMNhxcALJeqbD5GkgM0zdKudcuM"
+      date: Wed, 14 Jan 2026 01:41:16 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 649,
+              "nombre": "genesect",
+              "tipo_1": "bug",
+              "tipo_2": "steel",
+              "hp_base": 71,
+              "ataque_base": 120,
+              "defensa_base": 95,
+              "ataque_especial_base": 120,
+              "defensa_especial_base": 95,
+              "velocidad_base": 99,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/649.png"
+            },
+            {
+              "id_pokemon": 648,
+              "nombre": "meloetta-aria",
+              "tipo_1": "normal",
+              "tipo_2": "psychic",
+              "hp_base": 100,
+              "ataque_base": 77,
+              "defensa_base": 77,
+              "ataque_especial_base": 128,
+              "defensa_especial_base": 128,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/648.png"
+            },
+            {
+              "id_pokemon": 647,
+              "nombre": "keldeo-ordinary",
+              "tipo_1": "water",
+              "tipo_2": "fighting",
+              "hp_base": 91,
+              "ataque_base": 72,
+              "defensa_base": 90,
+              "ataque_especial_base": 129,
+              "defensa_especial_base": 90,
+              "velocidad_base": 108,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/647.png"
+            },
+            {
+              "id_pokemon": 646,
+              "nombre": "kyurem",
+              "tipo_1": "dragon",
+              "tipo_2": "ice",
+              "hp_base": 125,
+              "ataque_base": 130,
+              "defensa_base": 90,
+              "ataque_especial_base": 130,
+              "defensa_especial_base": 90,
+              "velocidad_base": 95,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/646.png"
+            },
+            {
+              "id_pokemon": 645,
+              "nombre": "landorus-incarnate",
+              "tipo_1": "ground",
+              "tipo_2": "flying",
+              "hp_base": 89,
+              "ataque_base": 125,
+              "defensa_base": 90,
+              "ataque_especial_base": 115,
+              "defensa_especial_base": 80,
+              "velocidad_base": 101,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/645.png"
+            },
+            {
+              "id_pokemon": 644,
+              "nombre": "zekrom",
+              "tipo_1": "dragon",
+              "tipo_2": "electric",
+              "hp_base": 100,
+              "ataque_base": 150,
+              "defensa_base": 120,
+              "ataque_especial_base": 120,
+              "defensa_especial_base": 100,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/644.png"
+            },
+            {
+              "id_pokemon": 643,
+              "nombre": "reshiram",
+              "tipo_1": "dragon",
+              "tipo_2": "fire",
+              "hp_base": 100,
+              "ataque_base": 120,
+              "defensa_base": 100,
+              "ataque_especial_base": 150,
+              "defensa_especial_base": 120,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/643.png"
+            },
+            {
+              "id_pokemon": 642,
+              "nombre": "thundurus-incarnate",
+              "tipo_1": "electric",
+              "tipo_2": "flying",
+              "hp_base": 79,
+              "ataque_base": 115,
+              "defensa_base": 70,
+              "ataque_especial_base": 125,
+              "defensa_especial_base": 80,
+              "velocidad_base": 111,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/642.png"
+            },
+            {
+              "id_pokemon": 641,
+              "nombre": "tornadus-incarnate",
+              "tipo_1": "flying",
+              "tipo_2": null,
+              "hp_base": 79,
+              "ataque_base": 115,
+              "defensa_base": 70,
+              "ataque_especial_base": 125,
+              "defensa_especial_base": 80,
+              "velocidad_base": 111,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/641.png"
+            },
+            {
+              "id_pokemon": 640,
+              "nombre": "virizion",
+              "tipo_1": "grass",
+              "tipo_2": "fighting",
+              "hp_base": 91,
+              "ataque_base": 90,
+              "defensa_base": 72,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 129,
+              "velocidad_base": 108,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/640.png"
+            },
+            {
+              "id_pokemon": 639,
+              "nombre": "terrakion",
+              "tipo_1": "rock",
+              "tipo_2": "fighting",
+              "hp_base": 91,
+              "ataque_base": 129,
+              "defensa_base": 90,
+              "ataque_especial_base": 72,
+              "defensa_especial_base": 90,
+              "velocidad_base": 108,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/639.png"
+            },
+            {
+              "id_pokemon": 638,
+              "nombre": "cobalion",
+              "tipo_1": "steel",
+              "tipo_2": "fighting",
+              "hp_base": 91,
+              "ataque_base": 90,
+              "defensa_base": 129,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 72,
+              "velocidad_base": 108,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/638.png"
+            },
+            {
+              "id_pokemon": 637,
+              "nombre": "volcarona",
+              "tipo_1": "bug",
+              "tipo_2": "fire",
+              "hp_base": 85,
+              "ataque_base": 60,
+              "defensa_base": 65,
+              "ataque_especial_base": 135,
+              "defensa_especial_base": 105,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/637.png"
+            },
+            {
+              "id_pokemon": 636,
+              "nombre": "larvesta",
+              "tipo_1": "bug",
+              "tipo_2": "fire",
+              "hp_base": 55,
+              "ataque_base": 85,
+              "defensa_base": 55,
+              "ataque_especial_base": 50,
+              "defensa_especial_base": 55,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/636.png"
+            },
+            {
+              "id_pokemon": 635,
+              "nombre": "hydreigon",
+              "tipo_1": "dark",
+              "tipo_2": "dragon",
+              "hp_base": 92,
+              "ataque_base": 105,
+              "defensa_base": 90,
+              "ataque_especial_base": 125,
+              "defensa_especial_base": 90,
+              "velocidad_base": 98,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/635.png"
+            },
+            {
+              "id_pokemon": 634,
+              "nombre": "zweilous",
+              "tipo_1": "dark",
+              "tipo_2": "dragon",
+              "hp_base": 72,
+              "ataque_base": 85,
+              "defensa_base": 70,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 70,
+              "velocidad_base": 58,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/634.png"
+            },
+            {
+              "id_pokemon": 633,
+              "nombre": "deino",
+              "tipo_1": "dark",
+              "tipo_2": "dragon",
+              "hp_base": 52,
+              "ataque_base": 65,
+              "defensa_base": 50,
+              "ataque_especial_base": 45,
+              "defensa_especial_base": 50,
+              "velocidad_base": 38,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/633.png"
+            },
+            {
+              "id_pokemon": 632,
+              "nombre": "durant",
+              "tipo_1": "bug",
+              "tipo_2": "steel",
+              "hp_base": 58,
+              "ataque_base": 109,
+              "defensa_base": 112,
+              "ataque_especial_base": 48,
+              "defensa_especial_base": 48,
+              "velocidad_base": 109,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/632.png"
+            },
+            {
+              "id_pokemon": 631,
+              "nombre": "heatmor",
+              "tipo_1": "fire",
+              "tipo_2": null,
+              "hp_base": 85,
+              "ataque_base": 97,
+              "defensa_base": 66,
+              "ataque_especial_base": 105,
+              "defensa_especial_base": 66,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/631.png"
+            },
+            {
+              "id_pokemon": 630,
+              "nombre": "mandibuzz",
+              "tipo_1": "dark",
+              "tipo_2": "flying",
+              "hp_base": 110,
+              "ataque_base": 65,
+              "defensa_base": 105,
+              "ataque_especial_base": 55,
+              "defensa_especial_base": 95,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/630.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 649,
+              "page": 1,
+              "limit": 20,
+              "totalPages": 33
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query sort
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon?sort=hp_base&order=desc
+    method: GET
+    mode: none
+    params:query: {
+      sort: hp_base
+      order: desc
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 5093
+      etag: W/"13e5-jSQ3VlzMy/sRUL9Nwhc1XgA+wVM"
+      date: Wed, 14 Jan 2026 01:43:46 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_pokemon": 242,
+              "nombre": "blissey",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 255,
+              "ataque_base": 10,
+              "defensa_base": 10,
+              "ataque_especial_base": 75,
+              "defensa_especial_base": 135,
+              "velocidad_base": 55,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/242.png"
+            },
+            {
+              "id_pokemon": 113,
+              "nombre": "chansey",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 250,
+              "ataque_base": 5,
+              "defensa_base": 5,
+              "ataque_especial_base": 35,
+              "defensa_especial_base": 105,
+              "velocidad_base": 50,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/113.png"
+            },
+            {
+              "id_pokemon": 202,
+              "nombre": "wobbuffet",
+              "tipo_1": "psychic",
+              "tipo_2": null,
+              "hp_base": 190,
+              "ataque_base": 33,
+              "defensa_base": 58,
+              "ataque_especial_base": 33,
+              "defensa_especial_base": 58,
+              "velocidad_base": 33,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/202.png"
+            },
+            {
+              "id_pokemon": 321,
+              "nombre": "wailord",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 170,
+              "ataque_base": 90,
+              "defensa_base": 45,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 45,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/321.png"
+            },
+            {
+              "id_pokemon": 594,
+              "nombre": "alomomola",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 165,
+              "ataque_base": 75,
+              "defensa_base": 80,
+              "ataque_especial_base": 40,
+              "defensa_especial_base": 45,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/594.png"
+            },
+            {
+              "id_pokemon": 143,
+              "nombre": "snorlax",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 160,
+              "ataque_base": 110,
+              "defensa_base": 65,
+              "ataque_especial_base": 65,
+              "defensa_especial_base": 110,
+              "velocidad_base": 30,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/143.png"
+            },
+            {
+              "id_pokemon": 289,
+              "nombre": "slaking",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 150,
+              "ataque_base": 160,
+              "defensa_base": 100,
+              "ataque_especial_base": 95,
+              "defensa_especial_base": 65,
+              "velocidad_base": 100,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/289.png"
+            },
+            {
+              "id_pokemon": 426,
+              "nombre": "drifblim",
+              "tipo_1": "ghost",
+              "tipo_2": "flying",
+              "hp_base": 150,
+              "ataque_base": 80,
+              "defensa_base": 44,
+              "ataque_especial_base": 90,
+              "defensa_especial_base": 54,
+              "velocidad_base": 80,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/426.png"
+            },
+            {
+              "id_pokemon": 487,
+              "nombre": "giratina-altered",
+              "tipo_1": "ghost",
+              "tipo_2": "dragon",
+              "hp_base": 150,
+              "ataque_base": 100,
+              "defensa_base": 120,
+              "ataque_especial_base": 100,
+              "defensa_especial_base": 120,
+              "velocidad_base": 90,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/487.png"
+            },
+            {
+              "id_pokemon": 297,
+              "nombre": "hariyama",
+              "tipo_1": "fighting",
+              "tipo_2": null,
+              "hp_base": 144,
+              "ataque_base": 120,
+              "defensa_base": 60,
+              "ataque_especial_base": 40,
+              "defensa_especial_base": 60,
+              "velocidad_base": 50,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/297.png"
+            },
+            {
+              "id_pokemon": 40,
+              "nombre": "wigglytuff",
+              "tipo_1": "normal",
+              "tipo_2": "fairy",
+              "hp_base": 140,
+              "ataque_base": 70,
+              "defensa_base": 45,
+              "ataque_especial_base": 85,
+              "defensa_especial_base": 50,
+              "velocidad_base": 45,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/40.png"
+            },
+            {
+              "id_pokemon": 446,
+              "nombre": "munchlax",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 135,
+              "ataque_base": 85,
+              "defensa_base": 40,
+              "ataque_especial_base": 40,
+              "defensa_especial_base": 85,
+              "velocidad_base": 5,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/446.png"
+            },
+            {
+              "id_pokemon": 131,
+              "nombre": "lapras",
+              "tipo_1": "water",
+              "tipo_2": "ice",
+              "hp_base": 130,
+              "ataque_base": 85,
+              "defensa_base": 80,
+              "ataque_especial_base": 85,
+              "defensa_especial_base": 95,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/131.png"
+            },
+            {
+              "id_pokemon": 134,
+              "nombre": "vaporeon",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 130,
+              "ataque_base": 65,
+              "defensa_base": 60,
+              "ataque_especial_base": 110,
+              "defensa_especial_base": 95,
+              "velocidad_base": 65,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/134.png"
+            },
+            {
+              "id_pokemon": 320,
+              "nombre": "wailmer",
+              "tipo_1": "water",
+              "tipo_2": null,
+              "hp_base": 130,
+              "ataque_base": 70,
+              "defensa_base": 35,
+              "ataque_especial_base": 70,
+              "defensa_especial_base": 35,
+              "velocidad_base": 60,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/320.png"
+            },
+            {
+              "id_pokemon": 171,
+              "nombre": "lanturn",
+              "tipo_1": "water",
+              "tipo_2": "electric",
+              "hp_base": 125,
+              "ataque_base": 58,
+              "defensa_base": 58,
+              "ataque_especial_base": 76,
+              "defensa_especial_base": 76,
+              "velocidad_base": 67,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/171.png"
+            },
+            {
+              "id_pokemon": 646,
+              "nombre": "kyurem",
+              "tipo_1": "dragon",
+              "tipo_2": "ice",
+              "hp_base": 125,
+              "ataque_base": 130,
+              "defensa_base": 90,
+              "ataque_especial_base": 130,
+              "defensa_especial_base": 90,
+              "velocidad_base": 95,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/646.png"
+            },
+            {
+              "id_pokemon": 488,
+              "nombre": "cresselia",
+              "tipo_1": "psychic",
+              "tipo_2": null,
+              "hp_base": 120,
+              "ataque_base": 70,
+              "defensa_base": 110,
+              "ataque_especial_base": 75,
+              "defensa_especial_base": 120,
+              "velocidad_base": 85,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/488.png"
+            },
+            {
+              "id_pokemon": 493,
+              "nombre": "arceus",
+              "tipo_1": "normal",
+              "tipo_2": null,
+              "hp_base": 120,
+              "ataque_base": 120,
+              "defensa_base": 120,
+              "ataque_especial_base": 120,
+              "defensa_especial_base": 120,
+              "velocidad_base": 120,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/493.png"
+            },
+            {
+              "id_pokemon": 538,
+              "nombre": "throh",
+              "tipo_1": "fighting",
+              "tipo_2": null,
+              "hp_base": 120,
+              "ataque_base": 100,
+              "defensa_base": 85,
+              "ataque_especial_base": 30,
+              "defensa_especial_base": 85,
+              "velocidad_base": 45,
+              "imagenUrl": "http://192.168.1.59:3000/pokemon/538.png"
+            }
+          ],
+          "meta": {
+            "pagination": {
+              "total": 649,
+              "page": 1,
+              "limit": 20,
+              "totalPages": 33
+            }
+          }
+        }
+      '''
+    }
+  }
+}

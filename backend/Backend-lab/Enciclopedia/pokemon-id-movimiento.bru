@@ -1,0 +1,2182 @@
+meta {
+  name: pokemon/id/movimiento
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1/movimientos?category=physical
+  body: none
+  auth: none
+}
+
+params:query {
+  category: physical
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1/movimientos
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 27112
+      etag: W/"69e8-liutSvuv+rhMYI6py4kgoXTeBcg"
+      date: Thu, 15 Jan 2026 08:36:48 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_movimiento": 491,
+              "nombre": "acid-spray",
+              "tipo": "poison",
+              "categoria": "special",
+              "poder": 40,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Lowers the target’s Special Defense by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 133,
+              "nombre": "amnesia",
+              "tipo": "psychic",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Raises the user’s Special Defense by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 213,
+              "nombre": "attract",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Causes the target to fall in love with the user, giving it a 50% chance to do nothing each turn.  If the user and target are the same gender, or either is genderless, this move will fail.  If either Pokémon leaves the field, this effect ends.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 117,
+              "nombre": "bide",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "User waits for two turns.  On the second turn, the user inflicts twice the damage it accumulated on the last Pokémon to hit it.  Damage inflicted is typeless.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 20,
+              "nombre": "bind",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 15,
+              "pp": 20,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.  For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.  The user continues to use other moves during this time.  If the user leaves the field, this effect ends.\n\nHas ",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 34,
+              "nombre": "body-slam",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 85,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to paralyze the target.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 331,
+              "nombre": "bullet-seed",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 25,
+              "pp": 30,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Hits 2–5 times in one turn.\n\nHas a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times.  Averages to 3 hits per use.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 445,
+              "nombre": "captivate",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Lowers the target’s Special Attack by two stages.  If the user and target are the same gender, or either is genderless, this move will fail.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 204,
+              "nombre": "charm",
+              "tipo": "fairy",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Lowers the target’s Attack by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 590,
+              "nombre": "confide",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Lowers the target’s Special Attack by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 174,
+              "nombre": "curse",
+              "tipo": "ghost",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "If the user is a ghost: user pays half its max HP to place a curse on the target, damaging it for 1/4 its max HP every turn.\nOtherwise: Lowers the user’s Speed by one stage, and raises its Attack and Defense by one stage each.\n\nThe curse effect is passed ",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 15,
+              "nombre": "cut",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 50,
+              "pp": 30,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 111,
+              "nombre": "defense-curl",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 40,
+              "precision": "100",
+              "descripcion": "Raises user’s Defense by one stage.\n\nAfter this move is used, the power of ice ball and rollout are doubled until the user leaves the field.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 38,
+              "nombre": "double-edge",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User takes 1/3 the damage it inflicts in recoil.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 104,
+              "nombre": "double-team",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Raises the user’s evasion by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 497,
+              "nombre": "echoed-voice",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 40,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If any friendly Pokémon used this move earlier this turn or on the previous turn, that use’s power is added to this move’s power, to a maximum of 200.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 203,
+              "nombre": "endure",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "The user’s HP cannot be lowered below 1 by any means for the remainder of this turn.\n\nIf the user successfully used detect, endure, protect, quick guard, or wide guard on the last turn, this move has a 50% chance to fail.\n\nThis move cannot be selected by ",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 412,
+              "nombre": "energy-ball",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 90,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 10% chance to lower the target’s Special Defense by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 263,
+              "nombre": "facade",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 70,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If the user is burned, paralyzed, or poisoned, this move has double power.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 206,
+              "nombre": "false-swipe",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 40,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Will not reduce the target’s HP below 1.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 148,
+              "nombre": "flash",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Lowers the target’s accuracy by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 218,
+              "nombre": "frustration",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power increases inversely with happiness, given by `(255 - happiness) * 2 / 5`, to a maximum of 102.  Power bottoms out at 1.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 210,
+              "nombre": "fury-cutter",
+              "tipo": "bug",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 20,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.  Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x.  If this move misses or the user leaves the field, power resets.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 202,
+              "nombre": "giga-drain",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 75,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Drains half the damage inflicted to heal the user.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 447,
+              "nombre": "grass-knot",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power increases with the target’s weight in kilograms, to a maximum of 120.\n\nTarget’s weight | Power\n--------------- | ----:\nUp to 10kg      |    20\nUp to 25kg      |    40\nUp to 50kg      |    60\nUp to 100kg     |    80\nUp to 20",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 520,
+              "nombre": "grass-pledge",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 80,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If a friendly Pokémon used fire pledge earlier this turn, all opposing Pokémon will take 1/8 their max HP in damage at the end of every turn for four turns (including this one).",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 320,
+              "nombre": "grass-whistle",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "55",
+              "descripcion": "Puts the target to sleep.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 803,
+              "nombre": "grassy-glide",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 55,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 580,
+              "nombre": "grassy-terrain",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "For five turns, heals all Pokémon on the ground for 1/16 their max HP each turn and strengthens their grass moves to 1.5× their power.\n\nChanges nature power to energy ball.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 29,
+              "nombre": "headbutt",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 70,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to make the target flinch.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 270,
+              "nombre": "helping-hand",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Boosts the power of the target’s moves by 50% until the end of this turn.\n\nThis move cannot be copied by mirror move, nor selected by assist or metronome.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 237,
+              "nombre": "hidden-power",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 60,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power and type are determined by the user’s IVs.\n\nPower is given by `x * 40 / 63 + 30`.  `x` is obtained by arranging bit 1 from the IV for each of Special Defense, Special Attack, Speed, Defense, Attack, and HP in that order.  (",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 275,
+              "nombre": "ingrain",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Prevents the user from switching out.  User regains 1/16 of its max HP at the end of every turn.  If the user was immune to ground attacks, it will now take normal damage from them.\n\nroar and whirlwind will not affect the user.  The user cannot use magnet",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 282,
+              "nombre": "knock-off",
+              "tipo": "dark",
+              "categoria": "physical",
+              "poder": 65,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Target loses its held item.\n\nNeither the user nor the target can recover its item with recycle.\n\nIf the target has multitype or sticky hold, it will take damage but not lose its item.",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 437,
+              "nombre": "leaf-storm",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 130,
+              "pp": 5,
+              "precision": "90",
+              "descripcion": "Inflicts regular damage, then lowers the user’s Special Attack by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 113,
+              "nombre": "light-screen",
+              "tipo": "psychic",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 30,
+              "precision": "100",
+              "descripcion": "Erects a barrier around the user’s side of the field that reduces damage from special attacks by half for five turns.  In double battles, the reduction is 1/3.  Critical hits are not affected by the barrier.\n\nIf the user is holding light clay, the barrier",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 345,
+              "nombre": "magical-leaf",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 60,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Ignores accuracy and evasion modifiers.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 72,
+              "nombre": "mega-drain",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 40,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Drains half the damage inflicted to heal the user.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 102,
+              "nombre": "mimic",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "This move is replaced by the target’s last successfully used move, and its PP changes to 5.  If the target hasn’t used a move since entering the field, if it tried to use a move this turn and failed, or if the user already knows the targeted move, this mo",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 189,
+              "nombre": "mud-slap",
+              "tipo": "ground",
+              "categoria": "special",
+              "poder": 20,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 100% chance to lower the target’s accuracy by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 363,
+              "nombre": "natural-gift",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power and type are determined by the user’s held berry.  The berry is consumed.  If the user is not holding a berry, this move will fail.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 267,
+              "nombre": "nature-power",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Uses another move chosen according to the terrain.\n\nTerrain                   | Selected move\n------------------------- | ------------------\nBuilding                  | tri attack\nCave                      | rock slide\nDeep water                | hydro pu",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 200,
+              "nombre": "outrage",
+              "tipo": "dragon",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User is forced to attack with this move for 2–3 turns,selected at random.  After the last hit, the user becomes confused.\n\nsafeguard does not protect against the confusion from this move.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 80,
+              "nombre": "petal-dance",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User is forced to attack with this move for 2–3 turns,selected at random.  After the last hit, the user becomes confused.\n\nsafeguard does not protect against the confusion from this move.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 438,
+              "nombre": "power-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 10,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 182,
+              "nombre": "protect",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "No moves will hit the user for the remainder of this turn.  If the user is last to act this turn, this move will fail.\n\nIf the user successfully used detect, endure, protect, quick guard, or wide guard on the last turn, this move has a 50% chance to fail.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 99,
+              "nombre": "rage",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 20,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Every time the user is hit after it uses this move but before its next action, its Attack raises by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 13,
+              "nombre": "razor-wind",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 80,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User’s critical hit rate is one level higher when using this move.  User charges for one turn before attacking.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 115,
+              "nombre": "reflect",
+              "tipo": "psychic",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Erects a barrier around the user’s side of the field that reduces damage from physical attacks by half for five turns.  In double battles, the reduction is 1/3.  Critical hits are not affected by the barrier.\n\nIf the user is holding light clay, the barrie",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 156,
+              "nombre": "rest",
+              "tipo": "psychic",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 5,
+              "precision": "100",
+              "descripcion": "User falls to sleep and immediately regains all its HP.  If the user has another major status effect, sleep will replace it.  The user will always wake up after two turns, or one turn with early bird.\n\nThis move fails if the Pokémon cannot fall asleep due",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 216,
+              "nombre": "return",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power increases with happiness, given by `happiness * 2 / 5`, to a maximum of 102.  Power bottoms out at 1.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 249,
+              "nombre": "rock-smash",
+              "tipo": "fighting",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 50% chance to lower the target’s Defense by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 496,
+              "nombre": "round",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 60,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If round has already been used this turn, this move’s power is doubled.  After this move is used, any other Pokémon using it this turn will immediately do so (in the order they would otherwise act), regardless of Speed or priorit",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 219,
+              "nombre": "safeguard",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 25,
+              "precision": "100",
+              "descripcion": "Protects Pokémon on the user’s side of the field from major status effects and confusion for five turns.  Does not cancel existing ailments.  This effect remains even if the user leaves the field.\n\nIf yawn is used while this move is in effect, it will imm",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 290,
+              "nombre": "secret-power",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 70,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to inflict an effect chosen according to the terrain.\n\nTerrain        | Effect\n-------------- | -------------------------------------------------------------\nBuilding       | Paralyzes target\nCave           | Mak",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 130,
+              "nombre": "skull-bash",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 130,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Raises the user’s Defense by one stage.  User then charges for one turn before attacking.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 214,
+              "nombre": "sleep-talk",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Only usable if the user is sleeping.  Randomly selects and uses one of the user’s other three moves.  Use of the selected move requires and costs 0 PP.\n\nThis move will not select assist, bide, bounce, chatter, copycat, dig, dive, fly, focus punch, me firs",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 124,
+              "nombre": "sludge",
+              "tipo": "poison",
+              "categoria": "special",
+              "poder": 65,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to poison the target.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 188,
+              "nombre": "sludge-bomb",
+              "tipo": "poison",
+              "categoria": "special",
+              "poder": 90,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to poison the target.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 173,
+              "nombre": "snore",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 50,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Only usable if the user is sleeping.  Inflicts regular damage.  Has a 30% chance to make the target flinch.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 70,
+              "nombre": "strength",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 80,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 81,
+              "nombre": "string-shot",
+              "tipo": "bug",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 40,
+              "precision": "95",
+              "descripcion": "Lowers the target’s Speed by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 164,
+              "nombre": "substitute",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Transfers 1/4 the user’s max HP into a doll that absorbs damage and causes most negative move effects to fail.  If the user leaves the field, the doll will vanish.  If the user cannot pay the HP cost, this move will fail.\n\nThe doll takes damage as normal,",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 241,
+              "nombre": "sunny-day",
+              "tipo": "fire",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 5,
+              "precision": "100",
+              "descripcion": "Changes the weather to sunshine for five turns, during which fire moves inflict 50% extra damage, and water moves inflict half damage.\n\nIf the user is holding heat rock, this effect lasts for eight turns.\n\nPokémon cannot become frozen.\n\nthunder has 50% ac",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 207,
+              "nombre": "swagger",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "85",
+              "descripcion": "Raises the target’s Attack by two stages, then confuses it.  If the target’s Attack cannot be raised by two stages, the confusion is not applied.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 14,
+              "nombre": "swords-dance",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Raises the user’s Attack by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 36,
+              "nombre": "take-down",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 90,
+              "pp": 20,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.  User takes 1/4 the damage it inflicts in recoil.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 851,
+              "nombre": "tera-blast",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 80,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "If the user has Terastallized, it unleashes energy of its Tera Type. This move inflicts damage using the Attack or Sp. Atk stat—whichever is higher for the user.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 92,
+              "nombre": "toxic",
+              "tipo": "poison",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "90",
+              "descripcion": "Badly poisons the target.  Never misses when used by a poison-type Pokémon.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 885,
+              "nombre": "trailblaze",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 50,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "The user attacks suddenly as if leaping out from tall grass. The user's nimble footwork boosts its Speed stat.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 474,
+              "nombre": "venoshock",
+              "tipo": "poison",
+              "categoria": "special",
+              "poder": 65,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If the target is poisoned, this move has double power.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 311,
+              "nombre": "weather-ball",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 50,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If a weather move is active, this move has double power, and its type becomes the type of the weather move.  shadow sky is typeless for the purposes of this move.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 526,
+              "nombre": "work-up",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 30,
+              "precision": "100",
+              "descripcion": "Raises the user’s Attack and Special Attack by one stage each.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 45,
+              "nombre": "growl",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 40,
+              "precision": "100",
+              "descripcion": "Lowers the target’s Attack by one stage.",
+              "nivel": 1,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 33,
+              "nombre": "tackle",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 35,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 1,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 73,
+              "nombre": "leech-seed",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "90",
+              "descripcion": "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn and heals the user for the amount taken.  Has no effect on grass Pokémon.  The seed remains until the target leaves the field.\n\nThe user takes damage instead of being heale",
+              "nivel": 7,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 22,
+              "nombre": "vine-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 45,
+              "pp": 25,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 13,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 77,
+              "nombre": "poison-powder",
+              "tipo": "poison",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 35,
+              "precision": "75",
+              "descripcion": "Poisons the target.",
+              "nivel": 20,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 230,
+              "nombre": "sweet-scent",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Lowers the target’s evasion by one stage.",
+              "nivel": 25,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 75,
+              "nombre": "razor-leaf",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 55,
+              "pp": 25,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.  User’s critical hit rate is one level higher when using this move.",
+              "nivel": 27,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 388,
+              "nombre": "worry-seed",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Changes the target’s ability to insomnia.\n\nIf the target’s ability is truant or multitype, this move will fail.",
+              "nivel": 31,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 74,
+              "nombre": "growth",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Raises the user’s Attack and Special Attack by one stage each.  During sunny day, raises both stats by two stages.",
+              "nivel": 34,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 402,
+              "nombre": "seed-bomb",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 80,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 37,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 235,
+              "nombre": "synthesis",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 5,
+              "precision": "100",
+              "descripcion": "Heals the user for half its max HP.\n\nDuring sunny day, the healing is increased to 2/3 max HP.\n\nDuring hail, rain dance, or sandstorm, the healing is decreased to 1/4 max HP.",
+              "nivel": 39,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 79,
+              "nombre": "sleep-powder",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "75",
+              "descripcion": "Puts the target to sleep.",
+              "nivel": 41,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 76,
+              "nombre": "solar-beam",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User charges for one turn before attacking.\n\nDuring sunny day, the charge turn is skipped.\n\nDuring hail, rain dance, or sandstorm, power is halved.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": 48,
+              "metodo_aprendizaje": "level-up"
+            }
+          ],
+          "meta": {
+            "count": 86,
+            "pokemon_id": 1
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query-level
+  description: recopila los movimientos que aprende <level=num
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1/movimientos?level=20
+    method: GET
+    mode: none
+    params:query: {
+      level: 20
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 1302
+      etag: W/"516-C23fosvfIOZiTM0uQeiUPh8b8xg"
+      date: Thu, 15 Jan 2026 08:38:46 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_movimiento": 45,
+              "nombre": "growl",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 40,
+              "precision": "100",
+              "descripcion": "Lowers the target’s Attack by one stage.",
+              "nivel": 1,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 33,
+              "nombre": "tackle",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 35,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 1,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 73,
+              "nombre": "leech-seed",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "90",
+              "descripcion": "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn and heals the user for the amount taken.  Has no effect on grass Pokémon.  The seed remains until the target leaves the field.\n\nThe user takes damage instead of being heale",
+              "nivel": 7,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 22,
+              "nombre": "vine-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 45,
+              "pp": 25,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 13,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 77,
+              "nombre": "poison-powder",
+              "tipo": "poison",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 35,
+              "precision": "75",
+              "descripcion": "Poisons the target.",
+              "nivel": 20,
+              "metodo_aprendizaje": "level-up"
+            }
+          ],
+          "meta": {
+            "count": 5,
+            "pokemon_id": 1
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query-method
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1/movimientos?method=egg
+    method: GET
+    mode: none
+    params:query: {
+      method: egg
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 4810
+      etag: W/"12ca-mVQkT9XRPPiysppmimZhWRw2qyA"
+      date: Thu, 15 Jan 2026 08:39:54 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_movimiento": 133,
+              "nombre": "amnesia",
+              "tipo": "psychic",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Raises the user’s Special Defense by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 204,
+              "nombre": "charm",
+              "tipo": "fairy",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Lowers the target’s Attack by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 320,
+              "nombre": "grass-whistle",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "55",
+              "descripcion": "Puts the target to sleep.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 580,
+              "nombre": "grassy-terrain",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "For five turns, heals all Pokémon on the ground for 1/16 their max HP each turn and strengthens their grass moves to 1.5× their power.\n\nChanges nature power to energy ball.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 275,
+              "nombre": "ingrain",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Prevents the user from switching out.  User regains 1/16 of its max HP at the end of every turn.  If the user was immune to ground attacks, it will now take normal damage from them.\n\nroar and whirlwind will not affect the user.  The user cannot use magnet",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 437,
+              "nombre": "leaf-storm",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 130,
+              "pp": 5,
+              "precision": "90",
+              "descripcion": "Inflicts regular damage, then lowers the user’s Special Attack by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 113,
+              "nombre": "light-screen",
+              "tipo": "psychic",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 30,
+              "precision": "100",
+              "descripcion": "Erects a barrier around the user’s side of the field that reduces damage from special attacks by half for five turns.  In double battles, the reduction is 1/3.  Critical hits are not affected by the barrier.\n\nIf the user is holding light clay, the barrier",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 345,
+              "nombre": "magical-leaf",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 60,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Ignores accuracy and evasion modifiers.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 267,
+              "nombre": "nature-power",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Uses another move chosen according to the terrain.\n\nTerrain                   | Selected move\n------------------------- | ------------------\nBuilding                  | tri attack\nCave                      | rock slide\nDeep water                | hydro pu",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 80,
+              "nombre": "petal-dance",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User is forced to attack with this move for 2–3 turns,selected at random.  After the last hit, the user becomes confused.\n\nsafeguard does not protect against the confusion from this move.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 438,
+              "nombre": "power-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 10,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 13,
+              "nombre": "razor-wind",
+              "tipo": "normal",
+              "categoria": "special",
+              "poder": 80,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User’s critical hit rate is one level higher when using this move.  User charges for one turn before attacking.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 219,
+              "nombre": "safeguard",
+              "tipo": "normal",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 25,
+              "precision": "100",
+              "descripcion": "Protects Pokémon on the user’s side of the field from major status effects and confusion for five turns.  Does not cancel existing ailments.  This effect remains even if the user leaves the field.\n\nIf yawn is used while this move is in effect, it will imm",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 130,
+              "nombre": "skull-bash",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 130,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Raises the user’s Defense by one stage.  User then charges for one turn before attacking.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 124,
+              "nombre": "sludge",
+              "tipo": "poison",
+              "categoria": "special",
+              "poder": 65,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to poison the target.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            }
+          ],
+          "meta": {
+            "count": 15,
+            "pokemon_id": 1
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query-type
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1/movimientos?type=grass
+    method: GET
+    mode: none
+    params:query: {
+      type: grass
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 6947
+      etag: W/"1b23-q9rfjU8bgAs9+9wJjbbAVoEhfLo"
+      date: Thu, 15 Jan 2026 08:40:20 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_movimiento": 331,
+              "nombre": "bullet-seed",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 25,
+              "pp": 30,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Hits 2–5 times in one turn.\n\nHas a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times.  Averages to 3 hits per use.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 412,
+              "nombre": "energy-ball",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 90,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 10% chance to lower the target’s Special Defense by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 202,
+              "nombre": "giga-drain",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 75,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Drains half the damage inflicted to heal the user.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 447,
+              "nombre": "grass-knot",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power increases with the target’s weight in kilograms, to a maximum of 120.\n\nTarget’s weight | Power\n--------------- | ----:\nUp to 10kg      |    20\nUp to 25kg      |    40\nUp to 50kg      |    60\nUp to 100kg     |    80\nUp to 20",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 520,
+              "nombre": "grass-pledge",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 80,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If a friendly Pokémon used fire pledge earlier this turn, all opposing Pokémon will take 1/8 their max HP in damage at the end of every turn for four turns (including this one).",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 320,
+              "nombre": "grass-whistle",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "55",
+              "descripcion": "Puts the target to sleep.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 803,
+              "nombre": "grassy-glide",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 55,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 580,
+              "nombre": "grassy-terrain",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "For five turns, heals all Pokémon on the ground for 1/16 their max HP each turn and strengthens their grass moves to 1.5× their power.\n\nChanges nature power to energy ball.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 275,
+              "nombre": "ingrain",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Prevents the user from switching out.  User regains 1/16 of its max HP at the end of every turn.  If the user was immune to ground attacks, it will now take normal damage from them.\n\nroar and whirlwind will not affect the user.  The user cannot use magnet",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 437,
+              "nombre": "leaf-storm",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 130,
+              "pp": 5,
+              "precision": "90",
+              "descripcion": "Inflicts regular damage, then lowers the user’s Special Attack by two stages.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 345,
+              "nombre": "magical-leaf",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 60,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Ignores accuracy and evasion modifiers.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 72,
+              "nombre": "mega-drain",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 40,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Drains half the damage inflicted to heal the user.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 80,
+              "nombre": "petal-dance",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User is forced to attack with this move for 2–3 turns,selected at random.  After the last hit, the user becomes confused.\n\nsafeguard does not protect against the confusion from this move.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 438,
+              "nombre": "power-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 10,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 885,
+              "nombre": "trailblaze",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 50,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "The user attacks suddenly as if leaping out from tall grass. The user's nimble footwork boosts its Speed stat.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 73,
+              "nombre": "leech-seed",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "90",
+              "descripcion": "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn and heals the user for the amount taken.  Has no effect on grass Pokémon.  The seed remains until the target leaves the field.\n\nThe user takes damage instead of being heale",
+              "nivel": 7,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 22,
+              "nombre": "vine-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 45,
+              "pp": 25,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 13,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 75,
+              "nombre": "razor-leaf",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 55,
+              "pp": 25,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.  User’s critical hit rate is one level higher when using this move.",
+              "nivel": 27,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 388,
+              "nombre": "worry-seed",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Changes the target’s ability to insomnia.\n\nIf the target’s ability is truant or multitype, this move will fail.",
+              "nivel": 31,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 402,
+              "nombre": "seed-bomb",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 80,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 37,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 235,
+              "nombre": "synthesis",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 5,
+              "precision": "100",
+              "descripcion": "Heals the user for half its max HP.\n\nDuring sunny day, the healing is increased to 2/3 max HP.\n\nDuring hail, rain dance, or sandstorm, the healing is decreased to 1/4 max HP.",
+              "nivel": 39,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 79,
+              "nombre": "sleep-powder",
+              "tipo": "grass",
+              "categoria": "status",
+              "poder": 0,
+              "pp": 15,
+              "precision": "75",
+              "descripcion": "Puts the target to sleep.",
+              "nivel": 41,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 76,
+              "nombre": "solar-beam",
+              "tipo": "grass",
+              "categoria": "special",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User charges for one turn before attacking.\n\nDuring sunny day, the charge turn is skipped.\n\nDuring hail, rain dance, or sandstorm, power is halved.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": 48,
+              "metodo_aprendizaje": "level-up"
+            }
+          ],
+          "meta": {
+            "count": 23,
+            "pokemon_id": 1
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: query-category
+  
+  request: {
+    url: http://192.168.1.59:3000/api/enciclopedia/pokemon/1/movimientos?category=physical
+    method: GET
+    mode: none
+    params:query: {
+      category: physical
+    }
+  }
+  
+  response: {
+    headers: {
+      cross-origin-opener-policy: same-origin
+      cross-origin-resource-policy: same-origin
+      origin-agent-cluster: ?1
+      referrer-policy: no-referrer
+      strict-transport-security: max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-dns-prefetch-control: off
+      x-download-options: noopen
+      x-frame-options: SAMEORIGIN
+      x-permitted-cross-domain-policies: none
+      x-xss-protection: 0
+      access-control-allow-origin: *
+      content-type: application/json; charset=utf-8
+      content-length: 8225
+      etag: W/"2021-9n6G/lLSdvIZwzzu0k04e0slubQ"
+      date: Thu, 15 Jan 2026 08:42:36 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "status": "success",
+          "data": [
+            {
+              "id_movimiento": 117,
+              "nombre": "bide",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "User waits for two turns.  On the second turn, the user inflicts twice the damage it accumulated on the last Pokémon to hit it.  Damage inflicted is typeless.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 20,
+              "nombre": "bind",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 15,
+              "pp": 20,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.  For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.  The user continues to use other moves during this time.  If the user leaves the field, this effect ends.\n\nHas ",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 34,
+              "nombre": "body-slam",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 85,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to paralyze the target.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 331,
+              "nombre": "bullet-seed",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 25,
+              "pp": 30,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Hits 2–5 times in one turn.\n\nHas a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times.  Averages to 3 hits per use.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 15,
+              "nombre": "cut",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 50,
+              "pp": 30,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 38,
+              "nombre": "double-edge",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User takes 1/3 the damage it inflicts in recoil.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 263,
+              "nombre": "facade",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 70,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  If the user is burned, paralyzed, or poisoned, this move has double power.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 206,
+              "nombre": "false-swipe",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 40,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Will not reduce the target’s HP below 1.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 218,
+              "nombre": "frustration",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power increases inversely with happiness, given by `(255 - happiness) * 2 / 5`, to a maximum of 102.  Power bottoms out at 1.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 210,
+              "nombre": "fury-cutter",
+              "tipo": "bug",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 20,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.  Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x.  If this move misses or the user leaves the field, power resets.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 803,
+              "nombre": "grassy-glide",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 55,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 29,
+              "nombre": "headbutt",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 70,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to make the target flinch.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 282,
+              "nombre": "knock-off",
+              "tipo": "dark",
+              "categoria": "physical",
+              "poder": 65,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Target loses its held item.\n\nNeither the user nor the target can recover its item with recycle.\n\nIf the target has multitype or sticky hold, it will take damage but not lose its item.",
+              "nivel": null,
+              "metodo_aprendizaje": "tutor"
+            },
+            {
+              "id_movimiento": 363,
+              "nombre": "natural-gift",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power and type are determined by the user’s held berry.  The berry is consumed.  If the user is not holding a berry, this move will fail.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 200,
+              "nombre": "outrage",
+              "tipo": "dragon",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  User is forced to attack with this move for 2–3 turns,selected at random.  After the last hit, the user becomes confused.\n\nsafeguard does not protect against the confusion from this move.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 438,
+              "nombre": "power-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 120,
+              "pp": 10,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 99,
+              "nombre": "rage",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 20,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Every time the user is hit after it uses this move but before its next action, its Attack raises by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 216,
+              "nombre": "return",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 0,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Power increases with happiness, given by `happiness * 2 / 5`, to a maximum of 102.  Power bottoms out at 1.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 249,
+              "nombre": "rock-smash",
+              "tipo": "fighting",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 50% chance to lower the target’s Defense by one stage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 290,
+              "nombre": "secret-power",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 70,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Has a 30% chance to inflict an effect chosen according to the terrain.\n\nTerrain        | Effect\n-------------- | -------------------------------------------------------------\nBuilding       | Paralyzes target\nCave           | Mak",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 130,
+              "nombre": "skull-bash",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 130,
+              "pp": 10,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.  Raises the user’s Defense by one stage.  User then charges for one turn before attacking.\n\nThis move cannot be selected by sleep talk.",
+              "nivel": null,
+              "metodo_aprendizaje": "egg"
+            },
+            {
+              "id_movimiento": 70,
+              "nombre": "strength",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 80,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 36,
+              "nombre": "take-down",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 90,
+              "pp": 20,
+              "precision": "85",
+              "descripcion": "Inflicts regular damage.  User takes 1/4 the damage it inflicts in recoil.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 885,
+              "nombre": "trailblaze",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 50,
+              "pp": 20,
+              "precision": "100",
+              "descripcion": "The user attacks suddenly as if leaping out from tall grass. The user's nimble footwork boosts its Speed stat.",
+              "nivel": null,
+              "metodo_aprendizaje": "machine"
+            },
+            {
+              "id_movimiento": 33,
+              "nombre": "tackle",
+              "tipo": "normal",
+              "categoria": "physical",
+              "poder": 40,
+              "pp": 35,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 1,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 22,
+              "nombre": "vine-whip",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 45,
+              "pp": 25,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 13,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 75,
+              "nombre": "razor-leaf",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 55,
+              "pp": 25,
+              "precision": "95",
+              "descripcion": "Inflicts regular damage.  User’s critical hit rate is one level higher when using this move.",
+              "nivel": 27,
+              "metodo_aprendizaje": "level-up"
+            },
+            {
+              "id_movimiento": 402,
+              "nombre": "seed-bomb",
+              "tipo": "grass",
+              "categoria": "physical",
+              "poder": 80,
+              "pp": 15,
+              "precision": "100",
+              "descripcion": "Inflicts regular damage.",
+              "nivel": 37,
+              "metodo_aprendizaje": "level-up"
+            }
+          ],
+          "meta": {
+            "count": 28,
+            "pokemon_id": 1
+          }
+        }
+      '''
+    }
+  }
+}

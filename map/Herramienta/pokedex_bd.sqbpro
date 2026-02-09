@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="pokedex_bd.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="9307"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/><expanded_item id="4" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="equipo_pokemon" custom_title="0" dock_id="4" table="4,14:mainequipo_pokemon"/><dock_state state="000000ff00000000fd00000001000000020000043c000002b6fc0100000004fb000000160064006f0063006b00420072006f00770073006500310100000000000002490000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f007700730065003301000000000000043c0000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000ffffffff0000011800ffffff0000028b0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">-- ============================================
+-- ÍNDICES PARA CLAVES FORÁNEAS (CRÍTICOS PARA JOINS)
+-- ============================================
+
+-- Para búsquedas de equipos por usuario
+CREATE INDEX idx_equipos_id_usuario ON equipos(id_usuario);
+
+-- Para búsquedas de Pokémon en equipos
+CREATE INDEX idx_equipo_pokemon_id_equipo ON equipo_pokemon(id_equipo);
+CREATE INDEX idx_equipo_pokemon_id_pokemon ON equipo_pokemon(id_pokemon);
+CREATE INDEX idx_equipo_pokemon_id_naturaleza ON equipo_pokemon(id_naturaleza);
+CREATE INDEX idx_equipo_pokemon_id_habilidad ON equipo_pokemon(id_habilidad);
+
+-- Para búsquedas en tablas de relación
+CREATE INDEX idx_pokemon_tiene_movimiento_id_equipo_pokemon ON pokemon_tiene_movimiento(id_pokemon_equipo);
+CREATE INDEX idx_pokemon_tiene_movimiento_id_movimiento ON pokemon_tiene_movimiento(id_movimiento);
+
+CREATE INDEX idx_pokemon_aprende_movimiento_id_pokemon ON pokemon_aprende_movimiento(id_pokemon);
+CREATE INDEX idx_pokemon_aprende_movimiento_id_movimiento ON pokemon_aprende_movimiento(id_movimiento);
+
+CREATE INDEX idx_pokemon_puede_tener_habilidad_id_pokemon ON pokemon_puede_tener_habilidad(id_pokemon);
+CREATE INDEX idx_pokemon_puede_tener_habilidad_id_habilidad ON pokemon_puede_tener_habilidad(id_habilidad);
+
+-- ============================================
+-- ÍNDICES PARA BÚSQUEDAS FRECUENTES
+-- ============================================
+
+-- Búsqueda de Pokémon por nombre o tipo
+CREATE INDEX idx_pokemon_nombre ON pokemon(nombre);
+CREATE INDEX idx_pokemon_tipo_1 ON pokemon(tipo_1);
+CREATE INDEX idx_pokemon_tipo_2 ON pokemon(tipo_2);
+
+-- Búsqueda de usuarios
+CREATE INDEX idx_usuarios_nombre_usuario ON usuarios(nombre_usuario);
+
+-- Búsqueda de movimientos
+CREATE INDEX idx_movimiento_nombre ON movimiento(nombre);
+CREATE INDEX idx_movimiento_tipo ON movimiento(tipo);
+CREATE INDEX idx_movimiento_categoria ON movimiento(categoria);
+CREATE INDEX idx_movimiento_poder ON movimiento(poder) WHERE poder IS NOT NULL;
+
+-- Búsqueda de habilidades
+CREATE INDEX idx_habilidades_nombre ON habilidades(nombre);
+
+-- Búsqueda de naturalezas
+CREATE INDEX idx_naturaleza_nombre ON naturaleza(nombre);
+CREATE INDEX idx_naturaleza_estadisticas ON naturaleza(estadistica_mas, estadistica_menos);
+
+-- ============================================
+-- ÍNDICES PARA CONSULTAS ESPECÍFICAS
+-- ============================================
+
+-- Para consultas de equipos ordenados por fecha
+CREATE INDEX idx_equipos_fecha_creacion ON equipos(fecha_creacion DESC);
+
+-- Para consultas de EVs/IVs
+CREATE INDEX idx_equipo_pokemon_evs_total ON equipo_pokemon(
+    ev_hp, ev_ataque, ev_defensa, ev_ataque_especial, ev_defensa_especial, ev_velocidad
+);
+
+-- Para filtrar por habilidad oculta
+CREATE INDEX idx_pokemon_habilidad_oculta ON pokemon_puede_tener_habilidad(habilidad_oculta) 
+WHERE habilidad_oculta = 1;
+
+-- Para búsqueda de movimientos por nivel
+CREATE INDEX idx_pokemon_aprende_movimiento_nivel ON pokemon_aprende_movimiento(nivel) 
+WHERE nivel IS NOT NULL;</sql><current_tab id="0"/></tab_sql></sqlb_project>
