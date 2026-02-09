@@ -43,10 +43,10 @@ class EquipoService {
 
     async crear(equipoData, usuarioLogueadoId) {
         try {
-            const { nombre, id_usuario } = equipoData;
+            const { nombre, id_usuario, pokemons } = equipoData;
             validar(!nombre || nombre.trim() === '', "El nombre del equipo es requerido");
             validar(!id_usuario, "ID de usuario es requerido");
-            
+
             const parsedIdUsuario = parseInt(id_usuario);
             validar(isNaN(parsedIdUsuario) || parsedIdUsuario < 1, "ID de usuario no válido");
             validar(parsedIdUsuario !== usuarioLogueadoId, "No puedes crear equipos para otro usuario");
@@ -54,7 +54,21 @@ class EquipoService {
             const usuarioExiste = await equipoRepository.verificarExistenciaUsuario(parsedIdUsuario);
             validar(!usuarioExiste, "NOT_FOUND_ERROR: Usuario no encontrado");
 
-            const equipoId = await equipoRepository.crear({ nombre: nombre.trim(), id_usuario: parsedIdUsuario });
+            // Validar pokemons si se envían
+            if (pokemons && Array.isArray(pokemons)) {
+                if (pokemons.length > 6) throw new Error("VALIDATION_ERROR: Un equipo no puede tener más de 6 pokémon");
+                for (const p of pokemons) {
+                    if (!p.id_pokemon) throw new Error("VALIDATION_ERROR: Falta id_pokemon en uno de los integrantes");
+                    // Aquí se podrían agregar más validaciones como naturaleza, habilidad, etc.
+                }
+            }
+
+            const equipoId = await equipoRepository.crear({
+                nombre: nombre.trim(),
+                id_usuario: parsedIdUsuario,
+                pokemons: pokemons || []
+            });
+
             return {
                 data: { id_equipo: equipoId, nombre: nombre.trim(), id_usuario: parsedIdUsuario }
             };
@@ -99,7 +113,7 @@ class EquipoService {
                 const resultado = await equipoRepository.actualizarCompleto(id, nombre, integrantes);
                 return { data: { ...resultado, mensaje: "Equipo actualizado completamente" } };
             }
-            
+
             if (nombre) {
                 validar(nombre.trim() === '', "El nombre no puede estar vacío");
                 await equipoRepository.actualizarNombre(id, nombre.trim());
@@ -133,7 +147,7 @@ class EquipoService {
             validar(isNaN(idPokemonEquipo) || idPokemonEquipo < 1, "ID de Pokémon de equipo no válido");
 
             await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
-            
+
             const resultado = await equipoRepository.actualizarPokemon(idPokemonEquipo, datos);
             return { data: { ...resultado, mensaje: "Pokémon del equipo actualizado" } };
         } catch (error) {
@@ -157,7 +171,7 @@ class EquipoService {
             await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
 
             // TODO: Validar que el movimiento existe y que el pokémon puede aprenderlo
-            
+
             const resultado = await equipoRepository.agregarMovimiento(idPokemonEquipo, idMov, numRanura);
             return { data: { ...resultado, mensaje: `Movimiento en ranura ${numRanura} actualizado.` } };
         } catch (error) {

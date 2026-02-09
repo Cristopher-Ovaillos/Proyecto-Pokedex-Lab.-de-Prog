@@ -1,8 +1,10 @@
-import 'react-native-gesture-handler'; 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import './global.css';
+import { Toaster } from 'sonner-native';
 //import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { useEffect } from 'react';
 //import { View, Text } from 'react-native';
@@ -26,7 +28,12 @@ export default function RootLayout() {
 
 
   return (
-              <AppNavigator />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <AppNavigator />
+        <Toaster />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 
 }

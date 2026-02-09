@@ -19,13 +19,20 @@ export const useCurrentUser = () => {
                 const token = await AsynStorage.getItem('token');
                 if (token) {
                     const decodedToken = jwtDecode(token);
-                    setUser({
-                        id_usuario: decodedToken.id_usuario,
-                        nombre_usuario: decodedToken.nombre_usuario,
-                    });
-                    console.log('usecurrentuser: user data after decoding:', { id_usuario: decodedToken.id_usuario, nombre_usuario: decodedToken.nombre_usuario }); // datos de usuario decodificados
-                }
+                    const isExpired = decodedToken.exp < Date.now() / 1000;
 
+                    if (isExpired) {
+                        console.log('useCurrentUser: Token expirado');
+                        await AsynStorage.multiRemove(['token', 'nombre_usuario', 'email']);
+                        setUser(null);
+                    } else {
+                        setUser({
+                            id_usuario: decodedToken.id_usuario,
+                            nombre_usuario: decodedToken.nombre_usuario,
+                        });
+                        console.log('usecurrentuser: user set', decodedToken.nombre_usuario);
+                    }
+                }
             } catch (error) {
                 console.error("Error al decodificar el token: ", error);
                 setUser(null)

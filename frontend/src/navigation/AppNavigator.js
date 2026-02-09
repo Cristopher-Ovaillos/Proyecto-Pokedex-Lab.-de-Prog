@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { jwtDecode } from "jwt-decode";
+import "core-js/stable/atob";
 // pantallas
 import { InicioScreen } from '../features/home/screens/InicioScreen';
 import { PokedexScreen } from '../features/pokedex/screens/PokedexScreen';
@@ -57,39 +59,65 @@ function MyDrawer() {
       <Drawer.Screen name="Perfil" component={PerfilScreen} />
       <Drawer.Screen name="Crear Equipo" component={CrearEquipoScreen} />
     </Drawer.Navigator>
- 
+
   );
 }
 
 // decide si va a Login o a la App con Sidebar
 export const AppNavigator = () => {
 
-const [isLoading, setIsLoading] = useState(true);
-const [initialRoute, setInitialRoute] = useState('Login'); // Usamos esto en lugar de isLogged
+  const [isLoading, setIsLoading] = useState(true);
+  const [initialRoute, setInitialRoute] = useState('Login'); // Usamos esto en lugar de isLogged
 
-useEffect(() => {
-  AsyncStorage.getItem('token').then(t => {
-    // Si hay token, la ruta inicial es MainDrawer, si no Login
-    setInitialRoute(t ? 'MainDrawer' : 'Login');
-    setIsLoading(false);
-  });
-}, []);
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          try {
+            const decoded = jwtDecode(token);
+            const isExpired = decoded.exp < Date.now() / 1000;
 
-if (isLoading) {
+            if (isExpired) {
+              console.log('AppNavigator: Token expirado, redirigiendo a Login');
+              await AsyncStorage.multiRemove(['token', 'nombre_usuario', 'email']);
+              setInitialRoute('Login');
+            } else {
+              setInitialRoute('MainDrawer');
+            }
+          } catch (e) {
+            console.log('AppNavigator: Error decodificando token', e);
+            setInitialRoute('Login');
+          }
+        } else {
+          setInitialRoute('Login');
+        }
+      } catch (error) {
+        console.log('AppNavigator: Error verificando auth', error);
+        setInitialRoute('Login');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  if (isLoading) {
     return (
-        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-            <ActivityIndicator size="large" />
-        </View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
     );
-}; // pantalla de carga
+  }; // pantalla de carga
 
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={initialRoute} screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="MainDrawer" component={MyDrawer} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="MainDrawer" component={MyDrawer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

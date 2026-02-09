@@ -68,12 +68,77 @@ class EquipoRepository {
 
     async crear(equipoData) {
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO equipos (nombre, fecha_creacion, id_usuario) VALUES (?, datetime('now'), ?)";
-            
-            db.run(sql, [equipoData.nombre, equipoData.id_usuario], function(err) {
-                if (err) return reject(err);
-                resolve(this.lastID);
-            });
+            const runTransaction = async () => {
+                try {
+                    await new Promise((res, rej) => db.run("BEGIN TRANSACTION", (err) => err ? rej(err) : res()));
+
+                    const sqlEquipo = "INSERT INTO equipos (nombre, fecha_creacion, id_usuario) VALUES (?, datetime('now'), ?)";
+                    const equipoId = await new Promise((res, rej) => {
+                        db.run(sqlEquipo, [equipoData.nombre, equipoData.id_usuario], function (err) {
+                            if (err) return rej(err);
+                            res(this.lastID);
+                        });
+                    });
+
+                    if (equipoData.pokemons && equipoData.pokemons.length > 0) {
+                        const stmtPokemon = db.prepare(`
+                            INSERT INTO equipo_pokemon (
+                                ev_hp, ev_ataque, ev_ataque_especial, ev_defensa, ev_defensa_especial, ev_velocidad,
+                                iv_hp, iv_ataque, iv_ataque_especial, iv_defensa, iv_defensa_especial, iv_velocidad,
+                                id_equipo, id_naturaleza, id_pokemon, id_habilidad
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        `);
+
+                        const stmtMovimiento = db.prepare(`
+                            INSERT INTO pokemon_tiene_movimiento (id_pokemon_equipo, id_movimiento, ranura) 
+                            VALUES (?, ?, ?)
+                        `);
+
+                        try {
+                            for (const p of equipoData.pokemons) {
+                                const pokemonEquipoId = await new Promise((res, rej) => {
+                                    stmtPokemon.run(
+                                        p.ev_hp || 0, p.ev_ataque || 0, p.ev_ataque_especial || 0, p.ev_defensa || 0,
+                                        p.ev_defensa_especial || 0, p.ev_velocidad || 0,
+                                        p.iv_hp || 31, p.iv_ataque || 31, p.iv_ataque_especial || 31,
+                                        p.iv_defensa || 31, p.iv_defensa_especial || 31, p.iv_velocidad || 31,
+                                        equipoId, p.naturaleza_id || 1, p.id_pokemon, p.habilidad_id || 1,
+                                        function (err) {
+                                            if (err) return rej(err);
+                                            res(this.lastID);
+                                        }
+                                    );
+                                });
+
+                                if (p.movimientos && Array.isArray(p.movimientos)) {
+                                    for (let i = 0; i < p.movimientos.length; i++) {
+                                        const movId = p.movimientos[i];
+                                        if (movId) {
+                                            await new Promise((res, rej) => {
+                                                stmtMovimiento.run(pokemonEquipoId, movId, i + 1, (err) => {
+                                                    if (err) return rej(err);
+                                                    res();
+                                                });
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        } finally {
+                            stmtPokemon.finalize();
+                            stmtMovimiento.finalize();
+                        }
+                    }
+
+                    await new Promise((res, rej) => db.run("COMMIT", (err) => err ? rej(err) : res()));
+                    resolve(equipoId);
+
+                } catch (error) {
+                    db.run("ROLLBACK", () => reject(error));
+                }
+            };
+
+            runTransaction();
         });
     }
 
@@ -104,10 +169,10 @@ class EquipoRepository {
                 WHERE ep.id_equipo = ?
                 ORDER BY ep.id_pokemon_equipo
             `;
-            
+
             db.all(sql, [equipoId], (err, rows) => {
                 if (err) return reject(err);
-                
+
                 if (!rows || rows.length === 0) return resolve([]);
 
                 const promises = rows.map(pokemon => {
@@ -134,7 +199,7 @@ class EquipoRepository {
     async actualizarNombre(equipoId, nombre) {
         return new Promise((resolve, reject) => {
             const sql = "UPDATE equipos SET nombre = ? WHERE id_equipo = ?";
-            db.run(sql, [nombre, equipoId], function(err) {
+            db.run(sql, [nombre, equipoId], function (err) {
                 if (err) return reject(err);
                 resolve({ cambios: this.changes });
             });
@@ -162,12 +227,12 @@ class EquipoRepository {
                 `);
 
                 integrantes.forEach(p => {
-                    stmt.run(p.ev_hp || 0, p.ev_ataque || 0, p.ev_ataque_especial || 0, p.ev_defensa || 0, 
-                             p.ev_defensa_especial || 0, p.ev_velocidad || 0, p.iv_hp || 31, p.iv_ataque || 31, 
-                             p.iv_ataque_especial || 31, p.iv_defensa || 31, p.iv_defensa_especial || 31, 
-                             p.iv_velocidad || 31, equipoId, p.naturaleza_id, p.id_pokemon, p.habilidad_id);
+                    stmt.run(p.ev_hp || 0, p.ev_ataque || 0, p.ev_ataque_especial || 0, p.ev_defensa || 0,
+                        p.ev_defensa_especial || 0, p.ev_velocidad || 0, p.iv_hp || 31, p.iv_ataque || 31,
+                        p.iv_ataque_especial || 31, p.iv_defensa || 31, p.iv_defensa_especial || 31,
+                        p.iv_velocidad || 31, equipoId, p.naturaleza_id, p.id_pokemon, p.habilidad_id);
                 });
-                
+
                 stmt.finalize(err => {
                     if (err) {
                         db.run("ROLLBACK");
@@ -188,7 +253,7 @@ class EquipoRepository {
     async eliminar(equipoId) {
         return new Promise((resolve, reject) => {
             const sql = "DELETE FROM equipos WHERE id_equipo = ?";
-            db.run(sql, [equipoId], function(err) {
+            db.run(sql, [equipoId], function (err) {
                 if (err) return reject(err);
                 resolve({ cambios: this.changes });
             });
@@ -203,20 +268,20 @@ class EquipoRepository {
                 if (!pokemonActual) return reject(new Error("El pokemon en el equipo no existe."));
 
                 const nuevosEVs = { ...pokemonActual, ...datos };
-                const totalEVs = (nuevosEVs.ev_hp || 0) + (nuevosEVs.ev_ataque || 0) + (nuevosEVs.ev_defensa || 0) + 
-                                 (nuevosEVs.ev_ataque_especial || 0) + (nuevosEVs.ev_defensa_especial || 0) + (nuevosEVs.ev_velocidad || 0);
+                const totalEVs = (nuevosEVs.ev_hp || 0) + (nuevosEVs.ev_ataque || 0) + (nuevosEVs.ev_defensa || 0) +
+                    (nuevosEVs.ev_ataque_especial || 0) + (nuevosEVs.ev_defensa_especial || 0) + (nuevosEVs.ev_velocidad || 0);
 
                 if (totalEVs > 510) {
                     return reject(new Error(`La suma total de EVs (${totalEVs}) no puede superar 510.`));
                 }
-                
+
                 const campos = Object.keys(datos).map(k => `${k} = ?`).join(', ');
                 if (campos.length === 0) return resolve({ cambios: 0 });
 
                 const valores = [...Object.values(datos), idPokemonEquipo];
                 const sqlUpdate = `UPDATE equipo_pokemon SET ${campos} WHERE id_pokemon_equipo = ?`;
 
-                db.run(sqlUpdate, valores, function(err) {
+                db.run(sqlUpdate, valores, function (err) {
                     if (err) return reject(err);
                     resolve({ cambios: this.changes });
                 });
@@ -227,7 +292,7 @@ class EquipoRepository {
     async agregarMovimiento(idPokemonEquipo, idMovimiento, ranura) {
         return new Promise((resolve, reject) => {
             const sql = "INSERT OR REPLACE INTO pokemon_tiene_movimiento (id_pokemon_equipo, id_movimiento, ranura) VALUES (?, ?, ?)";
-            db.run(sql, [idPokemonEquipo, idMovimiento, ranura], function(err) {
+            db.run(sql, [idPokemonEquipo, idMovimiento, ranura], function (err) {
                 if (err) return reject(err);
                 resolve({ cambios: this.changes, ranura });
             });
@@ -247,7 +312,7 @@ class EquipoRepository {
     async eliminarMovimiento(idPokemonEquipo, ranura) {
         return new Promise((resolve, reject) => {
             const sql = "DELETE FROM pokemon_tiene_movimiento WHERE id_pokemon_equipo = ? AND ranura = ?";
-            db.run(sql, [idPokemonEquipo, ranura], function(err) {
+            db.run(sql, [idPokemonEquipo, ranura], function (err) {
                 if (err) return reject(err);
                 if (this.changes === 0) return reject(new Error(`No se encontró un movimiento en la ranura ${ranura}.`));
                 resolve({ cambios: this.changes });
