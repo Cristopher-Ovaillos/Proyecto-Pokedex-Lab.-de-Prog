@@ -244,23 +244,57 @@ class EnciclopediaRepository {
         });
     }
 
-    async buscarPokemonsPorMovimientoId(id_movimiento) {
-        return new Promise((resolve, reject) => {
-            const sql = `
-                SELECT 
-                    p.id_pokemon, p.nombre, p.tipo_1, p.tipo_2, p.hp_base, p.ataque_base, 
-                    p.defensa_base, p.ataque_especial_base, p.defensa_especial_base, p.velocidad_base
-                FROM pokemon p
-                JOIN pokemon_aprende_movimiento pam ON p.id_pokemon = pam.id_pokemon
-                WHERE pam.id_movimiento = ?
-                ORDER BY p.id_pokemon;
-            `;
-            db.all(sql, [id_movimiento], (err, rows) => {
-                if (err) return reject(err);
-                resolve(rows);
-            });
+      // encuentra los pokemones que aprenden un movimiento particular (id_movimiento )
+ async findPokemonsByMoveId(id_movimiento, limit, offset) {
+  return new Promise((resolve, reject) => {
+
+    const sql = `
+      SELECT
+        p.id_pokemon,
+        p.nombre,
+        pam.nivel,
+        pam.metodo_aprendizaje
+      FROM pokemon p
+      JOIN pokemon_aprende_movimiento pam
+        ON p.id_pokemon = pam.id_pokemon
+      WHERE pam.id_movimiento = ?
+      ORDER BY
+        pam.metodo_aprendizaje ASC,
+        pam.nivel ASC,
+        p.nombre ASC
+      LIMIT ? OFFSET ?
+    `;
+
+    const countSql = `
+      SELECT COUNT(*) AS total
+      FROM pokemon p
+      JOIN pokemon_aprende_movimiento pam
+        ON p.id_pokemon = pam.id_pokemon
+      WHERE pam.id_movimiento = ?
+    `;
+
+    db.get(countSql, [id_movimiento], (errCount, countRow) => {
+      if (errCount) return reject(errCount);
+
+      db.all(sql, [id_movimiento, limit, offset], (err, rows) => {
+        if (err) return reject(err);
+
+        const total = countRow.total;
+
+        resolve({
+          data: rows,
+          pagination: {
+            total,
+            page: Math.floor(offset / limit) + 1,
+            limit,
+            totalPages: Math.ceil(total / limit)
+          }
         });
-    }
+      });
+    });
+  });
+}
+
 
     async buscarNaturalezas() {
         return new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
 // Configuracion centralizada para variables de entorno y URLs
 export const ENV = {
-  API_URL: 'http://192.168.1.41:3000/api', 
+  API_URL: 'http://IP:3000/api', 
   TIMEOUT: 15000,
 };
 
@@ -27,6 +27,7 @@ export const ENDPOINTS = {
     MOVIMIENTOS: '/enciclopedia/movimientos',
     NATURALEZAS: '/enciclopedia/naturalezas',
     HABILIDADES: '/enciclopedia/habilidades',
+    MOVIMIENTO_POKEMONS: (id) => `/enciclopedia/movimientos/${id}/pokemon`,
   },
 
   // EQUIPOS

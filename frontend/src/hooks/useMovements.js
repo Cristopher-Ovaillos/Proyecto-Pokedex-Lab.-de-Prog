@@ -8,7 +8,7 @@ export default function useMovements() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({}); 
 
   const searchMovements = useCallback(async (params = {}) => {
     setLoading(true);
@@ -16,7 +16,7 @@ export default function useMovements() {
     setPage(1);
     setMovements([]);
     setHasMore(true);
-    setFilters(params);
+    setFilters(params); 
 
     const queryParams = new URLSearchParams({
       page: 1,
@@ -30,7 +30,7 @@ export default function useMovements() {
       );
 
       if (res?.data) {
-        setMovements(Array.isArray(res.data) ? res.data : []);
+        setMovements(res.data);
         if (res.meta?.pagination) {
           setHasMore(
             res.meta.pagination.page < res.meta.pagination.totalPages
@@ -57,7 +57,7 @@ export default function useMovements() {
     const queryParams = new URLSearchParams({
       page: nextPage,
       limit: 20,
-      ...filters,
+      ...filters, 
     }).toString();
 
     try {
@@ -66,7 +66,7 @@ export default function useMovements() {
       );
 
       if (res?.data?.length > 0) {
-        setMovements((prev) => [...prev, ...(Array.isArray(res.data) ? res.data : [])]);
+        setMovements((prev) => [...prev, ...res.data]);
         setPage(nextPage);
 
         if (res.meta?.pagination) {

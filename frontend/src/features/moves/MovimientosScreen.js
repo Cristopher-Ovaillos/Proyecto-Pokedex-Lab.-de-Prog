@@ -22,7 +22,7 @@ export const MovimientosScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMovement, setSelectedMovement] = useState(null);
 
-
+  
   const handlePressCard = (mov) => {
     setSelectedMovement(mov);
     setModalVisible(true);

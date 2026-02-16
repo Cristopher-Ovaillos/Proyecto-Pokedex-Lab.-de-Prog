@@ -2,38 +2,41 @@ import { useState, useCallback } from "react";
 import api from "../api/apiclient";
 import { ENDPOINTS } from "../config";
 
-export default function useMovements() {
-  const [movements, setMovements] = useState([]);
+const LIMIT = 10;
+
+export default function usePokemonByMovement() {
+  const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [filters, setFilters] = useState({}); 
+  const [movementId, setMovementId] = useState(null);
 
-  const searchMovements = useCallback(async (params = {}) => {
+  const fetchPokemonsByMovement = useCallback(async (idMovimiento) => {
+    if (idMovimiento == null) return;
+
     setLoading(true);
     setError(null);
     setPage(1);
-    setMovements([]);
     setHasMore(true);
-    setFilters(params); 
-
-    const queryParams = new URLSearchParams({
-      page: 1,
-      limit: 20,
-      ...params,
-    }).toString();
+    setPokemons([]);
+    setMovementId(idMovimiento);
 
     try {
-      const res = await api.get(
-        `${ENDPOINTS.ENCICLOPEDIA.MOVIMIENTOS}?${queryParams}`
+      const data = await api.get(
+        `${ENDPOINTS.ENCICLOPEDIA.MOVIMIENTO_POKEMONS(
+          idMovimiento
+        )}?page=1&limit=${LIMIT}`
       );
 
-      if (res?.data) {
-        setMovements(res.data);
-        if (res.meta?.pagination) {
+      console.log("Respuesta inicial:", data);
+
+      if (data?.data?.length > 0) {
+        setPokemons(data.data);
+
+        if (data.meta?.pagination) {
           setHasMore(
-            res.meta.pagination.page < res.meta.pagination.totalPages
+            data.meta.pagination.page < data.meta.pagination.totalPages
           );
         } else {
           setHasMore(false);
@@ -41,37 +44,36 @@ export default function useMovements() {
       } else {
         setHasMore(false);
       }
-    } catch (e) {
-      setError("Error al buscar movimientos.");
+    } catch (err) {
+      console.error("Error fetch inicial:", err);
+      setError("Error al cargar los Pokémon del movimiento.");
     } finally {
       setLoading(false);
     }
   }, []);
 
   const fetchNextPage = useCallback(async () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore || movementId == null) return;
 
     setLoading(true);
     const nextPage = page + 1;
 
-    const queryParams = new URLSearchParams({
-      page: nextPage,
-      limit: 20,
-      ...filters, 
-    }).toString();
-
     try {
-      const res = await api.get(
-        `${ENDPOINTS.ENCICLOPEDIA.MOVIMIENTOS}?${queryParams}`
+      const data = await api.get(
+        `${ENDPOINTS.ENCICLOPEDIA.MOVIMIENTO_POKEMONS(
+          movementId
+        )}?page=${nextPage}&limit=${LIMIT}`
       );
 
-      if (res?.data?.length > 0) {
-        setMovements((prev) => [...prev, ...res.data]);
+      console.log("Respuesta next page:", data);
+
+      if (data?.data?.length > 0) {
+        setPokemons((prev) => [...prev, ...data.data]);
         setPage(nextPage);
 
-        if (res.meta?.pagination) {
+        if (data.meta?.pagination) {
           setHasMore(
-            res.meta.pagination.page < res.meta.pagination.totalPages
+            data.meta.pagination.page < data.meta.pagination.totalPages
           );
         } else {
           setHasMore(false);
@@ -79,19 +81,20 @@ export default function useMovements() {
       } else {
         setHasMore(false);
       }
-    } catch (e) {
-      setError("Error al cargar más movimientos.");
+    } catch (err) {
+      console.error("Error fetch next:", err);
+      setError("Error al cargar más Pokémon.");
     } finally {
       setLoading(false);
     }
-  }, [page, loading, hasMore, filters]);
+  }, [page, loading, hasMore, movementId]);
 
   return {
-    movements,
+    pokemons,
     loading,
     error,
     hasMore,
-    searchMovements,
+    fetchPokemonsByMovement,
     fetchNextPage,
   };
 }
