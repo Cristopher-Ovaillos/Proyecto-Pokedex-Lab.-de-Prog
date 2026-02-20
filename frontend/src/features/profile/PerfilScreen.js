@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { toast } from "sonner-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -20,14 +14,8 @@ const styles = require("../../constants/styles");
 export const PerfilScreen = () => {
   const logout = useLogout();
 
-  const {
-    nombre_usuario,
-    email,
-    actualizarDato,
-    loading,
-    error,
-    clearError
-  } = useProfileScreen();
+  const { nombre_usuario, email, actualizarDato, loading, error, clearError } =
+    useProfileScreen();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [campoEditar, setCampoEditar] = useState(null);
@@ -52,7 +40,14 @@ export const PerfilScreen = () => {
           <View className={styles.perfil.iconPerfil1}>
             <View className={styles.perfil.fotoContainer}>
               <Image source={{ uri: foto }} className={styles.perfil.foto} />
-              <TouchableOpacity onPress={() => toast.info("Próximamente", { description: "Funcionalidad en desarrollo" })} className="absolute bottom-0 right-0 bg-white rounded-full p-1" >
+              <TouchableOpacity
+                onPress={() =>
+                  toast.info("Próximamente", {
+                    description: "Funcionalidad en desarrollo",
+                  })
+                }
+                className="absolute bottom-0 right-0 bg-white rounded-full p-1"
+              >
                 <FontAwesome5 name="pen" size={14} color="black" />
               </TouchableOpacity>
             </View>
@@ -104,8 +99,33 @@ export const PerfilScreen = () => {
           error={error}
           onClose={cerrarModal}
           onConfirm={async (valor) => {
-            await actualizarDato(campoEditar, valor);
-            cerrarModal();
+            try {
+              await actualizarDato(campoEditar, valor);
+
+              let mensaje = "";
+
+              switch (campoEditar) {
+                case "username":
+                  mensaje = "Nombre de usuario modificado correctamente";
+                  break;
+                case "email":
+                  mensaje = "Email modificado correctamente";
+                  break;
+                case "password":
+                  mensaje = "Contraseña modificada correctamente";
+                  break;
+                default:
+                  mensaje = "Datos modificados correctamente";
+              }
+
+              toast.success(mensaje, {
+                position: "top-center",
+              });
+
+              cerrarModal();
+            } catch (e) {
+              console.log(e);
+            }
           }}
         />
       </View>

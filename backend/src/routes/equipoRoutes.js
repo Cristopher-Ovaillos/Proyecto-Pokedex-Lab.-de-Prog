@@ -14,7 +14,7 @@ router.delete('/equipos/:id', equipoController.eliminar);
 // Rutas para modificaciones granulares
 router.patch('/equipos/:id/pokemon/:pokemon_equipo_id', equipoController.actualizarPokemonDeEquipo);
 router.post('/equipos/:id/pokemon/:pokemon_equipo_id/movimientos', equipoController.agregarMovimientoAEquipoPokemon);
-router.delete('/equipos/:id/pokemon/:pokemon_equipo_id/movimientos/:ranura', equipoController.eliminarMovimientoDeEquipoPokemon);
+router.delete('/equipos/:id/pokemon/:pokemon_equipo_id/movimientos/:slot', equipoController.eliminarMovimientoDeEquipoPokemon);
 
 
 module.exports = router;

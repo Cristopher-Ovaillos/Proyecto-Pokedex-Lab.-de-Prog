@@ -62,7 +62,18 @@ class UsuarioController {
   updatePassword = handleRequest(async (req, res) => {
     const { contraseniaNueva } = req.body;
 
-    //completar
+    if (!req.user) {
+      return res.status(401).json({ error: "No autorizado" });
+    }
+
+    const id_usuario = req.user.id_usuario;
+
+    const response = await usuarioService.updatePassword(
+      id_usuario,
+      contraseniaNueva,
+    );
+
+    res.json(response);
   });
 }
 

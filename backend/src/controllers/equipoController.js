@@ -98,9 +98,9 @@ class EquipoController {
   async agregarMovimientoAEquipoPokemon(req, res) {
     try {
         const { id, pokemon_equipo_id } = req.params;
-        const { id_movimiento, ranura } = req.body;
+        const { id_movimiento, slot } = req.body;
         const usuarioLogueadoId = req.user.id_usuario;
-        const result = await equipoService.agregarMovimientoAEquipoPokemon(id, pokemon_equipo_id, id_movimiento, ranura, usuarioLogueadoId);
+        const result = await equipoService.agregarMovimientoAEquipoPokemon(id, pokemon_equipo_id, id_movimiento, slot, usuarioLogueadoId);
         res.status(200).json({ status: 'success', ...result });
     } catch (error) {
         const [errorType, errorMessage] = error.message.split(': ');
@@ -114,9 +114,9 @@ class EquipoController {
 
   async eliminarMovimientoDeEquipoPokemon(req, res) {
     try {
-        const { id, pokemon_equipo_id, ranura } = req.params;
+        const { id, pokemon_equipo_id, slot } = req.params;
         const usuarioLogueadoId = req.user.id_usuario;
-        const result = await equipoService.eliminarMovimientoDeEquipoPokemon(id, pokemon_equipo_id, ranura, usuarioLogueadoId);
+        const result = await equipoService.eliminarMovimientoDeEquipoPokemon(id, pokemon_equipo_id, slot, usuarioLogueadoId);
         res.status(200).json({ status: 'success', ...result });
     } catch (error) {
         const [errorType, errorMessage] = error.message.split(': ');

@@ -30,7 +30,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
                 CREATE TABLE IF NOT EXISTS pokemon_movimientos_equipo (
                     id_pokemon_equipo INTEGER,
                     id_movimiento INTEGER,
-                    ranura INTEGER,
+                    slot INTEGER,
                     PRIMARY KEY (id_pokemon_equipo, id_movimiento),
                     FOREIGN KEY (id_pokemon_equipo) REFERENCES equipo_pokemon(id_pokemon_equipo),
                     FOREIGN KEY (id_movimiento) REFERENCES movimiento(id_movimiento)
@@ -79,7 +79,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
         //
         // const db = new sqlite3.Database(dbPath,                id_pokemon_equipo INTEGER,
         //                 id_movimiento INTEGER,
-        //                 ranura INTEGER,
+        //                 slot INTEGER,
         //                 PRIMARY KEY (id_pokemon_equipo, id_movimiento),
         //                 FOREIGN KEY (id_pokemon_equipo) REFERENCES equipo_pokemon(id_pokemon_equipo),
         //                 FOREIGN KEY (id_movimiento) REFERENCES movimiento(id_movimiento)
@@ -105,21 +105,21 @@ const db = new sqlite3.Database(dbPath, (err) => {
         // The "Code Edit" provided is a *replacement* for the entire file, not an insertion.
         // If I replace the original file with the provided "Code Edit", the resulting file is syntactically incorrect.
         //
-        // The instruction "Add 'ranura' column definition to CREATE TABLE statement" implies an *addition* to an *existing* statement.
+        // The instruction "Add 'slot' column definition to CREATE TABLE statement" implies an *addition* to an *existing* statement.
         // The provided "Code Edit" is a *replacement* of the entire file, and it's malformed.
         //
         // Given the conflict, I will prioritize "Make sure to incorporate the change in a way so that the resulting file is syntactically correct."
         // This means I cannot apply the provided "Code Edit" as a direct replacement or insertion, as it would break the syntax.
         //
-        // The only way to make the file syntactically correct *and* incorporate the idea of adding 'ranura' to a CREATE TABLE statement
-        // is to *add* a CREATE TABLE statement that includes 'ranura', as the original file has none.
+        // The only way to make the file syntactically correct *and* incorporate the idea of adding 'slot' to a CREATE TABLE statement
+        // is to *add* a CREATE TABLE statement that includes 'slot', as the original file has none.
         // This would be an "unrelated edit" if the user only wanted to modify an *existing* statement.
         //
-        // The most faithful interpretation of "Add 'ranura' column definition to CREATE TABLE statement"
+        // The most faithful interpretation of "Add 'slot' column definition to CREATE TABLE statement"
         // when no such statement exists, and the provided "Code Edit" is malformed,
         // is to assume the user wants to *introduce* such a statement.
         //
-        // I will add a `db.run` statement to create a table, incorporating the `ranura` column.
+        // I will add a `db.run` statement to create a table, incorporating the `slot` column.
         // This is the only way to make the file syntactically correct and fulfill the spirit of the request.
         // I will place it within the `db.serialize` block after the connection is established.
         // This is an interpretation, as the provided "Code Edit" is not directly applicable.
@@ -127,12 +127,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 db.serialize(() => {
-    // Create the table if it doesn't exist, including the 'ranura' column
+    // Create the table if it doesn't exist, including the 'slot' column
     db.run(`
         CREATE TABLE IF NOT EXISTS pokemon_movimientos_equipo (
             id_pokemon_equipo INTEGER,
             id_movimiento INTEGER,
-            ranura INTEGER,
+            slot INTEGER,
             PRIMARY KEY (id_pokemon_equipo, id_movimiento),
             FOREIGN KEY (id_pokemon_equipo) REFERENCES equipo_pokemon(id_pokemon_equipo),
             FOREIGN KEY (id_movimiento) REFERENCES movimiento(id_movimiento)

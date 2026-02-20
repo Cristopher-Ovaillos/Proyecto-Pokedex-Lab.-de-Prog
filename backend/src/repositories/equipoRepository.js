@@ -90,7 +90,7 @@ class EquipoRepository {
                         `);
 
                         const stmtMovimiento = db.prepare(`
-                            INSERT INTO pokemon_tiene_movimiento (id_pokemon_equipo, id_movimiento, ranura) 
+                            INSERT INTO pokemon_tiene_movimiento (id_pokemon_equipo, id_movimiento, slot) 
                             VALUES (?, ?, ?)
                         `);
 
@@ -289,12 +289,12 @@ class EquipoRepository {
         });
     }
 
-    async agregarMovimiento(idPokemonEquipo, idMovimiento, ranura) {
+    async agregarMovimiento(idPokemonEquipo, idMovimiento, slot) {
         return new Promise((resolve, reject) => {
-            const sql = "INSERT OR REPLACE INTO pokemon_tiene_movimiento (id_pokemon_equipo, id_movimiento, ranura) VALUES (?, ?, ?)";
-            db.run(sql, [idPokemonEquipo, idMovimiento, ranura], function (err) {
+            const sql = "INSERT OR REPLACE INTO pokemon_tiene_movimiento (id_pokemon_equipo, id_movimiento, slot) VALUES (?, ?, ?)";
+            db.run(sql, [idPokemonEquipo, idMovimiento, slot], function (err) {
                 if (err) return reject(err);
-                resolve({ cambios: this.changes, ranura });
+                resolve({ cambios: this.changes, slot });
             });
         });
     }
@@ -309,12 +309,12 @@ class EquipoRepository {
         });
     }
 
-    async eliminarMovimiento(idPokemonEquipo, ranura) {
+    async eliminarMovimiento(idPokemonEquipo, slot) {
         return new Promise((resolve, reject) => {
-            const sql = "DELETE FROM pokemon_tiene_movimiento WHERE id_pokemon_equipo = ? AND ranura = ?";
-            db.run(sql, [idPokemonEquipo, ranura], function (err) {
+            const sql = "DELETE FROM pokemon_tiene_movimiento WHERE id_pokemon_equipo = ? AND slot = ?";
+            db.run(sql, [idPokemonEquipo, slot], function (err) {
                 if (err) return reject(err);
-                if (this.changes === 0) return reject(new Error(`No se encontró un movimiento en la ranura ${ranura}.`));
+                if (this.changes === 0) return reject(new Error(`No se encontró un movimiento en la slot ${slot}.`));
                 resolve({ cambios: this.changes });
             });
         });

@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 
 const styles = require("../../constants/styles");
-
 
 export default function EditUserModal({
   visible,
@@ -17,17 +10,16 @@ export default function EditUserModal({
   onConfirm,
   onClose,
   loading,
-  error
+  error,
 }) {
   const [valor, setValor] = useState("");
-
-
 
   useEffect(() => {
     if (visible) {
       setValor(valorActual || "");
     }
   }, [visible, valorActual]);
+
 
   const getTitle = () => {
     switch (tipo) {
@@ -47,7 +39,7 @@ export default function EditUserModal({
       visible={visible}
       transparent
       animationType="fade"
-      onRequestClose={onClose} 
+      onRequestClose={onClose}
     >
       <View className={styles.modalInput.overlay}>
         <View className={styles.modalInput.container}>
@@ -61,12 +53,7 @@ export default function EditUserModal({
             className={styles.modalInput.input}
           />
 
-      
-          {error && (
-            <Text className={styles.modalInput.error}>
-              {error}
-            </Text>
-          )}
+          {error && <Text className={styles.modalInput.error}>{error}</Text>}
 
           <View className={styles.modalInput.actions}>
             <TouchableOpacity onPress={onClose}>

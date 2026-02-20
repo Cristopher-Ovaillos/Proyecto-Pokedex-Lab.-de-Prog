@@ -156,44 +156,44 @@ class EquipoService {
         }
     }
 
-    async agregarMovimientoAEquipoPokemon(equipoId, pokemonEquipoId, idMovimiento, ranura, usuarioLogueadoId) {
+    async agregarMovimientoAEquipoPokemon(equipoId, pokemonEquipoId, idMovimiento, slot, usuarioLogueadoId) {
         try {
             const idEquipo = parseInt(equipoId);
             const idPokemonEquipo = parseInt(pokemonEquipoId);
             const idMov = parseInt(idMovimiento);
-            const numRanura = parseInt(ranura);
+            const numslot = parseInt(slot);
 
             validar(isNaN(idEquipo) || idEquipo < 1, "ID de equipo no válido");
             validar(isNaN(idPokemonEquipo) || idPokemonEquipo < 1, "ID de Pokémon de equipo no válido");
             validar(isNaN(idMov) || idMov < 1, "ID de movimiento no válido");
-            validar(isNaN(numRanura) || numRanura < 1 || numRanura > 4, "La ranura del movimiento debe ser entre 1 y 4");
+            validar(isNaN(numslot) || numslot < 1 || numslot > 4, "La slot del movimiento debe ser entre 1 y 4");
 
             await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
 
             // TODO: Validar que el movimiento existe y que el pokémon puede aprenderlo
 
-            const resultado = await equipoRepository.agregarMovimiento(idPokemonEquipo, idMov, numRanura);
-            return { data: { ...resultado, mensaje: `Movimiento en ranura ${numRanura} actualizado.` } };
+            const resultado = await equipoRepository.agregarMovimiento(idPokemonEquipo, idMov, numslot);
+            return { data: { ...resultado, mensaje: `Movimiento en slot ${numslot} actualizado.` } };
         } catch (error) {
             console.error(`[EquipoService Error]: ${error.message}`);
             throw error;
         }
     }
 
-    async eliminarMovimientoDeEquipoPokemon(equipoId, pokemonEquipoId, ranura, usuarioLogueadoId) {
+    async eliminarMovimientoDeEquipoPokemon(equipoId, pokemonEquipoId, slot, usuarioLogueadoId) {
         try {
             const idEquipo = parseInt(equipoId);
             const idPokemonEquipo = parseInt(pokemonEquipoId);
-            const numRanura = parseInt(ranura);
+            const numslot = parseInt(slot);
 
             validar(isNaN(idEquipo) || idEquipo < 1, "ID de equipo no válido");
             validar(isNaN(idPokemonEquipo) || idPokemonEquipo < 1, "ID de Pokémon de equipo no válido");
-            validar(isNaN(numRanura) || numRanura < 1 || numRanura > 4, "La ranura del movimiento debe ser entre 1 y 4");
+            validar(isNaN(numslot) || numslot < 1 || numslot > 4, "La slot del movimiento debe ser entre 1 y 4");
 
             await verificarPermisoPokemon(idEquipo, idPokemonEquipo, usuarioLogueadoId);
 
-            const resultado = await equipoRepository.eliminarMovimiento(idPokemonEquipo, numRanura);
-            return { data: { ...resultado, mensaje: `Movimiento en ranura ${numRanura} eliminado.` } };
+            const resultado = await equipoRepository.eliminarMovimiento(idPokemonEquipo, numslot);
+            return { data: { ...resultado, mensaje: `Movimiento en slot ${numslot} eliminado.` } };
 
         } catch (error) {
             console.error(`[EquipoService Error]: ${error.message}`);

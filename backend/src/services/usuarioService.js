@@ -26,7 +26,8 @@ class UsuarioService {
         throw new Error("VALIDATION_ERROR: La contraseña es demasiado corta");
       }
 
-      const existe = await usuarioRepository.buscarPorNombreUsuario(nombre_usuario);
+      const existe =
+        await usuarioRepository.buscarPorNombreUsuario(nombre_usuario);
       if (existe) {
         throw new Error(
           "CONFLICT_ERROR: El nombre de usuario ya esta registrado",
@@ -66,7 +67,8 @@ class UsuarioService {
       const nombre_usuario = data.nombre_usuario.trim();
       const contrasenia = data.contrasenia;
 
-      const usuario = await usuarioRepository.buscarPorNombreUsuario(nombre_usuario);
+      const usuario =
+        await usuarioRepository.buscarPorNombreUsuario(nombre_usuario);
       if (!usuario) {
         throw new Error("AUTH_ERROR: Usuario no encontrado");
       }
@@ -111,10 +113,11 @@ class UsuarioService {
       const nuevoNombre = nombre_usuario.trim();
 
       if (!nuevoNombre || nuevoNombre.length < 3) {
-        throw new Error("Nombre inválido");
+        throw new Error("Nombre inválido: Debe tener al menos 3 caracteres");
       }
 
-      const existe = await usuarioRepository.buscarPorNombreUsuario(nuevoNombre);
+      const existe =
+        await usuarioRepository.buscarPorNombreUsuario(nuevoNombre);
       if (existe) {
         throw new Error("El nombre de usuario ya existe");
       }
@@ -170,8 +173,36 @@ class UsuarioService {
     }
   }
 
-  async updatePassword(id_usuario, contraseniaActual, contraseniaNueva) {
-    //completar
+  async updatePassword(id_usuario, contraseniaNueva) {
+    try {
+      if (!contraseniaNueva) {
+        throw new Error("VALIDATION_ERROR: Debe ingresar una nueva contraseña");
+      }
+
+      if (contraseniaNueva.length < 8) {
+        throw new Error("VALIDATION_ERROR: La contraseña es demasiado corta");
+      }
+
+      // hashear nueva contraseña
+      const nuevaHash = await bcrypt.hash(contraseniaNueva, SALT_ROUNDS);
+
+      const cambios = await usuarioRepository.updatePassword(
+        id_usuario,
+        nuevaHash,
+      );
+
+      if (cambios === 0) {
+        throw new Error("ERROR: No se pudo actualizar la contraseña");
+      }
+
+      return {
+        success: true,
+        message: "Contraseña actualizada correctamente",
+      };
+    } catch (error) {
+      console.error(`[UsuarioService updatePassword]: ${error.message}`);
+      throw error;
+    }
   }
 }
 

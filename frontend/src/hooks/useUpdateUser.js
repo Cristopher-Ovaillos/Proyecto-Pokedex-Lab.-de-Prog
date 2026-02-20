@@ -2,18 +2,17 @@ import { useState } from "react";
 import api from "../api/apiclient";
 import { ENDPOINTS } from "../config";
 
-// pa manejar los updates de usuario
+// Hook para manejar modificaciones de usuario
 export default function useUpdateUser() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const clearError = () => setError(null); // 👈 NUEVO
+  const clearError = () => setError(null);
 
   const modificarUser = async (tipo, valor) => {
     setLoading(true);
     setError(null);
 
-    // console.log("Modificando usuario:", tipo, valor);
     try {
       let endpoint = "";
       let body = {};
@@ -30,27 +29,24 @@ export default function useUpdateUser() {
           break;
 
         case "password":
-          //falta completarla
           endpoint = ENDPOINTS.USUARIOS.UPDATE_PASSWORD;
-          body = {
-            contraseniaNueva: valor,
-          };
+          body = { contraseniaNueva: valor };
           break;
 
         default:
           throw new Error("Tipo de modificación no soportado");
       }
 
- 
       const response = await api.put(endpoint, body);
       return response.data;
 
     } catch (err) {
-      const msg = err.data.message;
+      console.log(err);
+      let msg =
+        err.data?.message ||
+        err.response?.data?.error ||
+        "Error al modificar los datos del usuario";
 
-      if (!msg){
-        msg = "Error al modificar los datos del usuario";
-      }
       setError(msg);
       throw err;
 

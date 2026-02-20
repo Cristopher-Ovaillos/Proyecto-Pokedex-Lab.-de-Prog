@@ -46,11 +46,7 @@ function MyDrawer() {
           fontFamily: 'pixel', // usa la fuente pixel
           color: 'white', // color del titulo
         },
-        headerRight: () => (
-          <TouchableOpacity onPress={logout} className={styles.drawer.logoutButton}>
-            <Text className={styles.drawer.logoutButtonText}>Salir</Text>
-          </TouchableOpacity>
-        ),
+        
       }}
     >
       <Drawer.Screen name="Inicio" component={InicioScreen} />

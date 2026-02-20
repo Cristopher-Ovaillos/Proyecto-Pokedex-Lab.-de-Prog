@@ -44,7 +44,7 @@ export const ENDPOINTS = {
       `/equipos/${id_team}/pokemon/${pokemon_equipo_id}`,
     AGREGAR_MOVIMIENTO: (id_team, pokemon_equipo_id) => 
       `/equipos/${id_team}/pokemon/${pokemon_equipo_id}/movimientos`,
-    ELIMINAR_MOVIMIENTO: (id_team, pokemon_equipo_id, ranura) => 
-      `/equipos/${id_team}/pokemon/${pokemon_equipo_id}/movimientos/${ranura}`,
+    ELIMINAR_MOVIMIENTO: (id_team, pokemon_equipo_id, slot) => 
+      `/equipos/${id_team}/pokemon/${pokemon_equipo_id}/movimientos/${slot}`,
   }
 };
