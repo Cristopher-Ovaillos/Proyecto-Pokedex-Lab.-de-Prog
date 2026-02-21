@@ -64,11 +64,11 @@ export const MovimientosScreen = () => {
 
   return (
     <View className={styles.layout.screen}>
-      <Text className={styles.ui.titleMain}>Pantalla de Movimientos</Text>
+      {/* <Text className={styles.ui.titleMain}>Pantalla de Movimientos</Text> */}
 
       <TextInput
-        className={styles.ui.input}
-        placeholder="Buscar por nombre o número..."
+       className={`${styles.ui.input} my-4`}
+        placeholder="Buscar por nombre"
         value={searchTerm}
         onChangeText={setSearchTerm}
         placeholderTextColor="#9CA3AF"
@@ -76,6 +76,7 @@ export const MovimientosScreen = () => {
           backgroundColor: "#374151",
           color: "white",
           borderColor: "#4B5563",
+          
         }}
       />
 

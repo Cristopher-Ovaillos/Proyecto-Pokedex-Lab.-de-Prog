@@ -73,11 +73,11 @@ export const PokedexScreen = () => {
 
     return (
         <View className={styles.layout.screen} style={{backgroundColor: '#1E293B'}}>
-            <Text className={styles.ui.titleMain} style={{color: 'white'}}>Enciclopedia</Text>
+            {/* <Text className={styles.ui.titleMain} style={{color: 'white'}}>Enciclopedia</Text> */}
             
             <TextInput
                 className={styles.ui.input}
-                placeholder="Buscar por nombre o número..."
+                placeholder="Buscar por nombre"
                 value={searchTerm}
                 onChangeText={setSearchTerm}
                 placeholderTextColor="#9CA3AF"

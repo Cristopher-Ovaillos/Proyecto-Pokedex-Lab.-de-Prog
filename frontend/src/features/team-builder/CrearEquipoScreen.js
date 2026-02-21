@@ -131,7 +131,7 @@ export const CrearEquipoScreen = ({ route }) => {
         style={{ backgroundColor: '#1E293B' }}
         ListHeaderComponent={
           <>
-            <Text className={styles.ui.titleMain}>Crea tu Equipo</Text>
+            <Text className={styles.ui.titleMain}>Forma tu Equipo</Text>
             <TextInput
               className={styles.ui.input}
               placeholder="Nombre del Equipo"

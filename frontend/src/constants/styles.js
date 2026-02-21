@@ -19,11 +19,11 @@ const styles = {
 
   ui: {
     // Títulos
-    titleMain: "text-primary text-3xl font-pixel text-center my-4",
-    titleSection: "text-secondary text-2xl font-pixel mb-2",
+    titleMain: "text-primary text-lg font-pixel text-center my-4",
+    titleSection: "text-secondary text-md font-pixel mb-2 text-center",
 
     // Formularios
-    input: "w-full border-gray-300 rounded-lg px-4 py-3 mb-4 font-pixel bg-white border",
+    input: "w-[95%]  self-center border-gray-300 rounded-lg px-4 py-3 mb-4 font-pixel bg-white border text-sm",
     label: "text-gray-700 font-pixel mb-1 ml-1 text-sm",
 
     // Botones
@@ -46,6 +46,7 @@ const styles = {
   },
 
   drawer: {
+    drawerLabel: "text-white font-pixel text-xs",
     logoutBtn: "bg-error mr-4 px-3 py-1 rounded-md shadow-sm",
     text: "text-white font-pixel text-sm",
   },
@@ -89,7 +90,7 @@ const styles = {
   },
 
   teamBuilder: {
-    slotContainer: "flex-row flex-wrap justify-centener mb-5",
+    slotContainer: "flex-row flex-wrap justify-center mb-5",
     slot: "w-24 h-24 rounded-lg bg-white/10 justify-center items-center m-1 border-2 border-dashed border-white/20",
     slotPokemonImage: "w-20 h-20",
     slotPokemonName: "text-white text-xs font-pixel text-center absolute bottom-1",
@@ -99,7 +100,7 @@ const styles = {
     teamCardHeader: "flex-row justify-between items-center",
     teamCardName: "text-white front-pixel text-lg",
     teamCardDate: "text-white/70 text-sm mt-1",
-    teamCardPokemons: "flex-row mt-3",
+    teamCardPokemons: "flex-row mt-3 ",
     teamCardPokemonImage: "w-10 h-10 rounded-full bg-black/20 mr-2 border-2 border-white/20",
     slotBtnEdit: "mt-1 p-1 bg-gray-700 rounded mx-1",
     slotBtnEditText: "text-white text-[10px] text-center",

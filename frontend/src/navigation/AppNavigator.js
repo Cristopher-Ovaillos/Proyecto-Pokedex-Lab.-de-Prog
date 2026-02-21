@@ -43,8 +43,10 @@ function MyDrawer() {
         },
         headerTintColor: 'white', // color del texto y los iconos de la cabecera
         headerTitleStyle: {
+          fontSize: 16,
           fontFamily: 'pixel', // usa la fuente pixel
           color: 'white', // color del titulo
+      
         },
         
       }}
