@@ -32,77 +32,89 @@ function validar(condicion, mensaje) {
 
 class EnciclopediaService {
   async listarPokemons(queryParams) {
-    try {
-      const {
-        type,
-        search,
-        limit = 20,
-        page = 1,
-        sort = "id_pokemon",
-        order = "asc",
-        ...stats
-      } = queryParams;
+  try {
+    const {
+      type_1,
+      type_2,
+      search,
+      limit = 20,
+      page = 1,
+      sort = "id_pokemon",
+      order = "asc",
+      ...stats
+    } = queryParams;
 
-      const parsedLimit = parseInt(limit);
-      const parsedPage = parseInt(page);
+    const parsedLimit = parseInt(limit);
+    const parsedPage = parseInt(page);
 
+    validar(
+      parsedLimit < 1 || parsedLimit > 100,
+      "El límite debe estar entre 1 y 100",
+    );
+
+    validar(parsedPage < 1, "La página debe ser mayor a 0");
+
+    if (type_1)
       validar(
-        parsedLimit < 1 || parsedLimit > 100,
-        "El límite debe estar entre 1 y 100",
+        !TIPOS_VALIDOS.includes(type_1.toLowerCase()),
+        `Tipo '${type_1}' no válido`,
       );
-      validar(parsedPage < 1, "La página debe ser mayor a 0");
-      if (type)
-        validar(
-          !TIPOS_VALIDOS.includes(type.toLowerCase()),
-          `Tipo '${type}' no válido`,
-        );
 
-      const filters = {
-        limit: parsedLimit,
-        offset: (parsedPage - 1) * parsedLimit,
-        type: type ? type.toLowerCase() : null,
-        search,
-        sort,
-        order: order ? order.toLowerCase() : "asc",
-      };
+    if (type_2)
+      validar(
+        !TIPOS_VALIDOS.includes(type_2.toLowerCase()),
+        `Tipo '${type_2}' no válido`,
+      );
 
-      [
-        "hp",
-        "ataque",
-        "defensa",
-        "ataque_especial",
-        "defensa_especial",
-        "velocidad",
-      ].forEach((stat) => {
-        if (stats[`min_${stat}`])
-          filters[`min_${stat}`] = parseInt(stats[`min_${stat}`]);
-        if (stats[`max_${stat}`])
-          filters[`max_${stat}`] = parseInt(stats[`max_${stat}`]);
-      });
+    const filters = {
+      limit: parsedLimit,
+      offset: (parsedPage - 1) * parsedLimit,
+      type_1: type_1 ? type_1.toLowerCase() : null,
+      type_2: type_2 ? type_2.toLowerCase() : null,
+      search,
+      sort,
+      order: order ? order.toLowerCase() : "asc",
+    };
 
-      const result = await enciclopediaRepository.buscarPokemons(filters);
+    [
+      "hp",
+      "ataque",
+      "defensa",
+      "ataque_especial",
+      "defensa_especial",
+      "velocidad",
+    ].forEach((stat) => {
+      if (stats[`min_${stat}`])
+        filters[`min_${stat}`] = parseInt(stats[`min_${stat}`]);
 
-      const dataConImagenes = result.data.map((pokemon) => ({
-        ...pokemon,
-        imagenUrl: `${IMAGE_URL}/${pokemon.id_pokemon}.png`,
-      }));
+      if (stats[`max_${stat}`])
+        filters[`max_${stat}`] = parseInt(stats[`max_${stat}`]);
+    });
 
-      return {
-        data: dataConImagenes,
-        meta: {
-          pagination: {
-            total: result.total,
-            page: parsedPage,
-            limit: parsedLimit,
-            totalPages: Math.ceil(result.total / parsedLimit),
-          },
+    const result = await enciclopediaRepository.buscarPokemons(filters);
+
+    const dataConImagenes = result.data.map((pokemon) => ({
+      ...pokemon,
+      imagenUrl: `${IMAGE_URL}/${pokemon.id_pokemon}.png`,
+    }));
+
+    return {
+      data: dataConImagenes,
+      meta: {
+        pagination: {
+          total: result.total,
+          page: parsedPage,
+          limit: parsedLimit,
+          totalPages: Math.ceil(result.total / parsedLimit),
         },
-      };
-    } catch (error) {
-      console.error(`[EnciclopediaService Error]: ${error.message}`);
-      throw error;
-    }
+      },
+    };
+
+  } catch (error) {
+    console.error(`[EnciclopediaService Error]: ${error.message}`);
+    throw error;
   }
+}
 
   async obtenerPokemonPorId(id) {
     try {

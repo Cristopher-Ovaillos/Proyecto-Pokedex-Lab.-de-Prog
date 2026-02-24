@@ -27,8 +27,8 @@ const styles = {
     label: "text-gray-700 font-pixel mb-1 ml-1 text-sm",
 
     // Botones
-    btnPrimary: "bg-secondary w-full py-3 rounded-lg items-center shadow-md active:opacity-80",
-    btnText: "text-white font-pixel text-lg text-center",
+    btnPrimary: "bg-secondary w-[95%] self-center py-3 rounded-lg items-center shadow-md active:opacity-80",
+    btnText: "text-white  font-pixel text-lg text-center",
 
     // Feedback
     error: "text-error text-sm font-pixel text-center mb-4",
