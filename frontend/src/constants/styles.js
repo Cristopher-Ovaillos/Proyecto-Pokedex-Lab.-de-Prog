@@ -44,13 +44,13 @@ const styles = {
     id: "ml-1  font-bold text-lg text-emerald-800 ",
     name: "ml-1 text-white text-md capitalize font-pixel text-center text-white-600",
     typePill: "px-3 py-2 bg-black/20 rounded-lg ",
-    typeContainer: "flex-row gap-2 justify-start"
+    typeContainer: "flex-row gap-1 justify-start "
   },
 
   drawer: {
     drawerLabel: "text-white font-pixel text-xs",
     logoutBtn: "bg-error mr-4 px-3 py-1 rounded-md shadow-sm",
-    text: "text-white font-pixel text-xs",
+    text: "text-white font-pixel text-[8.5px]",
   },
 
   modal: {

@@ -39,7 +39,7 @@ const PokemonCardComponent = ({ pokemon, onPress }) => {
                     <View className={styles.card.typeContainer}>
                         {tipos.map(tipo => (
                             <View key={tipo} className={`${styles.card.typePill} mx-1`}>
-                                <Text className={`${styles.drawer.text} text-xs capitalize`}>{tipo}</Text>
+                                <Text className={`${styles.drawer.text} capitalize`}>{tipo}</Text>
                             </View>
                         ))}
                     </View>
