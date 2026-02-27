@@ -21,6 +21,8 @@ export const PokedexScreen = () => {
   const route = useRoute();
   console.log("pokedexscreen: route.params en carga:", route.params); // diagnostico de parametros de ruta
 
+  const numColumns = 1; 
+
   const { pokemons, loading, error, searchPokemons, fetchNextPage, hasMore } =
     usePokedex();
   const [searchTerm, setSearchTerm] = useState("");
@@ -158,8 +160,9 @@ export const PokedexScreen = () => {
         <FlatList
           data={pokemons}
           renderItem={renderItem}
+          key={numColumns}   
           keyExtractor={(item) => item.id_pokemon.toString()}
-          numColumns={2}
+          numColumns={numColumns}
           contentContainerStyle={{ paddingHorizontal: 5 }}
           onEndReached={() => {
             if (hasMore) {

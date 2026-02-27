@@ -85,13 +85,16 @@ export const PokemonDetailModal = ({ visible, onClose, pokemonId }) => {
                             </View>
 
                             <View className={styles.modal.imageBg}>
-                                <Image source={{ uri: pokemon.imagenUrl }} className={styles.modal.image} resizeMode="contain" />
+                                <View className={styles.modal.containerImg}>
+
+                                    <Image source={{ uri: pokemon.imagenUrl }} className={styles.modal.image} resizeMode="contain" />
+                                </View>
                             </View>
 
-                            <View className="flex-row justify-center my-4">
+                            <View className="flex-row justify-center my-4 gap-2">
                                 {[pokemon.tipo_1, pokemon.tipo_2].filter(Boolean).map((tipo,index) => (
-                                    <View key={index} className={`${styles.card.typePill} mx-1`}>
-                                        <Text className={`${styles.drawer.text} capitalize`}>{tipo}</Text>
+                                    <View key={index} className={`${styles.card.typePill} mx-1 px-4 py-3`}>
+                                        <Text className={`${styles.drawer.text}  capitalize`}>{tipo}</Text>
                                     </View>
                                 ))}
                             </View>
