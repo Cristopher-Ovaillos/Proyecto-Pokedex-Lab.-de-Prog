@@ -34,6 +34,13 @@ const styles = {
     error: "text-error text-sm font-pixel text-center mb-4",
   },
 
+  home: {
+    container: "flex-1 items-center p-4",
+    titulo: "px-2 rounded-xl py-2 border-t border-black/20  text-white font-pixel text-lg text-center ",
+    seccion: "w-[90%] border-2 border-black/70 rounded-3xl  p-4 gap-3",
+    texto_seccion: "text-black text-lg font-serif text-center",
+  },
+
   card: {
     touchable: " m-1",
     container: "rounded-xl p-3 flex-row shadow-md bg-white/10 border items-stretch border-white/20 justify-center items-center",
