@@ -8,7 +8,7 @@ export default function useLogin() {
     const [error, setError] = useState(null);
 
     const login = async (nombre_usuario, contrasenia) => {
-        setLoading(false);
+        setLoading(true);
         setError(null);
         //console.log('uselogin: attempting login for user:', nombre_usuario); // log de intento de login
 
@@ -32,7 +32,7 @@ export default function useLogin() {
             }
             */
 
-             await AsyncStorage.setItem('token', data.token);
+            await AsyncStorage.setItem('token', data.token);
             await AsyncStorage.setItem('nombre_usuario', data.data.nombre_usuario);
             await AsyncStorage.setItem('email', data.data.email);
             //console.log('uselogin: login successful, received data:', data); 

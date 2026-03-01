@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import useLogin from '../../../hooks/useLogin';
 import styles from '../../../constants/styles';
+import { toast } from "sonner-native"; 
 
 
 //exporto una funcion 
@@ -17,8 +18,11 @@ export function LoginScreen({ navigation }) {
         // CORRECCION: Quitamos el '?.' y usamos replace directo o reset.
         // Replace es más limpio aquí para ir al Drawer.
         navigation.replace('MainDrawer');
+        //toast.success("Inicio de sesión exitoso");
       })
-      .catch((e) => { console.log(e) })
+      .catch((e) => { 
+        toast.error("Error al iniciar sesión");
+         })
   };
   /*
     crear:
@@ -39,8 +43,6 @@ export function LoginScreen({ navigation }) {
 
       <TextInput className={styles.ui.input} placeholder="nombre de usuario" value={nombre} onChangeText={setNombre} autoCapitalize="none" keyboardType="email-address" />
       <TextInput className={styles.ui.input} placeholder="contrasenia" value={contrasenia} onChangeText={setContrasenia} secureTextEntry />
-
-      {error && <Text className={styles.ui.error}>{error}</Text>}
 
       <TouchableOpacity className={styles.ui.btnPrimary} onPress={submit} disabled={loading}>
         <Text className={styles.ui.btnText}>{loading ? '...' : 'Entrar'}</Text>
