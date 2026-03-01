@@ -8,7 +8,7 @@ const BASE_URL = ENV.API_URL;
 async function request(path, { method = 'GET', body, headers = {}, ...rest } = {}) {
     // configura las cabeceras base
     const baseHeaders = { 'Content-Type': 'application/json' };
-    
+    console.log('aca',BASE_URL + path, method, body); // log de la peticion
     // obtiene el token de autenticacion y lo anade a las cabeceras si existe
     const token = await AsyncStorage.getItem('token');
     if (token) {

@@ -12,7 +12,7 @@ const TeamCard = ({ team, onDelete }) => (
 
   <View className={styles.teamBuilder.teamCard}>
     <View className={styles.teamBuilder.teamCardHeader}>
-      <Text className={styles.teamBuilder.teamCardName}>{team.nombre_equipo}</Text>
+      <Text className={styles.teamBuilder.teamCardName}>{team.nombre || team.nombre_equipo}</Text>
       <TouchableOpacity onPress={() => onDelete(team.id_equipo)}>
         <Text className={"text-red-500 font-pixel text-lg"}>X</Text>
       </TouchableOpacity>

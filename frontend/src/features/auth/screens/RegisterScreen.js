@@ -2,6 +2,8 @@ import { useState } from "react";
 import { View, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 import useRegister from "../../../hooks/useRegister";
 import styles from "../../../constants/styles";
+//utilizaremos sonner para mostrar mensajes de error o exito, pero por ahora usaremos alert para simplificar
+import { toast } from "sonner-native"; 
 
 export function RegisterScreen({ navigation }) {
   const [nombre_usuario, setNombre_usuario] = useState('');
@@ -12,19 +14,20 @@ export function RegisterScreen({ navigation }) {
   //accion
   const submit = () => {
     if (!nombre_usuario || !email || !contrasenia) {
-      Alert.alert('Campos incompletos', 'RELLENA LOS DATOS LOCO');
+      toast.error('Por favor, completa todos los campos para registrarte.');
       return;
     }
 
     register(nombre_usuario, email, contrasenia)
       .then((response) => {
-        Alert.alert('Registro Exitoso', response.message || 'Ahora puedes iniciar sesión.');
+        toast.success(response.message || 'Registro exitoso. Ahora puedes iniciar sesión.');
         navigation.navigate('Login');
       })
       .catch((e) => {
-        console.error("Error en el registro:", e.data);
+        // e viene de apiclient: { status, data } — no es axios, no tiene .response
+        console.error("Error en el registro:", e);
         const server = e.data?.message || 'No se pudo completar el registro. Inténtalo de nuevo.';
-        Alert.alert('Error de Registro', server);
+        toast.error(server);
       });
 
   };

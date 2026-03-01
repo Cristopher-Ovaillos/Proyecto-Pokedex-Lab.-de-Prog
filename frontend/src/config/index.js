@@ -1,6 +1,10 @@
 // Configuracion centralizada para variables de entorno y URLs
+import { IP } from '@env';
+console.log('CONFIG: IP =', IP);      // debe salir en la consola
+
 export const ENV = {
-  API_URL: 'http://IP:3000/api', 
+  
+  API_URL: IP ? `http://${IP}:3000/api` : 'http://localhost:3000/api',
   TIMEOUT: 15000,
 };
 

@@ -66,10 +66,11 @@ export const PokedexScreen = () => {
     (pokemon) => {
       if (route.params?.isSelecting) {
         // si venimos de "crear equipo", volvemos con el pokemon seleccionado
-        // importante: pasamos el objeto pokemon completo
+        // limpiamos isSelecting ANTES de navegar para que al volver no quede en true
+        navigation.setParams({ isSelecting: false, slotIndex: null });
         navigation.navigate("Crear Equipo", {
           selectedPokemon: pokemon,
-          slotIndex: route.params?.slotIndex, // se añade un encadenamiento opcional para slotIndex
+          slotIndex: route.params?.slotIndex,
         });
       } else {
         // comportamiento normal: ver detalles

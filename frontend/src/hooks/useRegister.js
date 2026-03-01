@@ -17,10 +17,10 @@ export default function useRegister() {
             console.log('useregister: registration successful, received data:', data); // log de registro exitoso
             return data;
         } catch (err) {
-            // guardamos el mensaje para el estado local pero lanzamos el error para el componente
-            const msg = err.response?.data?.message || "error al registrar el usuario.";
+            // err viene de apiclient: { status, data } — no es axios, no tiene .response
+            const msg = err.data?.message || "error al registrar el usuario.";
             setError(msg);
-            console.log('useregister: registration failed with error:', msg); // log de error de registro
+            console.log('useregister: registration failed with error:', msg, '| status:', err.status); // log de error de registro
             throw err; 
         } finally {
             setLoading(false); // corregido: de flase a false
