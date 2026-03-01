@@ -1,9 +1,7 @@
 #node
 node_modules/
 
-# img-pokemon
-pokemon/
-
+.env
 # diagram
 .vscode
 .bevel

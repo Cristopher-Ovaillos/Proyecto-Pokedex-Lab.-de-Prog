@@ -5,6 +5,18 @@ Requisitos:
     - https://nodejs.org/es/download
     - https://expressjs.com/ 
 
+## Ejecucion
+
+```
+cd backend
+npm i
+cd ..
+cd frontend
+npm i
+cd ..
+#fin
+```
+
 ## Backend:
 
 1. cd backend

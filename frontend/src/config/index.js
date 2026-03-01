@@ -1,6 +1,9 @@
+const path = require('path');
+// LA IP DE LOCALhost es 127.0.0.1
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 // Configuracion centralizada para variables de entorno y URLs
 export const ENV = {
-  API_URL: 'IP:3000/api', 
+  API_URL: `${process.env.IP}:3000/api`||'localhost:3000/api',
   TIMEOUT: 15000,
 };
 
